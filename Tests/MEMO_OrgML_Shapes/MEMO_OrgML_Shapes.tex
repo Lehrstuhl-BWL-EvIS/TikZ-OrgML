@@ -2,7 +2,7 @@
 \usepackage[utf8]{inputenc}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-%# Laden von TikZ
+%~~ Laden von TikZ
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \usepackage{tikz}
 
@@ -21,29 +21,50 @@
 %~~ Definition der MEMO OrgML Notationssymbole als Shapes für TikZ Nodes
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-\usepackage{varwidth}
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%~~ Pakete
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\usepackage{ifthen}
+\usepackage{xstring}
 
 \renewcommand{\familydefault}{\sfdefault}
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%~~ TikZ-Styles
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+%~~ Events
 \tikzset{
-    memonode/.style={
+    memoevent/.style={
         draw,
-        align=center,
-        %inner sep=2.5,
-        %text width=6em,
-        minimum size=4em,
-        % ToDo --> Setzen der Festen Breite der Nodes
-        execute at begin node={\begin{varwidth}{3em}},
-        execute at end node={\end{varwidth}}        
+        inner sep=3.5ex
     }
 }
 
-\makeatletter
+%~~ Prozesse
+\tikzset{
+    memoprocess/.style={
+        draw,
+        inner sep=2.5ex,
+        text width=5em
+    }
+}
+
+%~~ Textnodes
+\tikzset{
+    memotext/.style={
+        below,
+        align=center,        
+    }
+}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-%~~ Startereignis
+%~~ Definition der MEMO OrgML-Shapes
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+\makeatletter
+
+%~~ Startereignis
 \pgfdeclareshape{startevent}{
     %~~ Übernahme der Anker aus dem standard Rechteck Shape
 	\inheritsavedanchors[from=rectangle]  	        
@@ -86,13 +107,11 @@
     	\pgfpathclose  	    			
     	
     	%~~ Erzeugen des Textes über dem Dreieck
-    	\pgftext[right, x=\pgf@xc*1.5, y=\pgf@yb*1.25]{\textsf{\fontsize{2}{6}\selectfont START}}
+    	\pgftext[left, x=\pgf@xc*1.5, y=\pgf@yb*1.25]{\textsf{\fontsize{2}{6}\selectfont START}}
     }
 }
 
-%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~ Unspezifizierter Prozess
-%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \pgfdeclareshape{unspecprocess}{
     %~~ Übernahme der Anchors aus dem
     %~~ Rechteck
@@ -161,18 +180,54 @@
 
 \makeatother
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%~~ LaTeX-Macros
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% Macroname: \memonode
+% Funktion:  Erzeugen eines MEMO OrgML Notationssymbols mit dem passenden
+%            Shape, an der definierten Stelle mit dem definierten Text
+% Parameter: #1: Name des zu verwendenden Shapes
+%            #2: Name des Nodes der erzeugt wird
+%            #3: x-Position
+%            #4: y-Position
+%            #5: Beschreibung des Ereignisses/Prozesses
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\newcommand{\memonode}[5]{
+    %~~ Prüfen welche Art von Shape verwendet werden soll,
+    %~~ da abhängig vom Typ des Shapes der jeweilige Style ausgewählt wird
+    \IfSubStr{#1}{event}{%
+        %~~ Erzeugen des Nodes der das Notationssymbol darstellt
+        \node[memoevent, shape=#1] (#2) at (#3,#4) {};
+    }{%
+        %~~ Erzeugen des Nodes der das Notationssymbol darstellt
+
+        \node[memoprocess, shape=#1] (#2) at (#3,#4) {};
+    }
+    
+    %~~ Erzeugen des Textes (Node) unterhalb des Notationssymbol der
+    %~~ das Ereignis bzw. den Prozess beschreibt
+    \node[memotext] at (#2.south) {#5};
+}
+
+
+%~~ Ende des Erweiterungspaketes
+
+
 
 \begin{document}
 
-%~~ TikZ-Bild
+%~~ TikZ Bild
 \begin{tikzpicture}
-    \node[draw, inner sep=3.5ex, shape=startevent] (x) at (0,0) {};
-    \node[draw, inner sep=2.5ex, text width=6em, shape=unspecprocess] (y) at (6,0) {};
-    \node[draw, inner sep=3.5ex, shape=startevent] (z) at (10,0) {};
+    %~~ Beispiel Prozess 
+    \memonode{startevent}{x}{0}{0}{Anfrage \\ genehmigt};
+       
+    \memonode{unspecprocess}{y}{4}{0}{Logistikkosten berechnen};    
+          
+    \memonode{startevent}{z}{9}{0}{Logistikkosten berechnet};
     
-    %~~ Textshape
-    %\node[below] at (y.south) {Das ist der Text \\ Es kommt noch eine Zeile}
-    
+    %~~ Einfache Verbindung zwischen des Shapes 
     \draw (x) -- (y);
     \draw (y) -- (z);
 \end{tikzpicture}
