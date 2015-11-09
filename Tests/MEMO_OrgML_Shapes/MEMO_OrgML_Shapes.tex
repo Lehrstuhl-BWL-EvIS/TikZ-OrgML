@@ -31,7 +31,7 @@
         draw,
         align=center,
         inner sep=0,
-        text width=8em,
+        %text width=3em,
         minimum size=3em,
         % ToDo --> Setzen der Festen Breite der Nodes
         execute at begin node={\begin{varwidth}{3em}},
@@ -172,7 +172,7 @@
     \node[memonode, shape=startevent] (z) at (10,0) {};
     
     %~~ Textshape
-    \node[below] at (y.south) {Das ist der Text \\ Es kommt noch eine Zeile}
+    %\node[below] at (y.south) {Das ist der Text \\ Es kommt noch eine Zeile}
     
     \draw (x) -- (y);
     \draw (y) -- (z);
