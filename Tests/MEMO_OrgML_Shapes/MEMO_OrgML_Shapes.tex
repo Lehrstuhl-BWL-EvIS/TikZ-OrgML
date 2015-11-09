@@ -30,9 +30,9 @@
     memonode/.style={
         draw,
         align=center,
-        inner sep=0,
-        %text width=3em,
-        minimum size=3em,
+        %inner sep=2.5,
+        %text width=6em,
+        minimum size=4em,
         % ToDo --> Setzen der Festen Breite der Nodes
         execute at begin node={\begin{varwidth}{3em}},
         execute at end node={\end{varwidth}}        
@@ -76,7 +76,7 @@
         %~~ mit Hilfe eines Path (Dreieck}
         \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@yb}}   
         \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
-        \pgfpathlineto{\pgfpoint{\pgf@xb*0.5}{\pgf@ya}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb*0.1}{\pgf@ya}}
         \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
     	    	    			
     	%~~ Setzen der Farbe
@@ -86,7 +86,7 @@
     	\pgfpathclose  	    			
     	
     	%~~ Erzeugen des Textes über dem Dreieck
-    	\pgftext[left, x=\pgf@xc, y=\pgf@yb*1.25]{\textsf{\fontsize{2}{6}\selectfont START}}
+    	\pgftext[right, x=\pgf@xc*1.5, y=\pgf@yb*1.25]{\textsf{\fontsize{2}{6}\selectfont START}}
     }
 }
 
@@ -140,16 +140,16 @@
     			
     	%# Step 03
     	% 
-    	\pgfpathlineto{\pgfpoint{\pgf@xb*0.70}{\pgf@yb}}
+    	\pgfpathlineto{\pgfpoint{\pgf@xb*0.75}{\pgf@yb}}
     			  			
     			
     	%# Step 05
     	%
-    	\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb*.5}}
+    	\pgfpathlineto{\pgfpoint{\pgf@xb}{0}}
     			
     	%# Step 06
     	%
-    	\pgfpathlineto{\pgfpoint{\pgf@xb*0.70}{\pgf@ya}}
+    	\pgfpathlineto{\pgfpoint{\pgf@xb*0.75}{\pgf@ya}}
     		
     	%Setzen der Farbe
     	\pgfusepath{fill,stroke}
@@ -166,9 +166,9 @@
 
 %~~ TikZ-Bild
 \begin{tikzpicture}
-    \node[memonode, shape=startevent] (x) at (0,0) {};
-    \node[memonode, shape=unspecprocess] (y) at (6,0) {};
-    \node[memonode, shape=startevent] (z) at (10,0) {};
+    \node[draw, inner sep=3.5ex, shape=startevent] (x) at (0,0) {};
+    \node[draw, inner sep=2.5ex, text width=6em, shape=unspecprocess] (y) at (6,0) {};
+    \node[draw, inner sep=3.5ex, shape=startevent] (z) at (10,0) {};
     
     %~~ Textshape
     %\node[below] at (y.south) {Das ist der Text \\ Es kommt noch eine Zeile}
