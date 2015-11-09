@@ -1,10 +1,13 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{blindtext}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~ Laden von TikZ
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \usepackage{tikz}
+
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~  __  __ ___ __  __  ___     ___           __  __ _    
@@ -24,20 +27,21 @@
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~ Pakete
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\usepackage{ifthen}
 \usepackage{xstring}
 
-\renewcommand{\familydefault}{\sfdefault}
+%\renewcommand{\familydefault}{\sfdefault}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~ TikZ-Styles
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+%~~ ToDo Größe der Shapes dynamisch berechnen?
+
 %~~ Events
 \tikzset{
     memoevent/.style={
         draw,
-        inner sep=3.5ex
+        inner sep=3ex
     }
 }
 
@@ -54,7 +58,8 @@
 \tikzset{
     memotext/.style={
         below,
-        align=center,        
+        align=center,
+        font=\footnotesize\sffamily        
     }
 }
 
@@ -64,9 +69,56 @@
 
 \makeatletter
 
+%~~ Basisereignis
+\pgfdeclareshape{event}{
+    \inheritsavedanchors[from=rectangle]  	        
+	\inheritanchorborder[from=rectangle] 
+	\inheritanchor[from=rectangle]{center} 
+	\inheritanchor[from=rectangle]{north}
+ 	\inheritanchor[from=rectangle]{south} 
+	\inheritanchor[from=rectangle]{west} 
+	\inheritanchor[from=rectangle]{east}
+
+    
+    %~~ 
+    \behindbackgroundpath{
+        %~~ Definition der Farbe für die Linien des Shapes
+        \definecolor{line}{RGB}{162,180,0}
+        \pgfsetcolor{line}
+    }
+    
+	\backgroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporären PGF Registern xa,ya und xb und yb
+	    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+	    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+			    
+									
+        %~~ Erzeugen der äußeren Kanten des Notationssymbols
+        %~~ mit Hilfe eines Path (Dreieck}
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@yb}}   
+        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb*0.1}{\pgf@ya}}
+        \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
+    	    	    			
+    	%~~ Setzen der Farbe
+    	\pgfusepath{stroke} 	
+    			
+    	%~~ Abschluss des Pfades   		
+    	\pgfpathclose  	    			
+    	
+    	%~~ Erzeugen des Textes über dem Dreieck
+    	%\pgftext[left, x=\pgf@xb*0.75, y=\pgf@yb*1.25]{\textsf{\fontsize{1}{5}\selectfont START}}
+    }
+
+}
+
+%~~ Bezeichner für spezielle Ereignisse:
+%~~ ?????event, z.B. startevent, endevent, etc.
+
 %~~ Startereignis
 \pgfdeclareshape{startevent}{
-    %~~ Übernahme der Anker aus dem standard Rechteck Shape
+    %~~ ToDo Anpassung der Vererbungshierarchie
 	\inheritsavedanchors[from=rectangle]  	        
 	\inheritanchorborder[from=rectangle] 
 	\inheritanchor[from=rectangle]{center} 
@@ -75,12 +127,6 @@
 	\inheritanchor[from=rectangle]{west} 
 	\inheritanchor[from=rectangle]{east}
 	
-	\anchor{text}{
-        \pgfpointorigin
-        %\advance\pgf@x by +1.5\wd\pgfnodeparttextbox%
-        \advance\pgf@y by -2.0\ht\pgfnodeparttextbox%
-        %\advance\pgf@y by +1.5\dp\pgfnodeparttextbox%
-    }
 	
 	%~~ 
 	\backgroundpath{
@@ -107,12 +153,14 @@
     	\pgfpathclose  	    			
     	
     	%~~ Erzeugen des Textes über dem Dreieck
-    	\pgftext[left, x=\pgf@xc*1.5, y=\pgf@yb*1.25]{\textsf{\fontsize{2}{6}\selectfont START}}
+    	\pgftext[left, x=\pgf@xb*0.75, y=\pgf@yb*1.25]{\textsf{\fontsize{1}{5}\selectfont START}}
     }
 }
 
 %~~ Unspezifizierter Prozess
 \pgfdeclareshape{unspecprocess}{
+    %ToDo Anpassung der Kommentare
+
     %~~ Übernahme der Anchors aus dem
     %~~ Rechteck
 	\inheritsavedanchors[from=rectangle]  	        
@@ -122,14 +170,6 @@
  	\inheritanchor[from=rectangle]{south} 
 	\inheritanchor[from=rectangle]{west} 
 	\inheritanchor[from=rectangle]{east}
-	
-	%\anchor{text}{north}
-	\anchor{text}{
-        \pgfpointorigin
-        %\advance\pgf@x by +1.5\wd\pgfnodeparttextbox%
-        \advance\pgf@y by -1.5\ht\pgfnodeparttextbox%
-        %\advance\pgf@y by +1.5\dp\pgfnodeparttextbox%
-    }
     
     \renewcommand{\fontfamily}{\sffamily}
 
@@ -202,7 +242,6 @@
         \node[memoevent, shape=#1] (#2) at (#3,#4) {};
     }{%
         %~~ Erzeugen des Nodes der das Notationssymbol darstellt
-
         \node[memoprocess, shape=#1] (#2) at (#3,#4) {};
     }
     
@@ -218,10 +257,12 @@
 
 \begin{document}
 
+%\blindtext\bigskip
+
 %~~ TikZ Bild
-\begin{tikzpicture}
+\begin{tikzpicture}[]
     %~~ Beispiel Prozess 
-    \memonode{startevent}{x}{0}{0}{Anfrage \\ genehmigt};
+    \memonode{event}{x}{0}{0}{Anfrage \\ genehmigt};
        
     \memonode{unspecprocess}{y}{4}{0}{Logistikkosten berechnen};    
           
@@ -232,4 +273,5 @@
     \draw (y) -- (z);
 \end{tikzpicture}
 
+%\blindtext
 \end{document}
