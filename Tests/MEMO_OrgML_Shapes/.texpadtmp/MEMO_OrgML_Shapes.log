@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.2.3)  10 NOV 2015 12:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.2.3)  10 NOV 2015 17:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -604,43 +604,39 @@ File: pgfmodulematrix.code.tex 2013/09/17  (rcs-revision 1.8)
 s/tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2008/06/17 v3.0.0 (rcs-revision 1.2)
 )))
-(/usr/local/texlive/2014/texmf-dist/tex/generic/xstring/xstring.sty
-(/usr/local/texlive/2014/texmf-dist/tex/generic/xstring/xstring.tex
-\@xs@message=\write4
-\integerpart=\count126
-\decimalpart=\count127
-)
-Package: xstring 2013/10/13  v1.7c  String manipulations (C Tellechea)
+(/usr/local/texlive/2014/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarytrees.code.tex
+File: tikzlibrarytrees.code.tex 2008/02/24 v3.0.0 (rcs-revision 1.2)
 )
 (/Users/fabi/Dropbox/Studium/Fernstudium/Masterthesis/Code/Tests/MEMO_OrgML_Sha
 pes/.texpadtmp/MEMO_OrgML_Shapes.aux)
 \openout1 = `MEMO_OrgML_Shapes.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 355.
-LaTeX Font Info:    ... okay on input line 355.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 355.
-LaTeX Font Info:    ... okay on input line 355.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 355.
-LaTeX Font Info:    ... okay on input line 355.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 355.
-LaTeX Font Info:    ... okay on input line 355.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 355.
-LaTeX Font Info:    ... okay on input line 355.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 355.
-LaTeX Font Info:    ... okay on input line 355.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 414.
+LaTeX Font Info:    ... okay on input line 414.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 414.
+LaTeX Font Info:    ... okay on input line 414.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 414.
+LaTeX Font Info:    ... okay on input line 414.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 414.
+LaTeX Font Info:    ... okay on input line 414.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 414.
+LaTeX Font Info:    ... okay on input line 414.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 414.
+LaTeX Font Info:    ... okay on input line 414.
  ABD: EveryShipout initializing macros
 (/usr/local/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count128
+\scratchcounter=\count126
 \scratchdimen=\dimen152
 \scratchbox=\box37
-\nofMPsegments=\count129
-\nofMParguments=\count130
+\nofMPsegments=\count127
+\nofMParguments=\count128
 \everyMPshowfont=\toks29
-\MPscratchCnt=\count131
+\MPscratchCnt=\count129
 \MPscratchDim=\dimen153
-\MPnumerator=\count132
-\makeMPintoPDFobject=\count133
+\MPnumerator=\count130
+\makeMPintoPDFobject=\count131
 \everyMPtoPDFconversion=\toks30
 ) (/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
@@ -692,7 +688,7 @@ e
 ))
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <1> not available
-(Font)              size <5> substituted on input line 364.
+(Font)              size <5> substituted on input line 423.
 
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
@@ -700,10 +696,11 @@ Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 
-Overfull \hbox (40.58032pt too wide) in paragraph at lines 379--380
+Overfull \hbox (40.58032pt too wide) in paragraph at lines 438--439
 [][] 
  []
 
+Missing character: There is no ; in font nullfont!
 [1
 
 {/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
@@ -715,17 +712,17 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 12505 strings out of 493117
- 249258 string characters out of 6135434
- 297421 words of memory out of 5000000
- 15736 multiletter control sequences out of 15000+600000
+ 12327 strings out of 493117
+ 247583 string characters out of 6135434
+ 293533 words of memory out of 5000000
+ 15560 multiletter control sequences out of 15000+600000
  4844 words of font info for 18 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,6n,73p,398b,671s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
 </usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb>
 Output written on /Users/fabi/Dropbox/Studium/Fernstudium/Masterthesis/Code/Tes
-ts/MEMO_OrgML_Shapes/.texpadtmp/MEMO_OrgML_Shapes.pdf (1 page, 19671 bytes).
+ts/MEMO_OrgML_Shapes/.texpadtmp/MEMO_OrgML_Shapes.pdf (1 page, 25627 bytes).
 PDF statistics:
  19 PDF objects out of 1000 (max. 8388607)
  13 compressed objects within 1 object stream

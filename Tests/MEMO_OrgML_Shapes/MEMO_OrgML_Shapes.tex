@@ -25,9 +25,9 @@
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-%~~ Pakete
+%~~ TikZ-Libraries
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\usepackage{xstring}
+\usetikzlibrary{trees}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~ Farben
@@ -79,6 +79,12 @@
     }
 }
 
+\tikzset{
+    decompprocess/.style={
+        unspecprocess
+    }
+}
+
 %~~ Textnodes
 \tikzset{
     memotext/.style={
@@ -93,8 +99,9 @@
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 \makeatletter
-
+%~~ ######################################
 %~~ EREIGNISSE
+%~~ ######################################
 
 %~~ Basisereignis
 \pgfdeclareshape{event}{
@@ -124,7 +131,7 @@
         \pgfpathlineto{\pgfpoint{\pgf@xb*0.1}{\pgf@ya}}
         \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
     	    	    			
-    	%~~ Setzen der Farbe
+    	%~~ Erzeugen des Pfades
     	\pgfusepath{stroke} 	
     			
     	%~~ Abschluss des Pfades   		
@@ -254,13 +261,12 @@
 	}
 }
 
-
+%~~ ######################################
 %~~ PROZESSE
+%~~ ######################################
 
 %~~ Unspezifizierter Prozess
 \pgfdeclareshape{unspecprocess}{
-    %ToDo Anpassung der Kommentare
-
     %~~ Übernahme der Anchors aus dem
     %~~ Rechteck
 	\inheritsavedanchors[from=rectangle]  	        
@@ -270,18 +276,11 @@
  	\inheritanchor[from=rectangle]{south} 
 	\inheritanchor[from=rectangle]{west} 
 	\inheritanchor[from=rectangle]{east}
-    
-    \renewcommand{\fontfamily}{\sffamily}
-    
-    % ToDo Kommentare anpassen
-
-	% Pfad hinter dem Text
+            
+	%~~ Hintergrundpfad des Basisprozesses
 	\backgroundpath{
-        % store lower right in xa/ya and upper right in xb/yb
-    			
-    	% !ACHTUNG! Zuweisung wie bei einer Variablen
-    	% \southwest = ...
-    	% \northeast = ...
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporären PGF Registern xa,ya und xb und yb
 		\southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
 		\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
 				
@@ -290,34 +289,95 @@
 		\definecolor{background}{RGB}{198,212,220}
 		\pgfsetcolor{background}
 				
-    	%# Step 01
-    	% Startpunkt
-    	% \pgfpoint = Punkt bzw. Koordinate   
+    	%~~ Erzeugen des Notationssymbols eines
+    	%~~ unspezifierten Prozesses   
     	\pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
-    			
-    	%# Step 02
-    	%
     	\pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
-    			
-    	%# Step 03
-    	% 
     	\pgfpathlineto{\pgfpoint{\pgf@xb*0.75}{\pgf@yb}}
-    			  			
-    			
-    	%# Step 05
-    	%
     	\pgfpathlineto{\pgfpoint{\pgf@xb}{0}}
-    			
-    	%# Step 06
-    	%
     	\pgfpathlineto{\pgfpoint{\pgf@xb*0.75}{\pgf@ya}}
     		
-    	%Setzen der Farbe
+    	%~~ Erzeugen des Pfades und Setzen der Hintergrundfarbe
     	\pgfusepath{fill,stroke}
-    			
-    	% Abschluss des Pfades   		
+    	
+    	%~~ Abschluss des Pfades
     	\pgfpathclose  	    			
  	}
+}
+
+\pgfdeclareshape{decompprocess}{
+    %~~ Übernahme der Anchors aus dem
+    %~~ Rechteck
+	\inheritsavedanchors[from=unspecprocess]  	        
+	\inheritanchorborder[from=unspecprocess] 
+	\inheritanchor[from=unspecprocess]{center} 
+	\inheritanchor[from=unspecprocess]{north}
+ 	\inheritanchor[from=unspecprocess]{south} 
+	\inheritanchor[from=unspecprocess]{west} 
+	\inheritanchor[from=unspecprocess]{east}
+            
+	%~~ Hintergrundpfad des unspezifizierten Prozesses erben
+	\inheritbackgroundpath[from=unspecprocess]
+
+    %~~ Erzeugen der Dekompositionshierarchie innerhalb des Prozesses
+    \beforebackgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+		
+		%~~ Linienfarbe
+    	\definecolor{black}{RGB}{20,18,21}
+    	\pgfsetcolor{black}
+    	
+    	%~~ Hintergrund
+    	\definecolor{beige}{RGB}{255,253,232}
+    	\pgfsetfillcolor{beige}
+    	
+    	%~~ Linienstärke
+    	\pgfsetlinewidth{0.75pt}
+    	
+    	%~~ Zentraler Prozess
+    	\pgfpathmoveto{\pgfpoint{\pgf@xb*0.2}{\pgf@yb*0.85}}
+    	\pgflineto{\pgfpoint{\pgf@xb*0.45}{\pgf@yb*0.85}}
+    	\pgflineto{\pgfpoint{\pgf@xb*0.52}{\pgf@yb*0.55}}
+    	\pgflineto{\pgfpoint{\pgf@xb*0.45}{\pgf@yb*0.25}}
+    	\pgflineto{\pgfpoint{\pgf@xb*0.2}{\pgf@yb*0.25}}
+    	\pgflineto{\pgfpoint{\pgf@xb*0.2}{\pgf@yb*0.85}}
+
+        %~~ Linker Prozess
+    	\pgfpathmoveto{\pgfpoint{\pgf@xb*0}{\pgf@yb*-0.2}}
+    	\pgflineto{\pgfpoint{\pgf@xb*0.25}{\pgf@yb*-0.2}}
+    	\pgflineto{\pgfpoint{\pgf@xb*0.32}{\pgf@yb*-0.5}}
+    	\pgflineto{\pgfpoint{\pgf@xb*0.25}{\pgf@yb*-0.8}}
+    	\pgflineto{\pgfpoint{\pgf@xb*0}{\pgf@yb*-0.8}}
+    	\pgflineto{\pgfpoint{\pgf@xb*0}{\pgf@yb*-0.2}}
+    	
+    	%~~ Rechter Prozess
+        \pgfpathmoveto{\pgfpoint{\pgf@xb*0.4}{\pgf@yb*-0.2}}
+    	\pgflineto{\pgfpoint{\pgf@xb*0.65}{\pgf@yb*-0.2}}
+    	\pgflineto{\pgfpoint{\pgf@xb*0.72}{\pgf@yb*-0.5}}
+    	\pgflineto{\pgfpoint{\pgf@xb*0.65}{\pgf@yb*-0.8}}
+    	\pgflineto{\pgfpoint{\pgf@xb*0.4}{\pgf@yb*-0.8}}
+    	\pgflineto{\pgfpoint{\pgf@xb*0.4}{\pgf@yb*-0.2}}
+    	    	
+    	%~~ Dekompositionslinien
+    	\pgfpathmoveto{\pgfpoint{\pgf@xb*0.36}{\pgf@yb*0.2}}
+    	\pgflineto{\pgfpoint{\pgf@xb*0.36}{\pgf@yb*0.05}}
+    	
+    	\pgfpathmoveto{\pgfpoint{\pgf@xb*0.16}{\pgf@yb*0.05}}
+    	\pgflineto{\pgfpoint{\pgf@xb*0.56}{\pgf@yb*0.05}}
+    	
+        \pgfpathmoveto{\pgfpoint{\pgf@xb*0.16}{\pgf@yb*0.05}}
+        \pgflineto{\pgfpoint{\pgf@xb*0.16}{\pgf@yb*-0.1}}
+        
+        \pgfpathmoveto{\pgfpoint{\pgf@xb*0.56}{\pgf@yb*0.05}}
+        \pgflineto{\pgfpoint{\pgf@xb*0.56}{\pgf@yb*-0.1}}
+    	
+    	%~~ Erzeugen der Pfade und Setzen der Hintergrundfarben
+    	\pgfusepath{stroke,fill}
+    	
+    	%~~ Abschluss des Pfades
+    	\pgfpathclose
+    }
 }
 
 \makeatother
@@ -347,7 +407,6 @@
     \node[memotext] at (#2.south) {#5};
 }
 
-
 %~~ Ende des Erweiterungspaketes
 
 
@@ -376,7 +435,15 @@
     \draw (y) -- (k);
     \draw (k) -- (l);
     \draw (l) -- (z);
+\end{tikzpicture}\bigskip
+
+Test eines Dekompositionsdiagrammes mittels eines Tree:\bigskip
+
+\begin{tikzpicture}
+    \memonode{decompprocess}{i}{0}{0}{Auftragsbearbeitung};
+        
 \end{tikzpicture}
+
 
 %\blindtext
 \end{document}
