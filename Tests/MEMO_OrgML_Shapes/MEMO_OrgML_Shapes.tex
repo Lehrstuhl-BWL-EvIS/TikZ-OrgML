@@ -29,25 +29,50 @@
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \usepackage{xstring}
 
-%\renewcommand{\familydefault}{\sfdefault}
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%~~ Farben
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\definecolor{event}{RGB}{198,212,220}
+\definecolor{startevent}{RGB}{162,180,0}
+\definecolor{endevent}{RGB}{200,0,52}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~ TikZ-Styles
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 %~~ ToDo Größe der Shapes dynamisch berechnen?
 
 %~~ Events
 \tikzset{
-    memoevent/.style={
+    event/.style={
         draw,
-        inner sep=3ex
+        inner sep=3ex,
+        color=event
+    }
+}
+
+\tikzset{
+    startevent/.style={
+        event,
+        color=startevent
+    }
+}
+
+\tikzset{
+    endevent/.style={
+        event,
+        color=endevent
+    }
+}
+
+\tikzset{
+    msgevent/.style={
+        event
     }
 }
 
 %~~ Prozesse
 \tikzset{
-    memoprocess/.style={
+    unspecprocess/.style={
         draw,
         inner sep=2.5ex,
         text width=5em
@@ -69,8 +94,12 @@
 
 \makeatletter
 
+%~~ EREIGNISSE
+
 %~~ Basisereignis
 \pgfdeclareshape{event}{
+    %~~ Übernahme der Anchor aus dem standard Rechteck
+    %~~ Shape
     \inheritsavedanchors[from=rectangle]  	        
 	\inheritanchorborder[from=rectangle] 
 	\inheritanchor[from=rectangle]{center} 
@@ -80,13 +109,7 @@
 	\inheritanchor[from=rectangle]{east}
 
     
-    %~~ 
-    \behindbackgroundpath{
-        %~~ Definition der Farbe für die Linien des Shapes
-        \definecolor{line}{RGB}{162,180,0}
-        \pgfsetcolor{line}
-    }
-    
+    %~~ Hintergrundpfad des Basisereignisses       
 	\backgroundpath{
         %~~ Speichern der Werte der Anker in den 
         %~~ temporären PGF Registern xa,ya und xb und yb
@@ -105,12 +128,8 @@
     	\pgfusepath{stroke} 	
     			
     	%~~ Abschluss des Pfades   		
-    	\pgfpathclose  	    			
-    	
-    	%~~ Erzeugen des Textes über dem Dreieck
-    	%\pgftext[left, x=\pgf@xb*0.75, y=\pgf@yb*1.25]{\textsf{\fontsize{1}{5}\selectfont START}}
+    	\pgfpathclose  	    				
     }
-
 }
 
 %~~ Bezeichner für spezielle Ereignisse:
@@ -118,44 +137,125 @@
 
 %~~ Startereignis
 \pgfdeclareshape{startevent}{
-    %~~ ToDo Anpassung der Vererbungshierarchie
-	\inheritsavedanchors[from=rectangle]  	        
-	\inheritanchorborder[from=rectangle] 
-	\inheritanchor[from=rectangle]{center} 
-	\inheritanchor[from=rectangle]{north}
- 	\inheritanchor[from=rectangle]{south} 
-	\inheritanchor[from=rectangle]{west} 
-	\inheritanchor[from=rectangle]{east}
+    %~~ Die Anchor werden aus dem Basisshape für Events
+    %~~ geerbt
+	\inheritsavedanchors[from=event]  	        
+	\inheritanchorborder[from=event] 
+	\inheritanchor[from=event]{center} 
+	\inheritanchor[from=event]{north}
+ 	\inheritanchor[from=event]{south} 
+	\inheritanchor[from=event]{west} 
+	\inheritanchor[from=event]{east}
 	
 	
-	%~~ 
-	\backgroundpath{
-        %~~ Speichern der Werte der Anker in den 
+	%~~ Erben des Hintergrundpfades aus dem Basisshape
+	%~~ für Events
+	\inheritbackgroundpath[from=event]
+	
+	%~~ Erzeugen des Textes "START" überhalb des Events
+	\beforebackgroundpath{
+	    %~~ Speichern der Werte der Anker in den 
         %~~ temporären PGF Registern xa,ya und xb und yb
 	    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
 	    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
-			
-	    %~~ Definition der Farbe für die Linien des Shapes
-	    \definecolor{line}{RGB}{162,180,0}
-	    \pgfsetcolor{line}
-									
-        %~~ Erzeugen der äußeren Kanten des Notationssymbols
-        %~~ mit Hilfe eines Path (Dreieck}
-        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@yb}}   
-        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
-        \pgfpathlineto{\pgfpoint{\pgf@xb*0.1}{\pgf@ya}}
-        \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
-    	    	    			
-    	%~~ Setzen der Farbe
-    	\pgfusepath{stroke} 	
-    			
-    	%~~ Abschluss des Pfades   		
-    	\pgfpathclose  	    			
-    	
-    	%~~ Erzeugen des Textes über dem Dreieck
-    	\pgftext[left, x=\pgf@xb*0.75, y=\pgf@yb*1.25]{\textsf{\fontsize{1}{5}\selectfont START}}
-    }
+	
+	    %~~ Erzeugen des Textes über dem Dreieck
+	    %~~ Die Positionierung erfolgt dabei relativ zu den Ankern
+    	\pgftext[left, x=\pgf@xb*-.2, y=\pgf@yb*1.25]{\textsf{\fontsize{1}{5}\selectfont START}}
+	}
 }
+
+\pgfdeclareshape{endevent}{
+    %~~ Die Anchor werden aus dem Basisshape für Events
+    %~~ geerbt
+	\inheritsavedanchors[from=event]  	        
+	\inheritanchorborder[from=event] 
+	\inheritanchor[from=event]{center} 
+	\inheritanchor[from=event]{north}
+ 	\inheritanchor[from=event]{south} 
+	\inheritanchor[from=event]{west} 
+	\inheritanchor[from=event]{east}
+	
+	
+	%~~ Erben des Hintergrundpfades aus dem Basisshape
+	%~~ für Events
+	\inheritbackgroundpath[from=event]
+	
+	%~~ Erzeugen des Textes "STOP" überhalb des Events
+	\beforebackgroundpath{
+	    %~~ Speichern der Werte der Anker in den 
+        %~~ temporären PGF Registern xa,ya und xb und yb
+	    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+	    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+	
+	    %~~ Erzeugen des Textes über dem Dreieck
+	    %~~ Die Positionierung erfolgt dabei relativ zu den Ankern
+    	\pgftext[left, x=\pgf@xb*-.1, y=\pgf@yb*1.25]{\textsf{\fontsize{1}{5}\selectfont STOP}}
+	}
+}
+
+\pgfdeclareshape{msgevent}{
+    %~~ Die Anchor werden aus dem Basisshape für Events
+    %~~ geerbt
+	\inheritsavedanchors[from=event]  	        
+	\inheritanchorborder[from=event] 
+	\inheritanchor[from=event]{center} 
+	\inheritanchor[from=event]{north}
+ 	\inheritanchor[from=event]{south} 
+	\inheritanchor[from=event]{west} 
+	\inheritanchor[from=event]{east}
+	
+	
+	%~~ Erben des Hintergrundpfades aus dem Basisshape
+	%~~ für Events
+	\inheritbackgroundpath[from=event]
+	
+	%~~ Erzeugen des Briefumschlages 
+	\beforebackgroundpath{
+	    %~~ Speichern der Werte der Anker in den 
+        %~~ temporären PGF Registern xa,ya und xb und yb
+	    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+	    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+    	
+    	%~~ Definition der Farben für den Briefumschlag und
+    	%~~ den Hintergrund
+    	\definecolor{black}{RGB}{20,18,21}
+    	\pgfsetcolor{black}
+    	%~~ Hintergrund
+    	\pgfsetfillcolor{white}
+    	
+    	%~~ Rahmen für den Briefumschlag
+    	\begin{pgfscope}
+    	    %~~ Die äußere Linienstärke wird innerhalb des Scope
+    	    %~~ definiert
+    	    \pgfsetlinewidth{0.75pt}
+    	    \pgfpathmoveto{\pgfpoint{\pgf@xb*-0.75}{\pgf@yb*0.75}}   
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.75}{\pgf@yb*0.75}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.75}{\pgf@yb*-0.35}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*-0.75}{\pgf@yb*-0.35}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*-0.75}{\pgf@yb*0.75}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+        
+        %~~ Faltkanten des Briefumschlges
+	    \pgfpathmoveto{\pgfpoint{\pgf@xb*-0.75}{\pgf@yb*0.75}}
+	    \pgfpathlineto{\pgfpoint{\pgf@xb*0}{\pgf@yb*0.15}}
+	    \pgfpathlineto{\pgfpoint{\pgf@xb*0.75}{\pgf@yb*0.75}}
+	    
+	    \pgfpathmoveto{\pgfpoint{\pgf@xb*-0.75}{\pgf@yb*-0.35}}
+	    \pgfpathlineto{\pgfpoint{\pgf@xb*-0.15}{\pgf@yb*0.25}}
+	    
+	    \pgfpathmoveto{\pgfpoint{\pgf@xb*0.75}{\pgf@yb*-0.35}}
+	    \pgfpathlineto{\pgfpoint{\pgf@xb*0.15}{\pgf@yb*0.25}}        
+	    
+    	\pgfusepath{stroke}
+    	
+    	\pgfpathclose
+	}
+}
+
+
+%~~ PROZESSE
 
 %~~ Unspezifizierter Prozess
 \pgfdeclareshape{unspecprocess}{
@@ -172,6 +272,8 @@
 	\inheritanchor[from=rectangle]{east}
     
     \renewcommand{\fontfamily}{\sffamily}
+    
+    % ToDo Kommentare anpassen
 
 	% Pfad hinter dem Text
 	\backgroundpath{
@@ -235,16 +337,11 @@
 %            #5: Beschreibung des Ereignisses/Prozesses
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \newcommand{\memonode}[5]{
-    %~~ Prüfen welche Art von Shape verwendet werden soll,
-    %~~ da abhängig vom Typ des Shapes der jeweilige Style ausgewählt wird
-    \IfSubStr{#1}{event}{%
-        %~~ Erzeugen des Nodes der das Notationssymbol darstellt
-        \node[memoevent, shape=#1] (#2) at (#3,#4) {};
-    }{%
-        %~~ Erzeugen des Nodes der das Notationssymbol darstellt
-        \node[memoprocess, shape=#1] (#2) at (#3,#4) {};
-    }
-    
+    %~~ Erzeugen des Nodes der das Notationssymbol darstellt.
+    %~~ Die Verwendung des richtigen Styles wird durch die Namensgleichheit
+    %~~ des Styles und des Shapes erreicht.
+    \node[#1, shape=#1] (#2) at (#3,#4) {};
+        
     %~~ Erzeugen des Textes (Node) unterhalb des Notationssymbol der
     %~~ das Ereignis bzw. den Prozess beschreibt
     \node[memotext] at (#2.south) {#5};
@@ -259,18 +356,26 @@
 
 %\blindtext\bigskip
 
+%ToDo Anpassung der Übergänge (Transitions)
+
 %~~ TikZ Bild
-\begin{tikzpicture}[]
+\begin{tikzpicture}[scale=0.85]
     %~~ Beispiel Prozess 
-    \memonode{event}{x}{0}{0}{Anfrage \\ genehmigt};
+    \memonode{startevent}{x}{0}{0}{Anfrage \\ genehmigt};
        
-    \memonode{unspecprocess}{y}{4}{0}{Logistikkosten berechnen};    
+    \memonode{unspecprocess}{y}{4}{3}{Logistikkosten berechnen};    
+    
+    \memonode{msgevent}{k}{8}{3}{Logistikkossten berechnet};
+    
+    \memonode{unspecprocess}{l}{12}{3}{Logistikkosten bewerten};
           
-    \memonode{startevent}{z}{9}{0}{Logistikkosten berechnet};
+    \memonode{endevent}{z}{13}{0}{Bestellung \\ zusammengestellt};
     
     %~~ Einfache Verbindung zwischen des Shapes 
     \draw (x) -- (y);
-    \draw (y) -- (z);
+    \draw (y) -- (k);
+    \draw (k) -- (l);
+    \draw (l) -- (z);
 \end{tikzpicture}
 
 %\blindtext

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.2.3)  9 NOV 2015 17:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.2.3)  10 NOV 2015 12:05
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -616,18 +616,18 @@ Package: xstring 2013/10/13  v1.7c  String manipulations (C Tellechea)
 pes/.texpadtmp/MEMO_OrgML_Shapes.aux)
 \openout1 = `MEMO_OrgML_Shapes.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 258.
-LaTeX Font Info:    ... okay on input line 258.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 258.
-LaTeX Font Info:    ... okay on input line 258.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 258.
-LaTeX Font Info:    ... okay on input line 258.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 258.
-LaTeX Font Info:    ... okay on input line 258.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 258.
-LaTeX Font Info:    ... okay on input line 258.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 258.
-LaTeX Font Info:    ... okay on input line 258.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 355.
+LaTeX Font Info:    ... okay on input line 355.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 355.
+LaTeX Font Info:    ... okay on input line 355.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 355.
+LaTeX Font Info:    ... okay on input line 355.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 355.
+LaTeX Font Info:    ... okay on input line 355.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 355.
+LaTeX Font Info:    ... okay on input line 355.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 355.
+LaTeX Font Info:    ... okay on input line 355.
  ABD: EveryShipout initializing macros
 (/usr/local/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -690,14 +690,20 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <1> not available
-(Font)              size <5> substituted on input line 269.
+(Font)              size <5> substituted on input line 364.
 
 Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+
+Overfull \hbox (40.58032pt too wide) in paragraph at lines 379--380
+[][] 
+ []
+
 [1
 
 {/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
@@ -709,17 +715,17 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 12449 strings out of 493117
- 248184 string characters out of 6135434
- 295715 words of memory out of 5000000
- 15680 multiletter control sequences out of 15000+600000
+ 12505 strings out of 493117
+ 249258 string characters out of 6135434
+ 297421 words of memory out of 5000000
+ 15736 multiletter control sequences out of 15000+600000
  4844 words of font info for 18 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,6n,67p,398b,674s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,6n,73p,398b,671s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
 </usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb>
 Output written on /Users/fabi/Dropbox/Studium/Fernstudium/Masterthesis/Code/Tes
-ts/MEMO_OrgML_Shapes/.texpadtmp/MEMO_OrgML_Shapes.pdf (1 page, 18459 bytes).
+ts/MEMO_OrgML_Shapes/.texpadtmp/MEMO_OrgML_Shapes.pdf (1 page, 19671 bytes).
 PDF statistics:
  19 PDF objects out of 1000 (max. 8388607)
  13 compressed objects within 1 object stream
