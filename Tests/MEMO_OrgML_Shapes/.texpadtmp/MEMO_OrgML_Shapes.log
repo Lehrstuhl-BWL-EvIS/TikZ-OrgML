@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.2.3)  10 NOV 2015 17:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.2.3)  11 NOV 2015 21:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -700,7 +700,6 @@ Overfull \hbox (40.58032pt too wide) in paragraph at lines 438--439
 [][] 
  []
 
-Missing character: There is no ; in font nullfont!
 [1
 
 {/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
@@ -712,17 +711,17 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 12327 strings out of 493117
- 247583 string characters out of 6135434
- 293533 words of memory out of 5000000
- 15560 multiletter control sequences out of 15000+600000
+ 12375 strings out of 493117
+ 248940 string characters out of 6135434
+ 295533 words of memory out of 5000000
+ 15608 multiletter control sequences out of 15000+600000
  4844 words of font info for 18 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,6n,73p,398b,671s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,8n,73p,398b,810s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
 </usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb>
 Output written on /Users/fabi/Dropbox/Studium/Fernstudium/Masterthesis/Code/Tes
-ts/MEMO_OrgML_Shapes/.texpadtmp/MEMO_OrgML_Shapes.pdf (1 page, 25627 bytes).
+ts/MEMO_OrgML_Shapes/.texpadtmp/MEMO_OrgML_Shapes.pdf (1 page, 26167 bytes).
 PDF statistics:
  19 PDF objects out of 1000 (max. 8388607)
  13 compressed objects within 1 object stream

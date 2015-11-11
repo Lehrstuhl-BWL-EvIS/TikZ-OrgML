@@ -440,8 +440,12 @@
 Test eines Dekompositionsdiagrammes mittels eines Tree:\bigskip
 
 \begin{tikzpicture}
-    \memonode{decompprocess}{i}{0}{0}{Auftragsbearbeitung};
-        
+    \coordinate
+        child[level distance=0ex] { node[shape=decompprocess, decompprocess, anchor=center] {} }
+        [edge from parent fork down]
+            child{ node[shape=decompprocess, decompprocess] {}}
+            child{ node[shape=decompprocess, decompprocess] {}}
+            child{ node[shape=decompprocess, decompprocess] {}};
 \end{tikzpicture}
 
 
