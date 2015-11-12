@@ -1,4 +1,4 @@
-### Masterthesis Fabian Schneider
+### Masterthesis Fabian Schneider (8950458)
 
 # Entwurf und Implementierung einer PGF/TikZ-Bibliothek zur Erstellung von MEMO OrgML-Kontrollflussdiagrammen
 
