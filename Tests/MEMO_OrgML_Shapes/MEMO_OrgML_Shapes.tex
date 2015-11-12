@@ -1,8 +1,6 @@
-%~~ ToDo Umwandeln in ein Minimalbeispiel
-\documentclass{article}
+\documentclass[border=20pt]{standalone}
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
-\usepackage{blindtext}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~ Laden von TikZ
@@ -417,9 +415,6 @@
 
 
 \begin{document}
-
-Test eines Kontrollflussdiagramms mittels eine Tree:\bigskip\bigskip
-
 \begin{tikzpicture}
     %~~ Wurzelkonten --> Startevent
     \node[startevent, shape=startevent] (a) {}
