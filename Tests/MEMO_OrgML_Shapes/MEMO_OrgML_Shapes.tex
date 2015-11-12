@@ -130,7 +130,7 @@
         %~~ mit Hilfe eines Path (Dreieck}
         \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@yb}}   
         \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
-        \pgfpathlineto{\pgfpoint{\pgf@xb*0.1}{\pgf@ya}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb*0}{\pgf@ya}}
         \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
     	    	    			
     	%~~ Erzeugen des Pfades
@@ -452,8 +452,14 @@ Test eines Dekompositionsdiagrammes mittels eines Tree:\bigskip
 Test eines Kontrollflussdiagramms mittels eine Tree:\bigskip\bigskip
 
 \begin{tikzpicture}
+    %~~ Wurzelkonten --> Startevent
     \node[startevent, shape=startevent] (a) {}
+    
+        %~~ Aufspannen eines Baumes der nach rechts verläuft
         [edge from parent fork right, grow=right]
+        
+        %~~ ToDo Anpassung der Darstellung der Gabelung (parallele Ausführung)
+        
         child { node[unspecprocess, shape=unspecprocess] (b) at (1,3) {} 
             child { node[msgevent, shape=msgevent] (d) at (1,0) {} 
                 child { node[unspecprocess, shape=unspecprocess] (e) at (1.5,2) {} 
@@ -463,11 +469,11 @@ Test eines Kontrollflussdiagramms mittels eine Tree:\bigskip\bigskip
                     child { node[msgevent, shape=msgevent] (j) at (1,0) {} }
                 }
             }
-        }
+        }        
         child { node[unspecprocess, shape=unspecprocess] (c) at (1,-3) {} 
-            child { node[msgevent, shape=msgevent] (d) at (1,0) {}
+            child { node[msgevent, shape=msgevent] (z) at (1,0) {}
                 child { node[unspecprocess, shape=unspecprocess] (h) at (1.5,0) {} 
-                    child { node[msgevent, shape=msgevent] (d) at (1,0) {} }
+                    child { node[msgevent, shape=msgevent] (x) at (1,0) {} }
                 }
             }
         };
