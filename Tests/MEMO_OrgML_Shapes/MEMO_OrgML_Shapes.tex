@@ -418,40 +418,6 @@
 
 \begin{document}
 
-%\blindtext\bigskip
-
-%ToDo Anpassung der Übergänge (Transitions)
-
-%~~ TikZ Bild
-\begin{tikzpicture}[scale=0.85]
-    %~~ Beispiel Prozess 
-    \memonode{startevent}{x}{0}{0}{Anfrage \\ genehmigt};
-       
-    \memonode{unspecprocess}{y}{4}{3}{Logistikkosten berechnen};    
-    
-    \memonode{msgevent}{k}{8}{3}{Logistikkossten berechnet};
-    
-    \memonode{unspecprocess}{l}{12}{3}{Logistikkosten bewerten};
-          
-    \memonode{endevent}{z}{13}{0}{Bestellung \\ zusammengestellt};
-    
-    %~~ Einfache Verbindung zwischen des Shapes 
-    \draw (x) -- (y);
-    \draw (y) -- (k);
-    \draw (k) -- (l);
-    \draw (l) -- (z);
-\end{tikzpicture}\bigskip
-
-Test eines Dekompositionsdiagrammes mittels eines Tree:\bigskip
-
-\begin{tikzpicture}
-    \node[shape=decompprocess, decompprocess, anchor=center] {}
-        [edge from parent fork down]
-            child{ node[shape=decompprocess, decompprocess] at (-2,0) {}}
-            child{ node[shape=decompprocess, decompprocess] at (0,0) {}}
-            child{ node[shape=decompprocess, decompprocess] at (2,0) {}};
-\end{tikzpicture}\bigskip\bigskip
-
 Test eines Kontrollflussdiagramms mittels eine Tree:\bigskip\bigskip
 
 \begin{tikzpicture}
