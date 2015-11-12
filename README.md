@@ -1,7 +1,8 @@
-# TikZ
-edu student repository
+### Masterthesis Fabian Schneider
 
-This is a test...
+# Entwurf und Implementierung einer PGF/TikZ-Bibliothek zur Erstellung von MEMO OrgML-Kontrollflussdiagrammen
 
-... this is another test ...
+Struktur des Repositories:
+
+* Tests: Verschiedene Prototypen um Implementierungsalternativen zu testen
 
