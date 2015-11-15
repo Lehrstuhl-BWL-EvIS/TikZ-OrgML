@@ -25,21 +25,18 @@
 %~~ ToDo-Liste:
 %~~         ToDo Größe der Shapes dynamisch berechnen?
 %~~         ToDo Auslagerung der Shapes und Macros in ein *.sty-File
-%~~         ToDo Anpassung der Darstellung der Gabelung (parallele Ausführung)
-%~~         ToDo Implementierung Shape für Informationszustandsänderung
-%~~         ToDo Einfügen von Text zu den Shapes 
 %~~         ToDo Textnode in Macro durch Label ersetzen? (Vgl. S. 238ff)
-%~~         ToDo Implementierung der UND und ODER Gleider für die Synchron-
-%~~              isation
+%~~         ToDo Implementierung der UND und ODER Notationssymbole für die 
+%~~              Synchronisation
 %~~         ToDo Unterscheidung von öffentlichen und internen Macros?
 %~~         ToDo Eigenes Macro, dass den Split korrekt ausführt und das Ver-
 %~~              Verbindungsstück einfügt --> dynamische Berechnung der
 %~~              der Position des Verbindungsstückes
-%~~         ToDo Teilung der Implmentierung der Symbols und der Macros?
-%~~              --> ggf. kann die Logik der Macors auch für TikZ-Pics
+%~~         ToDo Teilung der Implementierung der Symbols und der Macros?
+%~~              --> ggf. kann die Logik der Macros auch für TikZ-Pics
 %~~                  verwendet werden
 %~~         ToDo Anzahl der möglichen, parallel ausführbaren Prozesse ermitteln
-%~~         ToDo Markierung bei der Prallelisierung und der Synchronisation
+%~~         ToDo Markierung bei der Parallelisierung und der Synchronisation
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -162,6 +159,8 @@
 	    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
 	    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
 			    
+	    %~~ Setzen der Linienstärke
+		\pgfsetlinewidth{0.75pt}
 									
         %~~ Erzeugen der äußeren Kanten des Notationssymbols
         %~~ mit Hilfe eines Path (Dreieck}
@@ -633,6 +632,7 @@
 
 \begin{document}
 \begin{tikzpicture}
+    %~~ Erzeugen und plazieren der Nodes
     \memonode{startevent}{a}{0}{0}{Anfrage \\ genehmig};
     \memonode{paraconn}{t1}{1}{0}{};
     \memonode{unspecprocess}{b}{3}{2}{Logistikkosten \\ berechnen};
@@ -642,7 +642,8 @@
     \memonode{syncconn}{t2}{7}{0}{};
     \memonode{endevent}{d}{8}{0}{Kosten \\ berechnet};
     
-       
+     
+    %~~ Erzeugen der Verbindungen der Nodes  
     \memoconn{a}{t1};
     \memoconnpara{t1}{b}{c}; 
     \memoconn{b}{e};
