@@ -422,33 +422,5 @@
 
 \begin{document}
 \begin{tikzpicture}
-    %~~ Wurzelkonten --> Startevent
-    \node[startevent, shape=startevent] (a) {}
-    
-        %~~ Aufspannen eines Baumes der nach rechts verläuft
-        [edge from parent fork right, grow=right]            
-        
-        %~~ Erste Paralellisierung
-        child { node[unspecprocess, shape=unspecprocess] (b) at (1,3) {}             
-            child { node[msgevent, shape=msgevent] (d) at (1,0) {}       
-                %~~ Zweite Parallelisierung          
-                child { node[unspecprocess, shape=unspecprocess] (e) at (1.5,2) {} 
-                    child { node[msgevent, shape=msgevent] (i) at (1,0) {} }
-                }                
-                child { node[unspecprocess, shape=unspecprocess] (f) at (1.5,-2) {} 
-                    child { node[msgevent, shape=msgevent] (j) at (1,0) {} }
-                }
-            }
-            %child { node[msgevent, shape=msgevent] (p) at (3,0) {} }
-        }    
-        child { node[unspecprocess, shape=unspecprocess] (c) at (1,-3) {}             
-            %~~ Linearer Ablauf
-            child { node[msgevent, shape=msgevent] (z) at (1,0) {}                
-                child { node[unspecprocess, shape=unspecprocess] (h) at (1.5,0) {}                 
-                    child { node[msgevent, shape=msgevent] (x) at (1,0) {} }
-                }
-            }
-        };
-
 \end{tikzpicture}
 \end{document}
