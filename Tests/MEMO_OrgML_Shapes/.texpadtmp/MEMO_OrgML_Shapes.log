@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.2.3)  15 NOV 2015 14:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.2.3)  15 NOV 2015 14:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -615,18 +615,18 @@ File: tikzlibrarytrees.code.tex 2008/02/24 v3.0.0 (rcs-revision 1.2)
 pes/.texpadtmp/MEMO_OrgML_Shapes.aux)
 \openout1 = `MEMO_OrgML_Shapes.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 421.
-LaTeX Font Info:    ... okay on input line 421.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 421.
-LaTeX Font Info:    ... okay on input line 421.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 421.
-LaTeX Font Info:    ... okay on input line 421.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 421.
-LaTeX Font Info:    ... okay on input line 421.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 421.
-LaTeX Font Info:    ... okay on input line 421.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 421.
-LaTeX Font Info:    ... okay on input line 421.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 464.
+LaTeX Font Info:    ... okay on input line 464.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 464.
+LaTeX Font Info:    ... okay on input line 464.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 464.
+LaTeX Font Info:    ... okay on input line 464.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 464.
+LaTeX Font Info:    ... okay on input line 464.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 464.
+LaTeX Font Info:    ... okay on input line 464.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 464.
+LaTeX Font Info:    ... okay on input line 464.
  ABD: EveryShipout initializing macros
 (/usr/local/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -682,8 +682,12 @@ e
 ))
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <1> not available
-(Font)              size <5> substituted on input line 423.
+(Font)              size <5> substituted on input line 466.
 
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
@@ -699,10 +703,10 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 12530 strings out of 493117
- 251443 string characters out of 6135434
- 291029 words of memory out of 5000000
- 15756 multiletter control sequences out of 15000+600000
+ 12533 strings out of 493117
+ 251475 string characters out of 6135434
+ 291111 words of memory out of 5000000
+ 15759 multiletter control sequences out of 15000+600000
  4844 words of font info for 18 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,7n,73p,398b,661s stack positions out of 5000i,500n,10000p,200000b,80000s
