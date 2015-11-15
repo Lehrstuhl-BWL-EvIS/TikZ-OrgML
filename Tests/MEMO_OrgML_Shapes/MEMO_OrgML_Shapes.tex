@@ -28,6 +28,7 @@
 %~~         ToDo Anpassung der Darstellung der Gabelung (parallele Ausführung)
 %~~         ToDo Implementierung Shape für Informationszustandsänderung
 %~~         ToDo Einfügen von Text zu den Shapes 
+%~~         ToDo Textnode in Macro durch Label ersetzen? (Vgl. S. 238ff)
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -419,6 +420,21 @@
 
 \begin{document}
 \begin{tikzpicture}
+    \memonode{startevent}{a}{0}{0}{Anfrage \\ genehmig};
+    \node (t1) at (1,0) {};
+    \memonode{unspecprocess}{b}{3}{2}{Logistikkosten \\ berechnen};
+    \memonode{unspecprocess}{c}{3}{-2}{Materialkosten \\ berechnen};
+    \node (t2) at (5,0) {};
+    \memonode{endevent}{d}{6}{0}{Kosten \\ berechnet};
     
+    %~~ Textshape
+    %\node[below] at (y.south) {Das ist der Text \\ Es kommt noch eine Zeile}
+    
+    \draw (a) -- (t1);
+    \draw (t1) |- (b);
+    \draw (t1) |- (c);
+    \draw (b) -| (t2);
+    \draw (c) -| (t2);
+    \draw (t2) -- (d);
 \end{tikzpicture}
 \end{document}
