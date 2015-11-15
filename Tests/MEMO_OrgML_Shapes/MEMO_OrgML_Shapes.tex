@@ -29,7 +29,15 @@
 %~~         ToDo Implementierung Shape für Informationszustandsänderung
 %~~         ToDo Einfügen von Text zu den Shapes 
 %~~         ToDo Textnode in Macro durch Label ersetzen? (Vgl. S. 238ff)
-%~~         ToDo Implementierung eines Verbindungsstückes für Paralleleprozesse
+%~~         ToDo Implementierung der UND und ODER Gleider für die Synchron-
+%~~              isation
+%~~         ToDo Unterscheidung von öffentlichen und internen Macros?
+%~~         ToDo Eigenes Macro, dass den Split korrekt ausführt und das Ver-
+%~~              Verbindungsstück einfügt --> dynamische Berechnung der
+%~~              der Position des Verbindungsstückes
+%~~         ToDo Teilung der Implmentierung der Symbols und der Macros?
+%~~              --> ggf. kann die Logik der Macors auch für TikZ-Pics
+%~~                  verwendet werden
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -556,19 +564,13 @@
     \memonode{paraconn}{t1}{1}{0}{};
     \memonode{unspecprocess}{b}{3}{2}{Logistikkosten \\ berechnen};
     \memonode{unspecprocess}{c}{3}{-2}{Materialkosten \\ berechnen};
-    \node[shape=syncconn] (t2) at (5,0) {};
     \memonode{syncconn}{t2}{5}{0}{};
     \memonode{endevent}{d}{6}{0}{Kosten \\ berechnet};
     
-    %~~ Textshape
-    %\node[below] at (y.south) {Das ist der Text \\ Es kommt noch eine Zeile}
-    
+       
     \memoconn{a}{t1};
-
-    \memoconnpara{t1}{b}{c};
-    
+    \memoconnpara{t1}{b}{c};   
     \memoconnsync{b}{c}{t2};
-    
     \memoconn{t2}{d};
     
 \end{tikzpicture}
