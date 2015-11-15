@@ -88,6 +88,12 @@
     }
 }
 
+\tikzset{
+    chgevent/.style={
+        event
+    }
+}
+
 %~~ ######################################
 %~~ PROZESSE
 %~~ ######################################
@@ -205,6 +211,7 @@
 	}
 }
 
+%~~ Endereignis
 \pgfdeclareshape{endevent}{
     %~~ Die Anchor werden aus dem Basisshape für Events
     %~~ geerbt
@@ -234,6 +241,7 @@
 	}
 }
 
+%~~ Nachricht eingegangen
 \pgfdeclareshape{msgevent}{
     %~~ Die Anchor werden aus dem Basisshape für Events
     %~~ geerbt
@@ -293,6 +301,69 @@
     	\pgfpathclose
 	}
 }
+
+%~~ Relevante Änderung des Informationszustandes
+\pgfdeclareshape{chgevent}{
+    %~~ Die Anchor werden aus dem Basisshape für Events
+    %~~ geerbt
+	\inheritsavedanchors[from=event]  	        
+	\inheritanchorborder[from=event] 
+	\inheritanchor[from=event]{center} 
+	\inheritanchor[from=event]{north}
+ 	\inheritanchor[from=event]{south} 
+	\inheritanchor[from=event]{west} 
+	\inheritanchor[from=event]{east}
+	
+	
+	%~~ Erben des Hintergrundpfades aus dem Basisshape
+	%~~ für Events
+	\inheritbackgroundpath[from=event]
+	
+	%~~ Erzeugen des Aktensymbols 
+	\beforebackgroundpath{
+	    %~~ Speichern der Werte der Anker in den 
+        %~~ temporären PGF Registern xa,ya und xb und yb
+	    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+	    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+    	
+    	%~~ Schwarze Linien und Hintergrundfarbe
+    	\definecolor{border}{RGB}{20,18,21}
+    	%~~ Vordergrundfarbe der Aktenmappe
+    	\definecolor{briefcase}{RGB}{255,253,232}
+    	\pgfsetcolor{border}
+    	
+    	%~~ Erzeugen des schwarzen Hintergrundes, der signalisiert,
+    	%~~ das die Aktenmappe geöffnet ist
+    	\begin{pgfscope}
+            \pgfsetfillcolor{border}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*-0.63}{\pgf@yb*0.75}}   
+            \pgfpathlineto{\pgfpoint{\pgf@xb*-0.25}{\pgf@yb*0.75}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*-0.26}{\pgf@yb*0.65}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.75}{\pgf@yb*0.65}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.65}{\pgf@yb*-0.35}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*-0.65}{\pgf@yb*-0.35}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*-0.63}{\pgf@yb*0.75}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}  
+            	
+    	%~~ Erzeugen des Deckblatts der Aktenmappe
+    	\begin{pgfscope}
+    	    %~~ Setzen der Farbe
+    	    \pgfsetfillcolor{briefcase}
+    	    \pgfpathmoveto{\pgfpoint{\pgf@xb*-0.75}{\pgf@yb*0.65}}   
+            \pgfpathlineto{\pgfpoint{\pgf@xb*-0.35}{\pgf@yb*0.65}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*-0.35}{\pgf@yb*0.55}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.65}{\pgf@yb*0.55}}  
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.65}{\pgf@yb*-0.35}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*-0.75}{\pgf@yb*-0.35}}          
+            \pgfpathlineto{\pgfpoint{\pgf@xb*-0.75}{\pgf@yb*0.65}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}        
+            	
+    	\pgfpathclose
+	}
+}
+
 
 %~~ ######################################
 %~~ PROZESSE
@@ -565,14 +636,18 @@
     \memonode{startevent}{a}{0}{0}{Anfrage \\ genehmig};
     \memonode{paraconn}{t1}{1}{0}{};
     \memonode{unspecprocess}{b}{3}{2}{Logistikkosten \\ berechnen};
+    \memonode{chgevent}{e}{6}{2}{Logistikkosten \\ berechnet};
     \memonode{unspecprocess}{c}{3}{-2}{Materialkosten \\ berechnen};
-    \memonode{syncconn}{t2}{5}{0}{};
-    \memonode{endevent}{d}{6}{0}{Kosten \\ berechnet};
+    \memonode{chgevent}{f}{6}{-2}{Materialkosten \\ berechnet};
+    \memonode{syncconn}{t2}{7}{0}{};
+    \memonode{endevent}{d}{8}{0}{Kosten \\ berechnet};
     
        
     \memoconn{a}{t1};
-    \memoconnpara{t1}{b}{c};   
-    \memoconnsync{b}{c}{t2};
+    \memoconnpara{t1}{b}{c}; 
+    \memoconn{b}{e};
+    \memoconn{c}{f};  
+    \memoconnsync{e}{f}{t2};
     \memoconn{t2}{d};
     
 \end{tikzpicture}
