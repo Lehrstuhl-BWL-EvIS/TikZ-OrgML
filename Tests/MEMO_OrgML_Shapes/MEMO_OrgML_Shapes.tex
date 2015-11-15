@@ -106,6 +106,17 @@
     }
 }
 
+%~~ ######################################
+%~~ VERBINDUNGSSTÜCKE
+%~~ ######################################
+\tikzset{
+    paraconn/.style={}
+}
+
+\tikzset{
+    syncconn/.style={}
+}
+
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~ Definition der MEMO OrgML-Shapes
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -273,6 +284,10 @@
 	}
 }
 
+%~~ ######################################
+%~~ PROZESSE
+%~~ ######################################
+
 %~~ Unspezifizierter Prozess
 \pgfdeclareshape{unspecprocess}{
     %~~ Übernahme der Anchors aus dem
@@ -388,6 +403,80 @@
     }
 }
 
+%~~ ######################################
+%~~ VERBINDUNGSSTÜCKE
+%~~ ######################################
+
+%~~ Verbindungsstück für die parallele Prozessausführung
+\pgfdeclareshape{paraconn}{
+    %~~ Übernahme der Anchors aus dem
+    %~~ Rechteck
+	\inheritsavedanchors[from=rectangle]  	        
+	\inheritanchorborder[from=rectangle] 
+	\inheritanchor[from=rectangle]{center} 
+	\inheritanchor[from=rectangle]{north}
+ 	\inheritanchor[from=rectangle]{south} 
+	\inheritanchor[from=rectangle]{west} 
+	\inheritanchor[from=rectangle]{east}
+            
+	%~~ Hintergrundpfad des Basisprozesses
+	\backgroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporären PGF Registern xa,ya und xb und yb
+		\southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+				
+    	%~~ Erzeugen des Verbindungsstückes für die
+    	%~~ parallele Ausführung von Prozessen  
+    	\pgfpathmoveto{\pgfpoint{\pgf@xb*0}{\pgf@ya}}
+    	\pgfpathlineto{\pgfpoint{\pgf@xb*0}{\pgf@yb}}
+    	\pgfpathmoveto{\pgfpoint{\pgf@xb*0}{\pgf@yb*0}}
+    	\pgfpathlineto{\pgfpoint{\pgf@xb*-1}{\pgf@yb*0}}
+    	    		
+    	%~~ Erzeugen des Pfades und Setzen der Hintergrundfarbe
+    	\pgfusepath{stroke}
+    	
+    	%~~ Abschluss des Pfades
+    	\pgfpathclose  	    			
+ 	}
+}
+
+%~~ Verbindungsstück für die synchronisation nach Beendingung
+%~~ paralleler Prozesse
+\pgfdeclareshape{syncconn}{
+    %~~ Übernahme der Anchors aus dem
+    %~~ Rechteck
+	\inheritsavedanchors[from=rectangle]  	        
+	\inheritanchorborder[from=rectangle] 
+	\inheritanchor[from=rectangle]{center} 
+	\inheritanchor[from=rectangle]{north}
+ 	\inheritanchor[from=rectangle]{south} 
+	\inheritanchor[from=rectangle]{west} 
+	\inheritanchor[from=rectangle]{east}
+            
+	%~~ Hintergrundpfad des Basisprozesses
+	\backgroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporären PGF Registern xa,ya und xb und yb
+		\southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+				
+    	%~~ Erzeugen des Verbindungsstückes für die
+    	%~~ parallele Ausführung von Prozessen  
+    	\pgfpathmoveto{\pgfpoint{\pgf@xb*0}{\pgf@ya}}
+    	\pgfpathlineto{\pgfpoint{\pgf@xb*0}{\pgf@yb}}
+    	\pgfpathmoveto{\pgfpoint{\pgf@xb*0}{\pgf@yb*0}}
+    	\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb*0}}
+    	    		
+    	%~~ Erzeugen des Pfades und Setzen der Hintergrundfarbe
+    	\pgfusepath{stroke}
+    	
+    	%~~ Abschluss des Pfades
+    	\pgfpathclose  	    			
+ 	}
+}
+
+
 \makeatother
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -395,7 +484,7 @@
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 %~~
-%~~ Vorlage für die Beschreibung der Marcors
+%~~ Vorlage für die Beschreibung der Macors
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 % Macroname: 
 % Funktion:  
@@ -464,10 +553,11 @@
 \begin{document}
 \begin{tikzpicture}
     \memonode{startevent}{a}{0}{0}{Anfrage \\ genehmig};
-    \node (t1) at (1,0) {};
+    \memonode{paraconn}{t1}{1}{0}{};
     \memonode{unspecprocess}{b}{3}{2}{Logistikkosten \\ berechnen};
     \memonode{unspecprocess}{c}{3}{-2}{Materialkosten \\ berechnen};
-    \node (t2) at (5,0) {};
+    \node[shape=syncconn] (t2) at (5,0) {};
+    \memonode{syncconn}{t2}{5}{0}{};
     \memonode{endevent}{d}{6}{0}{Kosten \\ berechnet};
     
     %~~ Textshape
