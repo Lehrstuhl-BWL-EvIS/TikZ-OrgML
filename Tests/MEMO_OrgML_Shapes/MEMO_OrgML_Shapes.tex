@@ -512,6 +512,12 @@
     	\pgfpathlineto{\pgfpoint{\pgf@xb*0}{\pgf@yb}}
     	\pgfpathmoveto{\pgfpoint{\pgf@xb*0}{\pgf@yb*0}}
     	\pgfpathlineto{\pgfpoint{\pgf@xb*-1}{\pgf@yb*0}}
+    	
+    	%~~ Erzeugen der doppelten Linien
+    	\pgfpathmoveto{\pgfpoint{\pgf@xb*-1.8}{\pgf@yb*0.4}}
+    	\pgflineto{\pgfpoint{\pgf@xb*-1.1}{\pgf@yb*0.4}}
+    	\pgfpathmoveto{\pgfpoint{\pgf@xb*-1.8}{\pgf@yb*-0.4}}
+    	\pgflineto{\pgfpoint{\pgf@xb*-1.1}{\pgf@yb*-0.4}}
     	    		
     	%~~ Erzeugen des Pfades und Setzen der Hintergrundfarbe
     	\pgfusepath{stroke}
@@ -546,7 +552,7 @@
     	\pgfpathmoveto{\pgfpoint{\pgf@xb*0}{\pgf@ya}}
     	\pgfpathlineto{\pgfpoint{\pgf@xb*0}{\pgf@yb}}
     	\pgfpathmoveto{\pgfpoint{\pgf@xb*0}{\pgf@yb*0}}
-    	\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb*0}}
+    	\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb*0}}  
     	    		
     	%~~ Erzeugen des Pfades und Setzen der Hintergrundfarbe
     	\pgfusepath{stroke}
