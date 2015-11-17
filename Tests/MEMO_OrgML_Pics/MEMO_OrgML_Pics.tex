@@ -38,10 +38,6 @@
 %~~         ToDo Anzahl der möglichen, parallel ausführbaren Prozesse ermitteln
 %~~         ToDo Linienstil mit runden Abschluss definieren --> globaler Style
 %~~              für alle Shapes definieren
-%~~         ToDo Erhöhung der Linienstärke für die Verbindungslinien
-%~~         ToDo Umbenennen der Verbindungsstücke --> Linke Verbindung wird nicht
-%~~              benötigt
-%~~         ToDo 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -62,7 +58,6 @@
 %~~ ######################################
 %~~ EREIGNISSE
 %~~ ######################################
-
 \tikzset{
     event/.style={
         draw,
@@ -100,7 +95,6 @@
 %~~ ######################################
 %~~ PROZESSE
 %~~ ######################################
-
 \tikzset{
     unspecprocess/.style={
         draw,
@@ -117,27 +111,7 @@
     }
 }
 
-%~~ ######################################
-%~~ SYNCHRONISATION
-%~~ ######################################
-
-\tikzset{
-    sync/.style={
-        draw,
-        inner sep=2.5ex,        
-    }
-}
-
-\tikzset{
-    andsync/.style={
-        sync      
-    }
-}
-
-%~~ ######################################
-%~~ TEXTNODES
-%~~ ######################################
-
+%~~ Textnodes
 \tikzset{
     memotext/.style={
         below,
@@ -149,7 +123,6 @@
 %~~ ######################################
 %~~ VERBINDUNGSSTÜCKE
 %~~ ######################################
-
 \tikzset{
     paraconn/.style={}
 }
@@ -512,85 +485,6 @@
 }
 
 %~~ ######################################
-%~~ SYNCHRONISATION
-%~~ ######################################
-
-%~~ Generisches Notationssymbol für die Synchronisierung
-\pgfdeclareshape{sync}{
-    %~~ Übernahme der Anchors aus dem
-    %~~ Rechteck
-	\inheritsavedanchors[from=rectangle]  	        
-	\inheritanchorborder[from=rectangle] 
-	\inheritanchor[from=rectangle]{center} 
-	\inheritanchor[from=rectangle]{north}
- 	\inheritanchor[from=rectangle]{south} 
-	\inheritanchor[from=rectangle]{west} 
-	\inheritanchor[from=rectangle]{east}
-            
-	%~~ Hintergrundpfad des Synchronisationssymbols
-	\backgroundpath{
-        %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
-		\southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
-		\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
-		
-		%~~ Farbe der Kantenlinien
-		\definecolor{edge}{RGB}{4,66,84}
-		\pgfsetcolor{edge}
-		
-		%~~ Hintergrund
-		\definecolor{fill}{RGB}{218,229,235}
-		\pgfsetfillcolor{fill}
-			
-		\pgfsetlinewidth{0.75pt}
-		\pgfpathmoveto{\pgfpoint{\pgf@xb*0}{\pgf@yb}}
-    	\pgflineto{\pgfpoint{\pgf@xb}{\pgf@yb*0}}
-    	\pgflineto{\pgfpoint{\pgf@xb*0}{\pgf@ya}}
-    	\pgflineto{\pgfpoint{\pgf@xa}{\pgf@yb*0}}
-        \pgflineto{\pgfpoint{\pgf@xb*0}{\pgf@yb}}
-    		
-    	%~~ Erzeugen des Pfades und Setzen der Hintergrundfarbe
-    	\pgfusepath{stroke,fill}
-    	
-    	%~~ Abschluss des Pfades
-    	\pgfpathclose  	    			
- 	}
-}
-
-%~~ Generisches Notationssymbol für die Synchronisierung
-\pgfdeclareshape{andsync}{
-    %~~ Übernahme der Anchors aus dem
-    %~~ Rechteck
-	\inheritsavedanchors[from=sync]  	        
-	\inheritanchorborder[from=rectangle] 
-	\inheritanchor[from=sync]{center} 
-	\inheritanchor[from=sync]{north}
- 	\inheritanchor[from=sync]{south} 
-	\inheritanchor[from=sync]{west} 
-	\inheritanchor[from=sync]{east}
-            
-	%~~ Hintergrundpfad des generischen Synchronisationssymbols
-	%~~ erben
-	\inheritbackgroundpath[from=sync]
-    
-    %~~ Erzeugen des Texts AND im Notationssymbl
-    \beforebackgroundpath{
-        %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
-	    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
-	    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
-	    
-	    %~~ Farbe der Kantenlinien
-		\definecolor{text}{RGB}{4,66,84}
-		\pgfsetcolor{text}
-	
-	    %~~ Erzeugen des Textes AND innerhalb des Symbols
-	    \pgftext[left, x=\pgf@xb*-0.5, y=\pgf@yb*0]{\textsf{\fontsize{1}{5}\selectfont AND}}
-    }	
-}
-
-
-%~~ ######################################
 %~~ VERBINDUNGSSTÜCKE
 %~~ ######################################
 
@@ -634,7 +528,7 @@
  	}
 }
 
-%~~ Verbindungsstück für die Synchronisation nach Beendigung
+%~~ Verbindungsstück für die synchronisation nach Beendingung
 %~~ paralleler Prozesse
 \pgfdeclareshape{syncconn}{
     %~~ Übernahme der Anchors aus dem
@@ -752,7 +646,7 @@
     \memonode{chgevent}{e}{6}{2}{Logistikkosten \\ berechnet};
     \memonode{unspecprocess}{c}{3}{-2}{Materialkosten \\ berechnen};
     \memonode{chgevent}{f}{6}{-2}{Materialkosten \\ berechnet};
-    \memonode{andsync}{t2}{7}{0}{};
+    \memonode{syncconn}{t2}{7}{0}{};
     \memonode{endevent}{d}{8}{0}{Kosten \\ berechnet};
     
      
