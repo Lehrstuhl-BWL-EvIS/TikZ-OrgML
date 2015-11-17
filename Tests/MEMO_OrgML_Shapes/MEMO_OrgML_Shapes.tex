@@ -134,6 +134,12 @@
     }
 }
 
+\tikzset{
+    orsync/.style={
+        sync      
+    }
+}
+
 %~~ ######################################
 %~~ TEXTNODES
 %~~ ######################################
@@ -557,12 +563,12 @@
  	}
 }
 
-%~~ Generisches Notationssymbol für die Synchronisierung
+%~~ Notationssymbols zur Synchronisation nach Beendigung aller Prozesse
 \pgfdeclareshape{andsync}{
     %~~ Übernahme der Anchors aus dem
     %~~ Rechteck
 	\inheritsavedanchors[from=sync]  	        
-	\inheritanchorborder[from=rectangle] 
+	\inheritanchorborder[from=sync] 
 	\inheritanchor[from=sync]{center} 
 	\inheritanchor[from=sync]{north}
  	\inheritanchor[from=sync]{south} 
@@ -588,6 +594,39 @@
 	    \pgftext[left, x=\pgf@xb*-0.5, y=\pgf@yb*0]{\textsf{\fontsize{1}{5}\selectfont AND}}
     }	
 }
+
+%~~ Notationssymbol zur Synchronisation nach Beendigung des ersten Prozesses 
+\pgfdeclareshape{orsync}{
+    %~~ Übernahme der Anchors aus dem
+    %~~ Rechteck
+	\inheritsavedanchors[from=sync]  	        
+	\inheritanchorborder[from=sync] 
+	\inheritanchor[from=sync]{center} 
+	\inheritanchor[from=sync]{north}
+ 	\inheritanchor[from=sync]{south} 
+	\inheritanchor[from=sync]{west} 
+	\inheritanchor[from=sync]{east}
+            
+	%~~ Hintergrundpfad des generischen Synchronisationssymbols
+	%~~ erben
+	\inheritbackgroundpath[from=sync]
+    
+    %~~ Erzeugen des Texts AND im Notationssymbl
+    \beforebackgroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporären PGF Registern xa,ya und xb und yb
+	    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+	    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+	    
+	    %~~ Farbe der Kantenlinien
+		\definecolor{text}{RGB}{4,66,84}
+		\pgfsetcolor{text}
+	
+	    %~~ Erzeugen des Textes AND innerhalb des Symbols
+	    \pgftext[left, x=\pgf@xb*-0.5, y=\pgf@yb*0]{\textsf{\fontsize{7}{5}\selectfont OR}}
+    }	
+}
+
 
 
 %~~ ######################################
@@ -633,43 +672,6 @@
     	\pgfpathclose  	    			
  	}
 }
-
-%~~ Verbindungsstück für die Synchronisation nach Beendigung
-%~~ paralleler Prozesse
-\pgfdeclareshape{syncconn}{
-    %~~ Übernahme der Anchors aus dem
-    %~~ Rechteck
-	\inheritsavedanchors[from=rectangle]  	        
-	\inheritanchorborder[from=rectangle] 
-	\inheritanchor[from=rectangle]{center} 
-	\inheritanchor[from=rectangle]{north}
- 	\inheritanchor[from=rectangle]{south} 
-	\inheritanchor[from=rectangle]{west} 
-	\inheritanchor[from=rectangle]{east}
-            
-	%~~ Hintergrundpfad des Basisprozesses
-	\backgroundpath{
-        %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
-		\southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
-		\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
-				
-    	%~~ Erzeugen des Verbindungsstückes für die
-    	%~~ parallele Ausführung von Prozessen  
-    	\pgfpathmoveto{\pgfpoint{\pgf@xb*0}{\pgf@ya}}
-    	\pgfpathlineto{\pgfpoint{\pgf@xb*0}{\pgf@yb}}
-    	\pgfpathmoveto{\pgfpoint{\pgf@xb*0}{\pgf@yb*0}}
-    	\pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb*0}}  
-    	    		
-    	%~~ Erzeugen des Pfades und Setzen der Hintergrundfarbe
-    	\pgfusepath{stroke}
-    	
-    	%~~ Abschluss des Pfades
-    	\pgfpathclose  	    			
- 	}
-}
-
-
 \makeatother
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
