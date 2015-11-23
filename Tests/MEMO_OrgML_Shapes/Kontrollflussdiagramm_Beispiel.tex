@@ -1,0 +1,73 @@
+\documentclass[border=20pt]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%~~ Laden von TikZ
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\usepackage{tikz}
+
+%~~ Laden des Paketes für die Darstellung der MEMO-OrgML Diagramme
+\usepackage{/home/fabi/Dropbox/Studium/Fernstudium/Masterthesis/Code/Tests/MEMO_OrgML_Shapes/memoorgml}
+
+\begin{document}
+\begin{tikzpicture}
+    %~~ Erzeugen und plazieren der Nodes          
+    \memonode{startevent}{s}{0}{0}{Anfrage \\ genehmig};
+    
+    %~~ Parallele Ausführung der Prozesse Logistikkosten berechnen
+    %~~ und Materialkosten berechnen
+    \memonode{paraconn}{p1}{1}{0}{};    
+    
+    %~~ Logikstikkosten berechnen
+    \memonode{unspecprocess}{l1}{3}{4}{Logistikkosten berechnen};
+    \memonode{chgevent}{l2}{6}{4}{Logistikkosten \\ berechnet};
+    
+    %~~ Synchronisation der Lohnkosten- und Logistikkostenberechnung
+    \memonode{paraconn}{p2}{8}{4}{};
+    
+    \memonode{unspecprocess}{l3}{10}{6}{Logistikkosten bewerten};
+    \memonode{chgevent}{l4}{13}{6}{Logistikkosten \\ bewertet};
+    
+    \memonode{unspecprocess}{l5}{10}{2}{Lohnkosten berechnen};
+    \memonode{chgevent}{l6}{13}{2}{Lohnkosten \\ berechnet};
+    
+    %~~ Logistikkosten berechnen und Lohnkosten berechnen 
+    %~~ synchronisieren
+    \memonode{andsync}{s1}{15}{4}{};
+    
+    %~~ Materialkosten berechnen
+    \memonode{unspecprocess}{m1}{3}{-4}{Materialkosten berechnen};
+    \memonode{chgevent}{m2}{6}{-4}{Materialkosten \\ berechnet};
+    \memonode{unspecprocess}{m3}{10}{-4}{Lohnkosten bewerten};
+    \memonode{chgevent}{m4}{13}{-4}{Materialkosten \\ bewertet};
+    
+    %~~ Synchronisation der Berechnung der Logistikkostenberechnung und
+    %~~ der Materialkostenberechnung      
+    \memonode{andsync}{s2}{17}{0}{};
+    \memonode{unspecprocess}{b1}{20}{0}{Bestellung \\ zusammenstellen};
+    \memonode{endevent}{e}{23}{0}{Bestellung \\ zusammengestellt};
+    
+     
+    %~~ Erzeugen der Verbindungen der Notataionssymbole 
+    \memoconn{s}{p1};
+    
+    \memoconnpara{p1}{l1}{m1}; 
+    \memoconn{l1}{l2};
+    \memoconn{l2}{p2};
+    
+    \memoconnpara{p2}{l3}{l5};
+    \memoconn{l3}{l4};
+    \memoconn{l5}{l6}
+    \memoconnsync{l4}{l6}{s1};
+    
+    \memoconn{m1}{m2};
+    \memoconn{m2}{m3};
+    \memoconn{m3}{m4};    
+
+    \memoconnsync{s1}{m4}{s2};
+    \memoconn{s2}{b1};
+    \memoconn{b1}{e};
+    
+\end{tikzpicture}
+\end{document}

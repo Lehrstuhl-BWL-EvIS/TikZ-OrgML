@@ -36,6 +36,7 @@
 %~~         ToDo Anzahl der möglichen, parallel ausführbaren Prozesse ermitteln
 %~~         ToDo Linienstil mit runden Abschluss definieren --> globaler Style
 %~~              für alle Shapes definieren
+%~~         ToDo Auslagerung in eigenes *.sty-File
 %~~         ToDo Beispiel für Dekompositionsdiagramm mit tree
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -743,3 +744,4 @@
 
 %~~ Ende des Erweiterungspaketes
 \endinput
+

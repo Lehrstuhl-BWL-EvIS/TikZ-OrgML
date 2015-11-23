@@ -1,10 +1,11 @@
-\NeedsTeXFormat{LaTeX2e}[]
-\ProvidesPackage{memoorgml}[2015/11/23 MEMO OrgML]
+\documentclass[border=20pt]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-%~~ Einbinden von TikZ
+%~~ Laden von TikZ
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\RequirePackage{tikz}
+\usepackage{tikz}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~  __  __ ___ __  __  ___     ___           __  __ _    
@@ -25,25 +26,28 @@
 %~~         ToDo Größe der Shapes dynamisch berechnen?
 %~~         ToDo Auslagerung der Shapes und Macros in ein *.sty-File
 %~~         ToDo Textnode in Macro durch Label ersetzen? (Vgl. S. 238ff)
-%~~         ToDo Einfügen der restlichen Texte für die Shapes
+%~~         ToDo Implementierung der UND und ODER Notationssymbole für die 
+%~~              Synchronisation
 %~~         ToDo Unterscheidung von öffentlichen und internen Macros?
 %~~         ToDo Eigenes Macro, dass den Split korrekt ausführt und das Ver-
 %~~              Verbindungsstück einfügt --> dynamische Berechnung der
-%~~              der Position des Verbindungsstückes (calc-Lib)
+%~~              der Position des Verbindungsstückes
 %~~         ToDo Teilung der Implementierung der Symbols und der Macros?
 %~~              --> ggf. kann die Logik der Macros auch für TikZ-Pics
 %~~                  verwendet werden
 %~~         ToDo Anzahl der möglichen, parallel ausführbaren Prozesse ermitteln
 %~~         ToDo Linienstil mit runden Abschluss definieren --> globaler Style
 %~~              für alle Shapes definieren
-%~~         ToDo Beispiel für Dekompositionsdiagramm mit tree
+%~~         ToDo Erhöhung der Linienstärke für die Verbindungslinien
+%~~         ToDo Umbenennen der Verbindungsstücke --> Linke Verbindung wird nicht
+%~~              benötigt
+%~~         ToDo 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~ TikZ-Libraries
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \usetikzlibrary{trees}
-\usetikzlibrary{calc}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~ Farben
@@ -161,6 +165,10 @@
 
 \tikzset{
     paraconn/.style={}
+}
+
+\tikzset{
+    syncconn/.style={}
 }
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -742,4 +750,67 @@
 }
 
 %~~ Ende des Erweiterungspaketes
-\endinput
+
+
+
+\begin{document}
+\begin{tikzpicture}
+    %~~ Erzeugen und plazieren der Nodes          
+    \memonode{startevent}{s}{0}{0}{Anfrage \\ genehmig};
+    
+    %~~ Parallele Ausführung der Prozesse Logistikkosten berechnen
+    %~~ und Materialkosten berechnen
+    \memonode{paraconn}{p1}{1}{0}{};    
+    
+    %~~ Logikstikkosten berechnen
+    \memonode{unspecprocess}{l1}{3}{4}{Logistikkosten berechnen};
+    \memonode{chgevent}{l2}{6}{4}{Logistikkosten \\ berechnet};
+    
+    %~~ Synchronisation der Lohnkosten- und Logistikkostenberechnung
+    \memonode{paraconn}{p2}{8}{4}{};
+    
+    \memonode{unspecprocess}{l3}{10}{6}{Logistikkosten bewerten};
+    \memonode{chgevent}{l4}{13}{6}{Logistikkosten \\ bewertet};
+    
+    \memonode{unspecprocess}{l5}{10}{2}{Lohnkosten berechnen};
+    \memonode{chgevent}{l6}{13}{2}{Lohnkosten \\ berechnet};
+    
+    %~~ Logistikkosten berechnen und Lohnkosten berechnen 
+    %~~ synchronisieren
+    \memonode{andsync}{s1}{15}{4}{};
+    
+    %~~ Materialkosten berechnen
+    \memonode{unspecprocess}{m1}{3}{-4}{Materialkosten berechnen};
+    \memonode{chgevent}{m2}{6}{-4}{Materialkosten \\ berechnet};
+    \memonode{unspecprocess}{m3}{10}{-4}{Lohnkosten bewerten};
+    \memonode{chgevent}{m4}{13}{-4}{Materialkosten \\ bewertet};
+    
+    %~~ Synchronisation der Berechnung der Logistikkostenberechnung und
+    %~~ der Materialkostenberechnung      
+    \memonode{andsync}{s2}{17}{0}{};
+    \memonode{unspecprocess}{b1}{20}{0}{Bestellung \\ zusammenstellen};
+    \memonode{endevent}{e}{23}{0}{Bestellung \\ zusammengestellt};
+    
+     
+    %~~ Erzeugen der Verbindungen der Notataionssymbole 
+    \memoconn{s}{p1};
+    
+    \memoconnpara{p1}{l1}{m1}; 
+    \memoconn{l1}{l2};
+    \memoconn{l2}{p2};
+    
+    \memoconnpara{p2}{l3}{l5};
+    \memoconn{l3}{l4};
+    \memoconn{l5}{l6}
+    \memoconnsync{l4}{l6}{s1};
+    
+    \memoconn{m1}{m2};
+    \memoconn{m2}{m3};
+    \memoconn{m3}{m4};    
+
+    \memoconnsync{s1}{m4}{s2};
+    \memoconn{s2}{b1};
+    \memoconn{b1}{e};
+    
+\end{tikzpicture}
+\end{document}
