@@ -8,23 +8,18 @@
 \usepackage{tikz}
 
 %~~ Laden des Paketes für die Darstellung der MEMO-OrgML Diagramme
-\usepackage{/home/fabi/Dropbox/Studium/Fernstudium/Masterthesis/Code/Tests/MEMO_OrgML_Shapes/memoorgml}
+\usepackage{Library/memoorgml}
 
 \begin{document}
 \begin{tikzpicture}
     %~~ Erzeugen und plazieren der Nodes          
     \memonode{startevent}{s}{0}{0}{Anfrage \\ genehmig};
-    
-    %~~ Parallele Ausführung der Prozesse Logistikkosten berechnen
-    %~~ und Materialkosten berechnen
-    \memonode{paraconn}{p1}{1}{0}{};    
+        
     
     %~~ Logikstikkosten berechnen
     \memonode{unspecprocess}{l1}{3}{4}{Logistikkosten berechnen};
     \memonode{chgevent}{l2}{6}{4}{Logistikkosten \\ berechnet};
-    
-    %~~ Synchronisation der Lohnkosten- und Logistikkostenberechnung
-    \memonode{paraconn}{p2}{8}{4}{};
+     
     
     \memonode{unspecprocess}{l3}{10}{6}{Logistikkosten bewerten};
     \memonode{chgevent}{l4}{13}{6}{Logistikkosten \\ bewertet};
@@ -49,14 +44,11 @@
     \memonode{endevent}{e}{23}{0}{Bestellung \\ zusammengestellt};
     
      
-    %~~ Erzeugen der Verbindungen der Notataionssymbole 
-    \memoconn{s}{p1};
-    
-    \memoconnpara{p1}{l1}{m1}; 
+    %~~ Erzeugen der Verbindungen der Notatationssymbole     
+    \memoconnpara{s}{l1}{m1}; 
     \memoconn{l1}{l2};
-    \memoconn{l2}{p2};
-    
-    \memoconnpara{p2}{l3}{l5};
+     
+    \memoconnpara{l2}{l3}{l5};
     \memoconn{l3}{l4};
     \memoconn{l5}{l6}
     \memoconnsync{l4}{l6}{s1};
