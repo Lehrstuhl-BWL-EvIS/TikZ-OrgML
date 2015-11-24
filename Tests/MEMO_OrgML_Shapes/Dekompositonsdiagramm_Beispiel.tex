@@ -1,0 +1,34 @@
+\documentclass[border=20pt]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%~~ Laden von TikZ
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\usepackage{tikz}
+
+%~~ Laden des Paketes für die Darstellung der MEMO-OrgML Diagramme
+\usepackage{Library/memoorgml}
+
+\newcommand{\memotext}[2]{
+    \node[memotext] at (#1.south) {#2}
+}
+
+\newcommand{\memochild}[4]{
+    node[decompprocess, shape=decompprocess,label=south:#4] (#1) at (#2,#3) {}
+    %\memotext{#1}{#4}
+}
+
+\begin{document}
+\begin{tikzpicture}
+    \node[decompprocess, shape=decompprocess] (root) at (0,0) {}
+        [edge from parent fork down]
+%          child {\memonode{decompprocess}{left}{-2}{-0.5}{Angebotsbearbeitung}}
+         child {\memochild{left}{-2}{-0.5}{Test}}
+        %\memochild{left}{-2}{-0.5}{}
+        child {node[decompprocess, shape=decompprocess] (center) at (0, -0.5) {}}
+        child {\memochild{p1}{2}{-0.5}{Label}
+            child {\memochild{px}{-3}{-1}{Subsubprocess}}
+        };    
+\end{tikzpicture}
+\end{document}

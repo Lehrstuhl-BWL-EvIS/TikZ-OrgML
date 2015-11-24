@@ -23,13 +23,9 @@
 %~~ ##########################################################################
 %~~ ToDo-Liste:
 %~~         ToDo Größe der Shapes dynamisch berechnen?
-%~~         ToDo Auslagerung der Shapes und Macros in ein *.sty-File
 %~~         ToDo Textnode in Macro durch Label ersetzen? (Vgl. S. 238ff)
 %~~         ToDo Einfügen der restlichen Texte für die Shapes
 %~~         ToDo Unterscheidung von öffentlichen und internen Macros?
-%~~         ToDo Eigenes Macro, dass den Split korrekt ausführt und das Ver-
-%~~              Verbindungsstück einfügt --> dynamische Berechnung der
-%~~              der Position des Verbindungsstückes (calc-Lib)
 %~~         ToDo Teilung der Implementierung der Symbols und der Macros?
 %~~              --> ggf. kann die Logik der Macros auch für TikZ-Pics
 %~~                  verwendet werden
@@ -441,6 +437,7 @@
  	}
 }
 
+%~~ Dekomponierbarer Prozess
 \pgfdeclareshape{decompprocess}{
     %~~ Übernahme der Anchors aus dem
     %~~ Rechteck
