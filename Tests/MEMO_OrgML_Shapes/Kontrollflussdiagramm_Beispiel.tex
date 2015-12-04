@@ -8,11 +8,13 @@
 \usepackage{tikz}
 
 %~~ Laden des Paketes für die Darstellung der MEMO-OrgML Diagramme
-\usepackage{Library/memoorgml}
+\usetikzlibrary{memoorgml}
 
 \begin{document}
 \begin{tikzpicture}
-    %~~ Erzeugen und plazieren der Nodes          
+	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     
+	%~~ Erzeugen und platzieren der Nodes          
+    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     
     \memonode{startevent}{s}{0}{0}{Anfrage \\ genehmig};
         
     
@@ -43,8 +45,11 @@
     \memonode{unspecprocess}{b1}{20}{0}{Bestellung \\ zusammenstellen};
     \memonode{endevent}{e}{23}{0}{Bestellung \\ zusammengestellt};
     
-     
-    %~~ Erzeugen der Verbindungen der Notatationssymbole     
+    
+    
+    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     
+    %~~ Erzeugen der Verbindungen der Notationssymbole     
+    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     
     \memoconnpara{s}{l1}{m1}; 
     \memoconn{l1}{l2};
      

@@ -1,10 +1,4 @@
-\NeedsTeXFormat{LaTeX2e}[]
-\ProvidesPackage{memoorgml}[2015/11/23 MEMO OrgML]
-
-%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-%~~ Einbinden von TikZ
-%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\RequirePackage{tikz}
+\ProvidesFileRCS[v\pgfversion] $header: Code/Tests/MEMO_OrgML_Shapes/Library/tikzlibrarymemoorgml.code.tex,v 0.1 2015/12/05 18:30:00 F.Schneider Exp $
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~  __  __ ___ __  __  ___     ___           __  __ _    
@@ -38,7 +32,6 @@
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~ TikZ-Libraries
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\usetikzlibrary{trees}
 \usetikzlibrary{calc}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -688,6 +681,7 @@
 % Funktion:  Ausgabe von Meldungen in das Logfile
 % Parameter: #1: Meldungstext
 %            #2: Parameter
+%			 #3: Parameter
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \newcommand{\memodebug}[3]{
     \message{<<MEMO-Debug: #1 #2 #3>>}

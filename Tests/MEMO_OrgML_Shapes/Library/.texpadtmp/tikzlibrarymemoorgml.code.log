@@ -1,0 +1,32 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdftex 2015.11.30)  4 DEC 2015 18:21
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**/Users/fabi/Dropbox/Studium/Fernstudium/Masterthesis/Code/Tests/MEMO_OrgML_Shapes/Library/tikzlibrarymemoorgml.code.tex
+(/Users/fabi/Dropbox/Studium/Fernstudium/Masterthesis/Code/Tests/MEMO_OrgML_Shapes/Library/tikzlibrarymemoorgml.code.tex
+/Users/fabi/Dropbox/Studium/Fernstudium/Masterthesis/Code/Tests/MEMO_OrgML_Shapes/Library/tikzlibrarymemoorgml.code.tex:4: Undefined control sequence.
+l.4 \ProvidesFileRCS
+                    [v\pgfversion] $Header: tikzlibrarymemoorgml,v0.1$
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+/Users/fabi/Dropbox/Studium/Fernstudium/Masterthesis/Code/Tests/MEMO_OrgML_Shapes/Library/tikzlibrarymemoorgml.code.tex:4: Undefined control sequence.
+l.4 \ProvidesFileRCS[v\pgfversion
+                                 ] $Header: tikzlibrarymemoorgml,v0.1$
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+)
+! Emergency stop.
+<*> ...hapes/Library/tikzlibrarymemoorgml.code.tex
+                                                  
+*** (job aborted, no legal \end found)
+
+!  ==> Fatal error occurred, no output PDF file produced!
