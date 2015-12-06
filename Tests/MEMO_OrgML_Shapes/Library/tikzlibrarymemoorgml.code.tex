@@ -41,6 +41,7 @@
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \usetikzlibrary{memoorgmlshapes}
 \usetikzlibrary{calc}
+\usetikzlibrary{trees}
 
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -65,6 +66,10 @@
 \def\memodebug#1#2#3{
     \message{<<MEMO-Debug: #1 #2 #3>>}
 }
+
+%~~ ######################################
+%~~ KONTROLLFLUSSDIAGRAMM
+%~~ ######################################
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 % Macroname: memonode
@@ -122,6 +127,36 @@
 \def\memoconnsync#1#2#3{
     \draw[memoline] (#1) -| (#3);
     \draw[memoline] (#2) -| (#3);
+}
+
+
+%~~ ######################################
+%~~ DECOMPOSITIONSDIAGRAMM
+%~~ ######################################
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% Macroname: memodecomproot
+% Funktion:  Wurzelknoten für ein Dekompositionsdiagramm
+% Parameter: #1: Name des zu verwendenden Shapes
+%			 #2: Name des Nodes der erzeugt wird
+%			 #3: x-Position
+%			 #4: y-Position
+%			 #5: - ID -
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\def\memodecomproot#1#2#3#4#5{
+	\node[shape=#1,#1] (#2) at (#3,#4) [label={[memotext]below:#5}] {}
+}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% Macroname: memdecompchild
+% Funktion:  Erzeugen eines Kindknoten in einem Dekompositionsdiagramm
+% Parameter: #1: Name des zu verwendenden Shapes
+%			 #2: <OrgUnit>
+%			 #3: - ID -
+%			 #4: Name
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\def\memodecompchild#1#2#3#4{
+	node[shape=#1, #1] [label={[memotext]below:#2\\#3}] [label={[memotext]above:#4}] {}
 }
 
 %~~ Ende des Erweiterungspaketes
