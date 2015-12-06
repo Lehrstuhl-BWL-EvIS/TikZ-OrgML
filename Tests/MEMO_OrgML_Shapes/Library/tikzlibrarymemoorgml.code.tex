@@ -62,7 +62,7 @@
 %            #2: Parameter
 %			 #3: Parameter
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\newcommand{\memodebug}[3]{
+\def\memodebug#1#2#3{
     \message{<<MEMO-Debug: #1 #2 #3>>}
 }
 
@@ -76,7 +76,7 @@
 %            #4: y-Position
 %            #5: Beschreibung des Ereignisses/Prozesses
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\newcommand{\memonode}[5]{
+\def\memonode#1#2#3#4#5{
     %~~ Erzeugen des Nodes der das Notationssymbol darstellt.
     %~~ Die Verwendung des richtigen Styles wird durch die Namensgleichheit
     %~~ des Styles und des Shapes erreicht.
@@ -93,7 +93,7 @@
 % Parameter: #1: Linkes Notationssymbol
 %            #2: Rechtes Notationssymbol
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\newcommand{\memoconn}[2]{
+\def\memoconn#1#2{
     \draw[memoline] (#1) -- (#2);
 }
 
@@ -104,14 +104,12 @@
 %            #2: Erster Prozess
 %            #3: Zweiter Prozess
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\newcommand{\memoconnpara}[3]{
+\def\memoconnpara#1#2#3{
     %~~ Der Node für die Darstellung des Verbindungssymbols wird automatisch
     %~~ erzeugt. Die Positons des Nodes wird abhängig vom Vorgängersymbol
     %~~ errechnet.
     \node[paraconn, shape=paraconn] (#1_para) at ($(#1) + (1,0)$) {};
-    
-    \memodebug{Dynamischer Name fuer Node}{#1_para}{};
-
+        
     \draw[memoline] (#1) -- (#1_para);
     \draw[memoline] (#1_para) |- (#2);
     \draw[memoline] (#1_para) |- (#3);
@@ -124,7 +122,7 @@
 %            #2: Zweiter Prozess
 %            #3: Verknüpfungsoperation
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\newcommand{\memoconnsync}[3]{
+\def\memoconnsync#1#2#3{
     \draw[memoline] (#1) -| (#3);
     \draw[memoline] (#2) -| (#3);
 }
