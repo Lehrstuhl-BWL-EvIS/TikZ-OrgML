@@ -80,11 +80,8 @@
     %~~ Erzeugen des Nodes der das Notationssymbol darstellt.
     %~~ Die Verwendung des richtigen Styles wird durch die Namensgleichheit
     %~~ des Styles und des Shapes erreicht.
-    \node[#1, shape=#1] (#2) at (#3,#4) {};
-        
-    %~~ Erzeugen des Textes (Node) unterhalb des Notationssymbol der
-    %~~ das Ereignis bzw. den Prozess beschreibt
-    \node[memotext] at (#2.south) {#5};
+    %~~ Die Beschriftung des Notationssymbols erfolgt durch ein Label.
+    \node[#1, shape=#1] (#2) at (#3,#4) [label={[memotext]below:#5}] {};       
 }
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
