@@ -9,18 +9,32 @@
 
 \usetikzlibrary{memoorgml}
 
+\tikzset{
+	decompstyle/.style={
+		edge from parent fork down,
+		level distance = 10em,		
+		edge from parent/.style={draw, shorten <= 5ex, shorten >=3ex},
+		level 1/.style = {node distance=25em, sibling distance = 30em},
+		level 2/.style = {node distance=30em, sibling distance = 20em},
+		level 3/.style = {node distance=40em, sibling distance = 10em}
+	}
+}
+
 \begin{document}
-	\begin{tikzpicture}[
-		sibling distance = 10em,
-		node distance = 20em,
-		level distance = 10em,
-		edge from parent/.style={draw, shorten <=5ex, shorten >=3ex}
-	]
+	\begin{tikzpicture}[decompstyle]
 		\memodecomproot{decompprocess}{d1}{0}{0}{Auftragsbearbeitung}
 			[edge from parent fork down]
-			child { \memodecompchild{decompprocess}{}{}{Angebotsbearbeitung} }
-			child { \memodecompchild{decompprocess}{}{}{Angebotsverfolgung} }
-			child { \memodecompchild{decompprocess}{}{}{Auftragserfassung} };
-		
+			child { \memodecompchild{decompprocess}{}{}{Angebotsbearbeitung} 
+				child{ \memodecompchild{decompprocess}{}{}{Angebotserfassung} 
+					child{ \memodecompchild{decompprocess}{}{}{Anlage Angebot in SAP} }
+					child{ \memodecompchild{decompprocess}{}{}{Upload der Dokumente} } 	
+				}
+				child{ \memodecompchild{decompprocess}{}{}{Angebotsversand} }
+			}
+			child { \memodecompchild{decompprocess}{}{}{Angebotsverfolgung} 
+				child{ \memodecompchild{decompprocess}{}{}{Erfassung Tracking-ID} }
+				child{ \memodecompchild{decompprocess}{}{}{Test} }
+			}
+			child { \memodecompchild{decompprocess}{}{}{Auftragserfassung} };		
 	\end{tikzpicture}
 \end{document}
