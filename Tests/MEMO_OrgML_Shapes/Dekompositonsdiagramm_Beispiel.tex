@@ -7,28 +7,20 @@
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \usepackage{tikz}
 
-%~~ Laden des Paketes für die Darstellung der MEMO-OrgML Diagramme
-\usepackage{Library/memoorgml}
-
-\newcommand{\memotext}[2]{
-    \node[memotext] at (#1.south) {#2}
-}
-
-\newcommand{\memochild}[4]{
-    node[decompprocess, shape=decompprocess,label=south:#4] (#1) at (#2,#3) {}
-    %\memotext{#1}{#4}
-}
+\usetikzlibrary{memoorgml}
 
 \begin{document}
-\begin{tikzpicture}
-    \node[decompprocess, shape=decompprocess] (root) at (0,0) {}
-        [edge from parent fork down]
-%          child {\memonode{decompprocess}{left}{-2}{-0.5}{Angebotsbearbeitung}}
-         child {\memochild{left}{-2}{-0.5}{Test}}
-        %\memochild{left}{-2}{-0.5}{}
-        child {node[decompprocess, shape=decompprocess] (center) at (0, -0.5) {}}
-        child {\memochild{p1}{2}{-0.5}{Label}
-            child {\memochild{px}{-3}{-1}{Subsubprocess}}
-        };    
-\end{tikzpicture}
+	\begin{tikzpicture}[
+		sibling distance = 10em,
+		node distance = 20em,
+		level distance = 10em,
+		edge from parent/.style={draw, shorten <=5ex, shorten >=3ex}
+	]
+		\memodecomproot{decompprocess}{d1}{0}{0}{Auftragsbearbeitung}
+			[edge from parent fork down]
+			child { \memodecompchild{decompprocess}{}{}{Angebotsbearbeitung} }
+			child { \memodecompchild{decompprocess}{}{}{Angebotsverfolgung} }
+			child { \memodecompchild{decompprocess}{}{}{Auftragserfassung} };
+		
+	\end{tikzpicture}
 \end{document}
