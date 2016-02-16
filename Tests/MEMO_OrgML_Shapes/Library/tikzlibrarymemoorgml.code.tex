@@ -27,6 +27,7 @@
 \usetikzlibrary{calc}
 \usetikzlibrary{trees}
 
+\makeatletter
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~ TeX-Macros
@@ -80,25 +81,29 @@
 %            #2: Rechtes Notationssymbol
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \def\memoconn#1#2{
-    \draw[memoline] (#1) -- (#2);
+    \draw[memoline] (#1.east) -- (#2.west);
 }
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 % Macroname: memoconnpara
 % Funktion:  Erzeugen einer parallelen Ausführung von Prozessen
 % Parameter: #1: Ausgangsereignis
-%            #2: Erster Prozess
-%            #3: Zweiter Prozess
+%            #2: Prozess n
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\def\memoconnpara#1#2#3{
-    %~~ Der Node für die Darstellung des Verbindungssymbols wird automatisch
-    %~~ erzeugt. Die Positons des Nodes wird abhängig vom Vorgängersymbol
-    %~~ errechnet.
-    \node[paraconn, shape=paraconn] (#1_para) at ($(#1) + (1,0)$) {};
+\def\memoconnpara#1#2{
+    %~~ Prüfen ob der Knoten für das Verbindungsstück schon erzeugt wurde
+    \@ifundefined{pgf@sh@ns@#1_para}{
+        %~~ Der Node für die Darstellung des Verbindungssymbols wird automatisch
+        %~~ erzeugt. Die Positons des Nodes wird abhängig vom Vorgängersymbol
+        %~~ errechnet.
+        \node[paraconn, shape=paraconn] (#1_para) at ($(#1) + (1,0)$) {};       
+    }{
+        %~~ Der Node für das Verbindungsymbol wird nur einmal pro 
+        %~~ Event erzeugt.
+    }
         
     \draw[memoline] (#1) -- (#1_para);
-    \draw[memoline] (#1_para) |- (#2);
-    \draw[memoline] (#1_para) |- (#3);
+    \draw[memoline] (#1_para) |- (#2.west);    
 }
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -143,5 +148,6 @@
 	node[shape=#1, #1] [label={[memotext]below:#3\\#4}] [label={[memotext]above:#2}] {}
 }
 
+\makeatother
 %~~ Ende des Erweiterungspaketes
 \endinput
