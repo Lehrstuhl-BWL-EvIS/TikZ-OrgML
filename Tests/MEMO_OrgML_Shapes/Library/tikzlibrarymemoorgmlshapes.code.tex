@@ -27,16 +27,28 @@
 \definecolor{event}{RGB}{198,212,220}
 \definecolor{startevent}{RGB}{162,180,0}
 \definecolor{endevent}{RGB}{200,0,52}
+\definecolor{iterationstart}{RGB}{153,193,66}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~ TikZ-Styles
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%~~ ######################################
+%~~ ALLGEMEIN
+%~~ ######################################
+%~~ Allgemeine Einstellungen, die für alle Shapes gelten
+\tikzset{
+    common/.style={
+        line cap=round
+    }    
+}
+
 %~~ ######################################
 %~~ EREIGNISSE
 %~~ ######################################
 
 \tikzset{
     event/.style={
+        common,
         draw,
         inner sep=3ex,
         color=event
@@ -75,10 +87,9 @@
 
 \tikzset{
     unspecprocess/.style={
+        common,
         draw,
-        inner sep=0ex,
-        minimum width=1.8em,
-        minimum height=1.3em,
+        inner sep=2.5ex,       
         text width=4em        
     }
 }
@@ -95,6 +106,7 @@
 
 \tikzset{
     sync/.style={
+        common,
         draw,
         inner sep=2.5ex,        
     }
@@ -129,6 +141,7 @@
 %~~ ######################################
 \tikzset{
     memoline/.style={
+        common,
         line width=0.75pt  
     }
 }
@@ -138,8 +151,25 @@
 %~~ ######################################
 
 \tikzset{
-    paraconn/.style={}
+    paraconn/.style={
+        common
+    }
 }
+
+%~~ ######################################
+%~~ ITERATIONSSTART
+%~~ ######################################
+\tikzset{
+    iterationstart/.style={
+        draw,
+        common,
+        inner sep=0ex,
+        color=iterationstart,
+        minimum height=2.3ex,
+        minimum width=1.5ex        
+    }
+}
+
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~ Definition der MEMO OrgML-Shapes
@@ -651,6 +681,68 @@
     	\pgfpathclose  	    			
  	}
 }
+
+%~~ ######################################
+%~~ ITERATIONEN
+%~~ ######################################
+%~~ Verbindungsstück für die parallele Prozessausführung
+\pgfdeclareshape{iterationstart}{
+    %~~ Die Anchor werden aus dem Basisshape für Events
+    %~~ geerbt
+    \inheritsavedanchors[from=rectangle]            
+    \inheritanchorborder[from=rectangle] 
+    \inheritanchor[from=rectangle]{center} 
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{south} 
+    \inheritanchor[from=rectangle]{west} 
+    \inheritanchor[from=rectangle]{east}
+
+    
+    
+    %~~ Hintergrundpfad des Iterationsstartsymbols
+    \backgroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporären PGF Registern xa,ya und xb und yb
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+                
+                                    
+        %~~ Erzeugen des grünen Quadrats
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@yb*0.5}}   
+        \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@ya*0.5}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya*0.5}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb*0.5}}
+        \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb*0.5}}        
+                                
+        %~~ Setzen der Farbe
+        \pgfusepath{stroke,fill}    
+                
+        %~~ Abschluss des Pfades        
+        \pgfpathclose       
+    } 
+    
+    %~~ Pfad des weißen Pfeils
+    \beforebackgroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporären PGF Registern xa,ya und xb und yb
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        
+        \definecolor{iterationarrow}{RGB}{255,255,255}
+        \pgfsetcolor{iterationarrow}
+        
+        \pgfpathmoveto{\pgfpoint{\pgf@xa*0.4}{\pgf@yb*0.35}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb*0.6}{\pgf@ya*0}}
+        \pgfpathlineto{\pgfpoint{\pgf@xa*0.4}{\pgf@ya*0.35}}
+        \pgfpathlineto{\pgfpoint{\pgf@xa*0.4}{\pgf@yb*0.35}}
+        
+        \pgfusepath{stroke,fill}
+        
+        \pgfpathclose
+    }   
+}
+
+
 \makeatother
 
 %~~ Ende des Erweiterungspaketes

@@ -15,6 +15,8 @@
 %~~ Implementierung der Macros zur Erstellung der Kontrollfluss- und De-
 %~~ kompositionsdiagramme
 %~~
+%~~ Fabian Schneider
+%~~
 %~~ ##########################################################################
 %~~ Implementierung der Macros
 %~~ ##########################################################################
@@ -57,21 +59,42 @@
 %~~ ######################################
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-% Macroname: memonode
-% Funktion:  Erzeugen eines MEMO OrgML Notationssymbols mit dem passenden
+% Macroname: memoprocess
+% Funktion:  Erzeugen eines MEMO OrgML Prozesses mit dem passenden
 %            Shape, an der definierten Stelle mit dem definierten Text
 % Parameter: #1: Name des zu verwendenden Shapes
 %            #2: Name des Nodes der erzeugt wird
 %            #3: x-Position
 %            #4: y-Position
-%            #5: Beschreibung des Ereignisses/Prozesses
+%            #5: <OrgUnit>
+%            #6: -ID-
+%            #7: Bezeichnung für Prozesstyp/Ereignistyp
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\def\memonode#1#2#3#4#5{
+\def\memoprocess#1#2#3#4#5#6#7{
     %~~ Erzeugen des Nodes der das Notationssymbol darstellt.
     %~~ Die Verwendung des richtigen Styles wird durch die Namensgleichheit
     %~~ des Styles und des Shapes erreicht.
     %~~ Die Beschriftung des Notationssymbols erfolgt durch ein Label.
-    \node[#1, shape=#1] (#2) at (#3,#4) [label={[memotext]below:#5}] {};       
+    \node[#1process, shape=#1process] (#2) at (#3, #4) [label={[memotext]above:#5}] [label={[memotext]below:#6\\#7}] {};       
+}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% Macroname: memoevent
+% Funktion:  Erzeugen eines MEMO OrgML Events mit dem passenden
+%            Shape, an der definierten Stelle mit dem definierten Text
+% Parameter: #1: Name des zu verwendenden Shapes
+%            #2: Name des Nodes der erzeugt wird
+%            #3: x-Position
+%            #4: y-Position
+%            #5: -ID-
+%            #6: Bezeichnung für Prozesstyp/Ereignistyp
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\def\memoevent#1#2#3#4#5#6{
+    %~~ Erzeugen des Nodes der das Notationssymbol darstellt.
+    %~~ Die Verwendung des richtigen Styles wird durch die Namensgleichheit
+    %~~ des Styles und des Shapes erreicht.
+    %~~ Die Beschriftung des Notationssymbols erfolgt durch ein Label.
+    \node[#1event, shape=#1event] (#2) at (#3, #4) [label={[memotext]below:#5\\#6}] {};       
 }
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -120,7 +143,7 @@
 
 
 %~~ ######################################
-%~~ DECOMPOSITIONSDIAGRAMM
+%~~ DEKOMPOSITIONSDIAGRAMM
 %~~ ######################################
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
