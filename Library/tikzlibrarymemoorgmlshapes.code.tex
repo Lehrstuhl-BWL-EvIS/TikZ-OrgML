@@ -14,7 +14,7 @@
 %~~
 %~~ Implementierung der MEMO OrgML Notationssymbole als Shapes für TikZ-Nodes
 %~~ 
-%~~ Fabian Schneider
+%~~ Fabian Schneider (fabian.schneider@studium.fernuni-hagen.de)
 %~~
 %~~ ##########################################################################
 %~~ Implementierung der Shapes und Styles
@@ -28,6 +28,8 @@
 \definecolor{startevent}{RGB}{162,180,0}
 \definecolor{endevent}{RGB}{200,0,52}
 \definecolor{iterationstart}{RGB}{153,193,66}
+\definecolor{timesborder}{RGB}{198,212,220}
+\definecolor{until}{RGB}{200,0,52}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~ TikZ-Styles
@@ -70,13 +72,13 @@
 }
 
 \tikzset{
-    msgevent/.style={
+    messageevent/.style={
         event
     }
 }
 
 \tikzset{
-    chgevent/.style={
+    informationchangeevent/.style={
         event
     }
 }
@@ -86,7 +88,7 @@
 %~~ ######################################
 
 \tikzset{
-    unspecprocess/.style={
+    unspecifiedprocess/.style={
         common,
         draw,
         inner sep=2.5ex,       
@@ -95,8 +97,8 @@
 }
 
 \tikzset{
-    decompprocess/.style={
-        unspecprocess
+    decompositionprocess/.style={
+        unspecifiedprocess
     }
 }
 
@@ -165,8 +167,8 @@
         common,
         inner sep=0ex,
         color=iterationstart,
-        minimum height=2.3ex,
-        minimum width=1.5ex        
+        minimum height=3ex,
+        minimum width=3ex        
     }
 }
 
@@ -282,7 +284,7 @@
 }
 
 %~~ Nachricht eingegangen
-\pgfdeclareshape{msgevent}{
+\pgfdeclareshape{messageevent}{
     %~~ Die Anchor werden aus dem Basisshape für Events
     %~~ geerbt
 	\inheritsavedanchors[from=event]  	        
@@ -343,7 +345,7 @@
 }
 
 %~~ Relevante Änderung des Informationszustandes
-\pgfdeclareshape{chgevent}{
+\pgfdeclareshape{informationchangeevent}{
     %~~ Die Anchor werden aus dem Basisshape für Events
     %~~ geerbt
 	\inheritsavedanchors[from=event]  	        
@@ -410,7 +412,7 @@
 %~~ ######################################
 
 %~~ Unspezifizierter Prozess
-\pgfdeclareshape{unspecprocess}{
+\pgfdeclareshape{unspecifiedprocess}{
     %~~ Übernahme der Anchors aus dem
     %~~ Rechteck
 	\inheritsavedanchors[from=rectangle]  	        
@@ -450,19 +452,19 @@
 }
 
 %~~ Dekomponierbarer Prozess
-\pgfdeclareshape{decompprocess}{
+\pgfdeclareshape{decompositionprocess}{
     %~~ Übernahme der Anchors aus dem
     %~~ Rechteck
-	\inheritsavedanchors[from=unspecprocess]  	        
-	\inheritanchorborder[from=unspecprocess] 
-	\inheritanchor[from=unspecprocess]{center} 
-	\inheritanchor[from=unspecprocess]{north}
- 	\inheritanchor[from=unspecprocess]{south} 
-	\inheritanchor[from=unspecprocess]{west} 
-	\inheritanchor[from=unspecprocess]{east}
+	\inheritsavedanchors[from=unspecifiedprocess]  	        
+	\inheritanchorborder[from=unspecifiedprocess] 
+	\inheritanchor[from=unspecifiedprocess]{center} 
+	\inheritanchor[from=unspecifiedprocess]{north}
+ 	\inheritanchor[from=unspecifiedprocess]{south} 
+	\inheritanchor[from=unspecifiedprocess]{west} 
+	\inheritanchor[from=unspecifiedprocess]{east}
             
 	%~~ Hintergrundpfad des unspezifizierten Prozesses erben
-	\inheritbackgroundpath[from=unspecprocess]
+	\inheritbackgroundpath[from=unspecifiedprocess]
 
     %~~ Erzeugen der Dekompositionshierarchie innerhalb des Prozesses
     \beforebackgroundpath{
@@ -708,11 +710,11 @@
                 
                                     
         %~~ Erzeugen des grünen Quadrats
-        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@yb*0.5}}   
-        \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@ya*0.5}}
-        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya*0.5}}
-        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb*0.5}}
-        \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb*0.5}}        
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@yb}}   
+        \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+        \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}        
                                 
         %~~ Setzen der Farbe
         \pgfusepath{stroke,fill}    
@@ -731,10 +733,10 @@
         \definecolor{iterationarrow}{RGB}{255,255,255}
         \pgfsetcolor{iterationarrow}
         
-        \pgfpathmoveto{\pgfpoint{\pgf@xa*0.4}{\pgf@yb*0.35}}
+        \pgfpathmoveto{\pgfpoint{\pgf@xa*0.4}{\pgf@yb*0.55}}
         \pgfpathlineto{\pgfpoint{\pgf@xb*0.6}{\pgf@ya*0}}
-        \pgfpathlineto{\pgfpoint{\pgf@xa*0.4}{\pgf@ya*0.35}}
-        \pgfpathlineto{\pgfpoint{\pgf@xa*0.4}{\pgf@yb*0.35}}
+        \pgfpathlineto{\pgfpoint{\pgf@xa*0.4}{\pgf@ya*0.55}}
+        \pgfpathlineto{\pgfpoint{\pgf@xa*0.4}{\pgf@yb*0.55}}
         
         \pgfusepath{stroke,fill}
         
@@ -742,6 +744,92 @@
     }   
 }
 
+%~~ Generisches Notationssymbol für die Darstellung einer Iteration
+%~~ (Verschlungene Pfeile
+\pgfdeclareshape{iteration}{
+    %~~ Übernahme der Anchors aus dem
+    %~~ Rechteck
+    \inheritsavedanchors[from=rectangle]            
+    \inheritanchorborder[from=rectangle] 
+    \inheritanchor[from=rectangle]{center} 
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{south} 
+    \inheritanchor[from=rectangle]{west} 
+    \inheritanchor[from=rectangle]{east}
+            
+    %~~ Hintergrundpfad des Basisprozesses
+    \backgroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporären PGF Registern xa,ya und xb und yb
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+            
+        %~~ Mittlere Linie des Shapes       
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@yb*0}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb*0}}
+        \pgfusepath{stroke}
+        \pgfpathclose
+        
+        %~~ Kreis
+        \begin{pgfscope}
+            \pgfpathmoveto{\pgfpoint{6}{\pgf@yb*0.82}}
+            \pgfsetlinewidth{4pt}
+            \pgfsetinnerlinewidth{2.7pt}
+            \pgfarc{0}{360}{1.5ex}
+            \pgfusepath{stroke}
+            %~~ Abschluss des Pfades
+            \pgfpathclose
+        \end{pgfscope}
+        
+        %~~ Linker Pfeil
+        \begin{pgfscope}
+            \pgfsetroundcap
+            \pgfsetlinewidth{0.6pt}
+            \color{white}   
+            \pgfsetstrokecolor{black}
+            \pgfpathmoveto{\pgfpoint{-10}{6}}
+            \pgflineto{\pgfpoint{-4}{9}}    
+            \pgflineto{\pgfpoint{-5}{4}}
+            \pgflineto{\pgfpoint{-10}{6}}
+            
+            \pgfusepath{fill, stroke}
+            \pgfpathclose
+        \end{pgfscope}
+        
+        \begin{pgfscope}
+            \color{white}
+            \pgfsetlinewidth{1.1pt}
+            \pgfpathmoveto{\pgfpoint{-7.9}{7}}
+            \pgflineto{\pgfpoint{-5.4}{8.1}}    
+            \pgfusepath{stroke}
+            \pgfpathclose
+        \end{pgfscope}
+        
+        %~~ Rechter Pfeil
+        \begin{pgfscope}
+            \pgfsetroundcap
+            \pgfsetlinewidth{0.6pt}
+            \color{white}   
+            \pgfsetstrokecolor{black}
+            \pgfpathmoveto{\pgfpoint{3}{9}}
+            \pgflineto{\pgfpoint{8}{13}}    
+            \pgflineto{\pgfpoint{3}{14.5}}
+            \pgflineto{\pgfpoint{3}{9}}
+            
+            \pgfusepath{fill, stroke}
+            \pgfpathclose
+        \end{pgfscope}
+        
+        \begin{pgfscope}
+            \color{white}
+            \pgfsetlinewidth{1.1pt}
+            \pgfpathmoveto{\pgfpoint{4.5}{10}}
+            \pgflineto{\pgfpoint{6.5}{12}}  
+            \pgfusepath{stroke}
+            \pgfpathclose
+        \end{pgfscope}                              
+    }
+ }
 
 \makeatother
 

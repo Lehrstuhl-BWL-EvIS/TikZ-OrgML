@@ -15,35 +15,35 @@
 	%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     
 	%~~ Erzeugen und platzieren der Nodes          
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     
-    \memonode{startevent}{s}{0}{0}{Anfrage \\ genehmig};
+    \memoevent{start}{s}{0}{0}{}{Anfrage \\ genehmig};
         
     
     %~~ Logikstikkosten berechnen
-    \memonode{unspecprocess}{l1}{3}{4}{Logistikkosten berechnen};
-    \memonode{chgevent}{l2}{6}{4}{Logistikkosten \\ berechnet};
+    \memoprocess{unspecified}{l1}{3}{4}{}{}{Logistikkosten berechnen};
+    \memoevent{informationchange}{l2}{6}{4}{}{Logistikkosten \\ berechnet};
      
     
-    \memonode{unspecprocess}{l3}{10}{6}{Logistikkosten bewerten};
-    \memonode{chgevent}{l4}{13}{6}{Logistikkosten \\ bewertet};
+    \memoprocess{unspecified}{l3}{10}{6}{}{}{Logistikkosten bewerten};
+    \memoevent{informationchange}{l4}{13}{6}{}{Logistikkosten \\ bewertet};
     
-    \memonode{unspecprocess}{l5}{10}{2}{Lohnkosten berechnen};
-    \memonode{chgevent}{l6}{13}{2}{Lohnkosten \\ berechnet};
+    \memoprocess{unspecified}{l5}{10}{2}{}{}{Lohnkosten berechnen};
+    \memoevent{informationchange}{l6}{13}{2}{}{Lohnkosten \\ berechnet};
     
     %~~ Logistikkosten berechnen und Lohnkosten berechnen 
     %~~ synchronisieren
-    \memonode{andsync}{s1}{15}{4}{};
+    \memosync{and}{s1}{15}{4};
     
     %~~ Materialkosten berechnen
-    \memonode{unspecprocess}{m1}{3}{-4}{Materialkosten berechnen};
-    \memonode{chgevent}{m2}{6}{-4}{Materialkosten \\ berechnet};
-    \memonode{unspecprocess}{m3}{10}{-4}{Lohnkosten bewerten};
-    \memonode{chgevent}{m4}{13}{-4}{Materialkosten \\ bewertet};
+    \memoprocess{unspecified}{m1}{3}{-4}{}{}{Materialkosten berechnen};
+    \memoevent{informationchange}{m2}{6}{-4}{}{Materialkosten \\ berechnet};
+    \memoprocess{unspecified}{m3}{10}{-4}{}{}{Lohnkosten bewerten};
+    \memoevent{informationchange}{m4}{13}{-4}{}{Materialkosten \\ bewertet};
     
     %~~ Synchronisation der Berechnung der Logistikkostenberechnung und
     %~~ der Materialkostenberechnung      
-    \memonode{andsync}{s2}{17}{0}{};
-    \memonode{unspecprocess}{b1}{20}{0}{Bestellung \\ zusammenstellen};
-    \memonode{endevent}{e}{23}{0}{Bestellung \\ zusammengestellt};
+    \memosync{and}{s2}{17}{0};
+    \memoprocess{unspecified}{b1}{20}{0}{}{}{Bestellung \\ zusammenstellen};
+    \memoevent{end}{e}{23}{0}{}{Bestellung \\ zusammengestellt};
     
     
     
@@ -58,13 +58,15 @@
     \memoconnpara{l2}{l5};
     \memoconn{l3}{l4};
     \memoconn{l5}{l6}
-    \memoconnsync{l4}{l6}{s1};
+    \memoconnsync{l4}{s1};
+    \memoconnsync{l6}{s1};
     
     \memoconn{m1}{m2};
     \memoconn{m2}{m3};
     \memoconn{m3}{m4};    
 
-    \memoconnsync{s1}{m4}{s2};
+    \memoconnsync{s1}{s2};
+    \memoconnsync{m4}{s2};
     \memoconn{s2}{b1};
     \memoconn{b1}{e};
     
