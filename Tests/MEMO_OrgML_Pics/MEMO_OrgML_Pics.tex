@@ -19,9 +19,9 @@
 \tikzset{
 	startevent/.pic={
 		\path[draw=startgreen!100] 
-			(0,1.5) -- (2,1.5) 
-			node [above,text=startgreen!100,node font=\sf\tiny] (start) at (1.5,1.5){START} -- 
-			(1,0) -- (0,1.5);		
+			(0,1.5) -- (1.5,1.5) 
+			node [above,text=startgreen!100,node font=\sf\tiny] (start) at (1.2,1.5){START} -- 
+			(0.75,0) -- (0,1.5);		
 	}
 }
 
@@ -48,14 +48,14 @@
 
 \begin{document}
 	\begin{tikzpicture}[]
-    	\pic (s) at (0,0) {startevent};  
+    	\pic (s) at (0,0) {startevent};
     	\pic (p) at (4,0.25) {unspecprocess};
     	\pic (e) at (8,0) {endevent};
     	
-    	\path[draw] (s) -- (p);
+    	%\path[draw] (s) -- (p);
     	
     	%\draw (2,0.75) -- (4,0.75);
-    	%\memoline{s}{p};
+    	\memoline{s}{p};
     	%\draw (6.5,0.75) -- (8,0.75);
 	\end{tikzpicture}
 \end{document}

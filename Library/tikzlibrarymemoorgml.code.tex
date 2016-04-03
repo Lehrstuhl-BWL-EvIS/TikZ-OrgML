@@ -128,8 +128,8 @@
         %~~ Event erzeugt.
     }
         
-    \draw[memoline] (#1) -- (#1_para);
-    \draw[memoline] (#1_para) |- (#2.west);    
+    \draw[memoline] (#1.east) -- (#1_para.west);
+    \draw[memoline] (#1_para.east) |- (#2.west);    
 }
 
 
@@ -153,10 +153,11 @@
 % Macroname: memoconnsync
 % Funktion:  Synchronisation der parallel ausgeführten Prozesse
 % Parameter: #1: Erster Prozess
-%            #2: Verknüpfungsoperation
+%            #2: Verknüpfungsoperation (Symbol)
+%            #3: Anchor (north, west, south, east)
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\def\memoconnsync#1#2{
-    \draw[memoline] (#1) -| (#2);
+\def\memoconnsync#1#2#3{
+    \draw[memoline] (#1) -| (#2.#3);
 }
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

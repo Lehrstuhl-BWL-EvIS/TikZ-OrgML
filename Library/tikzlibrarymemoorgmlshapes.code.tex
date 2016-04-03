@@ -83,6 +83,30 @@
     }
 }
 
+\tikzset{
+    newevent/.style={
+        event
+    }
+}
+
+\tikzset{
+    modifiedevent/.style={
+        event
+    }
+}
+
+\tikzset{
+    canceledevent/.style={
+        event
+    }
+}
+
+\tikzset{
+    loadedevent/.style={
+        event
+    }
+}
+
 %~~ ######################################
 %~~ PROZESSE
 %~~ ######################################
@@ -406,6 +430,324 @@
 	}
 }
 
+%~~ Änderung - NEU
+\pgfdeclareshape{newevent}{
+    %~~ Die Anchor werden aus dem Basisshape für Events
+    %~~ geerbt
+    \inheritsavedanchors[from=informationchangeevent]            
+    \inheritanchorborder[from=informationchangeevent] 
+    \inheritanchor[from=informationchangeevent]{center} 
+    \inheritanchor[from=informationchangeevent]{north}
+    \inheritanchor[from=informationchangeevent]{south} 
+    \inheritanchor[from=informationchangeevent]{west} 
+    \inheritanchor[from=informationchangeevent]{east}
+    
+    
+    %~~ Erben des Hintergrundpfades aus dem Basisshape
+    %~~ für Events
+    \inheritbackgroundpath[from=event]
+
+    %~~ Erben des Vor-Hintergrundpfades aus dem
+    %~~ Event der Änderungen des Informationszustandes
+    \inheritbeforebackgroundpath[from=informationchangeevent]
+    
+    %~~ Erzeugen des Pluszeichens
+    \beforeforegroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporären PGF Registern xa,ya und xb und yb
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+              
+        %~~ Farbe für das Pluszeichen
+        \definecolor{plus}{RGB}{102,158,44}        
+               
+        %~~ Erzeugen des Kreises
+        \begin{pgfscope}
+            \pgfsetcolor{plus}
+            \pgfsetfillcolor{white}
+            \pgfsetlinewidth{0.75pt}
+            \pgfpathcircle{\pgfpoint{\pgf@xb*0.6}{\pgf@yb*0.65}}{3pt}
+            \pgfusepath{fill,stroke}
+        \end{pgfscope}
+        
+        %~~ Erzeugen des Plussymbols
+        \begin{pgfscope}
+            \pgfsetcolor{plus}            
+            \pgfsetlinewidth{0.65pt}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.6}{\pgf@yb*0.8}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.6}{\pgf@yb*0.5}}            
+            \pgfusepath{stroke}    
+        \end{pgfscope}
+        
+        \begin{pgfscope}
+            \pgfsetcolor{plus}
+            \pgfsetlinewidth{0.65pt}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.45}{\pgf@yb*0.65}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.75}{\pgf@yb*0.65}}
+            \pgfusepath{stroke}    
+        \end{pgfscope}
+                        
+        \pgfpathclose
+    }
+}
+
+
+%~~ Änderung - Modifiziert
+\pgfdeclareshape{modifiedevent}{
+    %~~ Die Anchor werden aus dem Basisshape für Events
+    %~~ geerbt
+    \inheritsavedanchors[from=informationchangeevent]            
+    \inheritanchorborder[from=informationchangeevent] 
+    \inheritanchor[from=informationchangeevent]{center} 
+    \inheritanchor[from=informationchangeevent]{north}
+    \inheritanchor[from=informationchangeevent]{south} 
+    \inheritanchor[from=informationchangeevent]{west} 
+    \inheritanchor[from=informationchangeevent]{east}
+    
+    
+    %~~ Erben des Hintergrundpfades aus dem Basisshape
+    %~~ für Events
+    \inheritbackgroundpath[from=event]
+
+    %~~ Erben des Vor-Hintergrundpfades aus dem
+    %~~ Event der Änderungen des Informationszustandes
+    \inheritbeforebackgroundpath[from=informationchangeevent]
+    
+    %~~ Erzeugen des Stiftes 
+    \beforeforegroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporären PGF Registern xa,ya und xb und yb
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y    
+
+        \definecolor{pencil}{RGB}{0,143,204}    
+                 
+        %~~ Erzeugen der weißen Umrandung
+        \begin{pgfscope}
+            \pgfsetlinewidth{2.2pt}
+            \pgfsetstrokecolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.25}{\pgf@yb*0.25}}         
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.95}{\pgf@yb*1.1}}                   
+                   
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*1.1}{\pgf@yb*0.97}}                
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.4}{\pgf@yb*0.16}}                     
+            
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.94}{\pgf@yb*1.09}}             
+            \pgfpathquadraticcurveto{\pgfpoint{\pgf@xb*1.1}{\pgf@yb*1.31}}{\pgfpoint{\pgf@xb*1.095}{\pgf@yb*0.96}}
+           
+            \pgfusepath{stroke}
+        \end{pgfscope}        
+        
+        %~~ Erzeugen des inneren Teils des Stifts mit der Hintergrundfarbe
+        \begin{pgfscope}
+            \pgfsetlinewidth{0.3pt}
+            \pgfsetstrokecolor{pencil}
+            \pgfsetfillcolor{pencil}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.25}{\pgf@yb*0.25}}         
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.95}{\pgf@yb*1.1}}
+        
+            %~~ Abschluss            
+            \pgfpathlineto{\pgfpoint{\pgf@xb*1.1}{\pgf@yb*0.97}}    
+                   
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*1.1}{\pgf@yb*0.97}}                
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.4}{\pgf@yb*0.16}}             
+            
+            %~~ Abschluss
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.25}{\pgf@yb*0.25}}
+            
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.94}{\pgf@yb*1.09}}             
+            \pgfpathquadraticcurveto{\pgfpoint{\pgf@xb*1.1}{\pgf@yb*1.31}}{\pgfpoint{\pgf@xb*1.095}{\pgf@yb*0.96}}
+           
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+        
+        %~~ Erzeugen der Umrandung des Stifts
+        \begin{pgfscope}
+            \pgfsetlinewidth{0.5pt}
+            \pgfsetstrokecolor{black}      
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.25}{\pgf@yb*0.25}}         
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.95}{\pgf@yb*1.1}}
+                           
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*1.1}{\pgf@yb*0.97}}                
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.4}{\pgf@yb*0.16}}                       
+            
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.94}{\pgf@yb*1.09}}             
+            \pgfpathquadraticcurveto{\pgfpoint{\pgf@xb*1.1}{\pgf@yb*1.31}}{\pgfpoint{\pgf@xb*1.095}{\pgf@yb*0.96}}
+           
+            \pgfusepath{stroke}
+        \end{pgfscope}        
+        
+        %~~ Erzeugen der weißen Umrandung des Stiftes
+        \begin{pgfscope}
+            \pgfsetlinewidth{1.5pt}
+            \pgfsetstrokecolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.22}{\pgf@yb*0.25}}  
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.15}{\pgf@ya*0.02}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.39}{\pgf@yb*0.14}}
+            \pgfusepath{stroke}    
+        \end{pgfscope}
+        
+        %~~ Erzeugen der Spitze des Stifts
+        \begin{pgfscope}
+            \pgfsetlinewidth{0.5pt}
+            \pgfsetfillcolor{white}
+            \pgfsetstrokecolor{black}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.25}{\pgf@yb*0.25}}  
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.15}{\pgf@ya*0.02}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.4}{\pgf@yb*0.16}}
+            \pgfusepath{stroke, fill}    
+        \end{pgfscope}
+              
+        %~~ Erzeugen des Stifthalters
+        \begin{pgfscope}
+            \pgfsetlinewidth{0.4pt}
+            \pgfsetstrokecolor{black}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.55}{\pgf@yb*0.7}}  
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.85}{\pgf@yb*1.07}} 
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        %~~ Trenner für die Spitze des Stifes einfügen
+        \begin{pgfscope}
+            \pgfsetstrokecolor{white}
+            \pgfpathmoveto{\pgfpoint{1.8}{0.4}}
+            \pgfarc{190}{280}{0.2ex}
+            \pgfusepath{stroke}    
+        \end{pgfscope}
+
+                        
+        \pgfpathclose
+    }
+}
+
+
+%~~ Änderung - Abgebrochen
+\pgfdeclareshape{canceledevent}{
+   %~~ Die Anchor werden aus dem Basisshape für Events
+    %~~ geerbt
+    \inheritsavedanchors[from=informationchangeevent]            
+    \inheritanchorborder[from=informationchangeevent] 
+    \inheritanchor[from=informationchangeevent]{center} 
+    \inheritanchor[from=informationchangeevent]{north}
+    \inheritanchor[from=informationchangeevent]{south} 
+    \inheritanchor[from=informationchangeevent]{west} 
+    \inheritanchor[from=informationchangeevent]{east}
+    
+    
+    %~~ Erben des Hintergrundpfades aus dem Basisshape
+    %~~ für Events
+    \inheritbackgroundpath[from=event]
+
+    %~~ Erben des Vor-Hintergrundpfades aus dem
+    %~~ Event der Änderungen des Informationszustandes
+    \inheritbeforebackgroundpath[from=informationchangeevent]
+    
+    %~~ Erzeugen des Aktensymbols 
+    \beforeforegroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporären PGF Registern xa,ya und xb und yb
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+                       
+        %~~ Farbe für das Pluszeichen
+        \definecolor{cross}{RGB}{223,11,37}                
+        
+        %~~ Erzeugen des Kreises
+        \begin{pgfscope}
+            \pgfsetcolor{cross}
+            \pgfsetfillcolor{white}
+            \pgfsetlinewidth{0.75pt}
+            \pgfpathcircle{\pgfpoint{\pgf@xb*0.6}{\pgf@yb*0.65}}{3pt}
+            \pgfusepath{fill,stroke}
+        \end{pgfscope}
+        
+        %~~ Erzeugen des Kreuzes
+        \begin{pgfscope}
+            \pgfsetcolor{cross}            
+            \pgfsetlinewidth{0.65pt}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.5}{\pgf@yb*0.75}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.7}{\pgf@yb*0.55}}            
+            \pgfusepath{stroke}    
+        \end{pgfscope}
+        
+        \begin{pgfscope}
+            \pgfsetcolor{cross}
+            \pgfsetlinewidth{0.65pt}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.5}{\pgf@yb*0.55}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.7}{\pgf@yb*0.75}}
+            \pgfusepath{stroke}    
+        \end{pgfscope}
+        
+        %~~ Erzeugen der Linien in der Aktentasche
+        \begin{pgfscope}
+            \pgfsetcolor{black}
+            \pgfsetlinewidth{0.25pt}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*-0.65}{\pgf@ya*-0.35}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.25}{\pgf@ya*-0.35}}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*-0.65}{\pgf@ya*-0.20}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.25}{\pgf@ya*-0.20}}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*-0.65}{\pgf@ya*-0.05}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.25}{\pgf@ya*-0.05}}
+            \pgfusepath{stroke}    
+        \end{pgfscope}
+
+                        
+        \pgfpathclose
+    }
+}
+
+
+%~~ Überladen
+\pgfdeclareshape{loadedevent}{
+    %~~ Die Anchor werden aus dem Basisshape für Events
+    %~~ geerbt
+    \inheritsavedanchors[from=informationchangeevent]            
+    \inheritanchorborder[from=informationchangeevent] 
+    \inheritanchor[from=informationchangeevent]{center} 
+    \inheritanchor[from=informationchangeevent]{north}
+    \inheritanchor[from=informationchangeevent]{south} 
+    \inheritanchor[from=informationchangeevent]{west} 
+    \inheritanchor[from=informationchangeevent]{east}
+    
+    
+    %~~ Erben des Hintergrundpfades aus dem Basisshape
+    %~~ für Events
+    \inheritbackgroundpath[from=event]
+
+    %~~ Erben des Vor-Hintergrundpfades aus dem
+    %~~ Event der Änderungen des Informationszustandes
+    \inheritbeforebackgroundpath[from=informationchangeevent]
+    
+    %~~ Erzeugen des Aktensymbols 
+    \beforeforegroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporären PGF Registern xa,ya und xb und yb
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y     
+
+        \definecolor{loaded}{RGB}{219,229,240}
+        \definecolor{line}{RGB}{17,66,81}          
+        
+        %~~ Erzeugen des "LOADED"-Schriftzuges unter dem Symbol
+        \begin{pgfscope}
+            \pgfsetcolor{line}
+            \pgfsetfillcolor{loaded}
+            
+            \pgfsetcornersarced{\pgfpoint{2pt}{2pt}}
+            \pgfpathrectangle{\pgfpoint{\pgf@xa*-0.5}{\pgf@ya*-2.6}}{\pgfpoint{\pgf@xa*2.25}{\pgf@yb*0.7}}
+            
+            \pgfusepath{fill,stroke}  
+        \end{pgfscope}
+        
+        %~~ "LOADED"-Schriftzug
+        \begin{pgfscope}
+            \pgfsetcolor{line}
+            \pgftext[center, x=\pgf@xa*0, y=\pgf@ya*1.45]{\textsf{\fontsize{6}{7}\selectfont LOADED}}      
+        \end{pgfscope}
+                
+        \pgfpathclose
+    }
+}
 
 %~~ ######################################
 %~~ PROZESSE
@@ -659,28 +1001,29 @@
 	\backgroundpath{
         %~~ Speichern der Werte der Anker in den 
         %~~ temporären PGF Registern xa,ya und xb und yb
-		\southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
-		\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
-				
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+                
         \pgfsetlinewidth{0.75pt}
-    	%~~ Erzeugen des Verbindungsstückes für die
-    	%~~ parallele Ausführung von Prozessen  
-    	\pgfpathmoveto{\pgfpoint{\pgf@xb*0}{\pgf@ya}}
-    	\pgfpathlineto{\pgfpoint{\pgf@xb*0}{\pgf@yb}}
-    	\pgfpathmoveto{\pgfpoint{\pgf@xb*0}{\pgf@yb*0}}
-    	\pgfpathlineto{\pgfpoint{\pgf@xb*-1}{\pgf@yb*0}}
-    	
-    	%~~ Erzeugen der doppelten Linien
-    	\pgfpathmoveto{\pgfpoint{\pgf@xb*-1.8}{\pgf@yb*0.4}}
-    	\pgflineto{\pgfpoint{\pgf@xb*-1.1}{\pgf@yb*0.4}}
-    	\pgfpathmoveto{\pgfpoint{\pgf@xb*-1.8}{\pgf@yb*-0.4}}
-    	\pgflineto{\pgfpoint{\pgf@xb*-1.1}{\pgf@yb*-0.4}}
-    	    		
-    	%~~ Erzeugen des Pfades und Setzen der Hintergrundfarbe
-    	\pgfusepath{stroke}
-    	
-    	%~~ Abschluss des Pfades
-    	\pgfpathclose  	    			
+        %~~ Erzeugen des Verbindungsstückes für die
+        %~~ parallele Ausführung von Prozessen  
+        \pgfpathmoveto{\pgfpoint{\pgf@xb*1}{\pgf@ya}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb*1}{\pgf@yb}}
+        
+        \pgfpathmoveto{\pgfpoint{\pgf@xb*1}{\pgf@yb*0}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb*-1}{\pgf@yb*0}}
+        
+        %~~ Erzeugen der doppelten Linien
+        \pgfpathmoveto{\pgfpoint{\pgf@xb*-0.8}{\pgf@yb*0.4}}
+        \pgflineto{\pgfpoint{\pgf@xb*-0.1}{\pgf@yb*0.4}}
+        \pgfpathmoveto{\pgfpoint{\pgf@xb*-0.8}{\pgf@yb*-0.4}}
+        \pgflineto{\pgfpoint{\pgf@xb*-0.1}{\pgf@yb*-0.4}}
+                    
+        %~~ Erzeugen des Pfades und Setzen der Hintergrundfarbe
+        \pgfusepath{stroke}
+        
+        %~~ Abschluss des Pfades
+        \pgfpathclose               	    			
  	}
 }
 
