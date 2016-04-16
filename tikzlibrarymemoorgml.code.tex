@@ -23,12 +23,14 @@
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-%~~ Verwendete TikZ-Libraries
+%~~ Verwendete PGF-/TikZ-Libraries
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\usetikzlibrary{memoorgmlshapes}
+\usepgflibrary{memoorgmlshapes}
+\usetikzlibrary{memoorgmlstyles}
 \usetikzlibrary{calc}
 \usetikzlibrary{trees}
 \usetikzlibrary{backgrounds}
+\usetikzlibrary{positioning}
 
 \makeatletter
 
@@ -96,6 +98,19 @@
     %~~ des Styles und des Shapes erreicht.
     %~~ Die Beschriftung des Notationssymbols erfolgt durch ein Label.
     \node[#1event, shape=#1event] (#2) at (#3, #4) [label={[memotext]below:#5\\#6}] {};       
+}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% Macroname: memoexception
+% Funktion:  Erzeugen einer MEMO OrgML Exception mit dem passenden
+%            Shape und an der definierten Stelle
+% Parameter: #1: Name des zu verwendenden Shapes
+%            #2: Name des Nodes der erzeugt wird
+%            #3: x-Position
+%            #4: y-Position
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\def\memoexception#1#2#3#4{
+    \node[#1exception, shape=#1exception] (#2) at (#3, #4) {};
 }
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -210,8 +225,6 @@
     \draw[very thick, color=blue, dashed, shorten <= 6pt] (#2_iterationend) -- ++(0,#3) -- ($(#1_iterationstart) + (0,#3)$);
     \draw[very thick, -latex, color=blue, dashed] ++($(#1_iterationstart) + (0,#3)$) -- (#1_iterationstart);
 }
-
-
 
 %~~ ######################################
 %~~ DEKOMPOSITIONSDIAGRAMM

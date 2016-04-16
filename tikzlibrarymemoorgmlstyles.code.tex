@@ -1,0 +1,201 @@
+\ProvidesFileRCS[v\pgfversion] $header: Code/Tests/MEMO_OrgML_Shapes/Library/tikzlibrarymemoorgmlshapes.code.tex,v 0.1 2015/12/05 18:30:00 F.Schneider Exp $
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%~~  __  __ ___ __  __  ___     ___           __  __ _    
+%~~ |  \/  | __|  \/  |/ _ \   / _ \ _ _ __ _|  \/  | |   
+%~~ | |\/| | _|| |\/| | (_) | | (_) | '_/ _` | |\/| | |__ 
+%~~ |_|  |_|___|_|  |_|\___/   \___/|_| \__, |_|  |_|____|
+%~~                                     |___/             
+%~~  ____  _         _
+%~~ / ___|| |_ _   _| | ___  ___
+%~~ \___ \| __| | | | |/ _ \/ __|
+%~~  ___) | |_| |_| | |  __/\__ \
+%~~ |____/ \__|\__, |_|\___||___/
+%~~            |___/ 
+%~~
+%~~ Implementierung der TikZ-Style für die Shapes der MEMO OrgML 
+%~~ Notationssymbole 
+%~~ 
+%~~ Fabian Schneider (fabian.schneider@studium.fernuni-hagen.de)
+%~~
+%~~ ##########################################################################
+%~~ Implementierung der Styles
+%~~ ##########################################################################
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%~~ TikZ-Styles
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%~~ ######################################
+%~~ ALLGEMEIN
+%~~ ######################################
+%~~ Allgemeine Einstellungen, die für alle Shapes gelten
+\tikzset{
+    common/.style={
+        line cap=round
+    }    
+}
+
+%~~ ######################################
+%~~ EREIGNISSE
+%~~ ######################################
+
+\tikzset{
+    event/.style={
+        common,
+        draw,
+        inner sep=3ex,
+        color=event
+    }
+}
+
+\tikzset{
+    startevent/.style={
+        event,
+        color=startevent
+    }
+}
+
+\tikzset{
+    endevent/.style={
+        event,
+        color=endevent
+    }
+}
+
+\tikzset{
+    messageevent/.style={
+        event
+    }
+}
+
+\tikzset{
+    informationchangeevent/.style={
+        event
+    }
+}
+
+\tikzset{
+    newevent/.style={
+        event
+    }
+}
+
+\tikzset{
+    modifiedevent/.style={
+        event
+    }
+}
+
+\tikzset{
+    canceledevent/.style={
+        event
+    }
+}
+
+\tikzset{
+    loadedevent/.style={
+        event
+    }
+}
+
+%~~ ######################################
+%~~ PROZESSE
+%~~ ######################################
+
+\tikzset{
+    unspecifiedprocess/.style={
+        common,
+        draw,
+        inner sep=2.5ex,       
+        text width=4em        
+    }
+}
+
+\tikzset{
+    decompositionprocess/.style={
+        unspecifiedprocess
+    }
+}
+
+%~~ ######################################
+%~~ SYNCHRONISATION
+%~~ ######################################
+
+\tikzset{
+    sync/.style={
+        common,
+        draw,
+        inner sep=2.5ex,        
+    }
+}
+
+\tikzset{
+    andsync/.style={
+        sync      
+    }
+}
+
+\tikzset{
+    orsync/.style={
+        sync      
+    }
+}
+
+%~~ ######################################
+%~~ TEXTNODES
+%~~ ######################################
+
+\tikzset{
+    memotext/.style={
+        below,
+        align=center,
+        font=\footnotesize\sffamily        
+    }
+}
+
+%~~ ######################################
+%~~ VERBINDUNGSLINIEN
+%~~ ######################################
+\tikzset{
+    memoline/.style={
+        common,
+        line width=0.75pt  
+    }
+}
+
+%~~ ######################################
+%~~ VERBINDUNGSSTÜCKE
+%~~ ######################################
+
+\tikzset{
+    paraconn/.style={
+        common
+    }
+}
+
+%~~ ######################################
+%~~ ITERATIONSSTART
+%~~ ######################################
+\tikzset{
+    iterationstart/.style={
+        draw,
+        common,
+        inner sep=0ex,
+        color=iterationstart,
+        minimum height=3ex,
+        minimum width=3ex        
+    }
+}
+
+%~~ ######################################
+%~~ AUSNAHMEN
+%~~ ######################################
+\tikzset{
+    exception/.style={
+        common,
+        inner sep=2.5ex
+    }
+}
+%~~ Ende des Paketes
+\endinput

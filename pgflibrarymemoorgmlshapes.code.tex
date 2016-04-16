@@ -1,5 +1,3 @@
-\ProvidesFileRCS[v\pgfversion] $header: Code/Tests/MEMO_OrgML_Shapes/Library/tikzlibrarymemoorgmlshapes.code.tex,v 0.1 2015/12/05 18:30:00 F.Schneider Exp $
-
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~  __  __ ___ __  __  ___     ___           __  __ _    
 %~~ |  \/  | __|  \/  |/ _ \   / _ \ _ _ __ _|  \/  | |   
@@ -17,7 +15,7 @@
 %~~ Fabian Schneider (fabian.schneider@studium.fernuni-hagen.de)
 %~~
 %~~ ##########################################################################
-%~~ Implementierung der Shapes und Styles
+%~~ Implementierung der Shapes und Definiton der Farben
 %~~ ##########################################################################
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -30,172 +28,19 @@
 \definecolor{iterationstart}{RGB}{153,193,66}
 \definecolor{timesborder}{RGB}{198,212,220}
 \definecolor{until}{RGB}{200,0,52}
-
-%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-%~~ TikZ-Styles
-%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-%~~ ######################################
-%~~ ALLGEMEIN
-%~~ ######################################
-%~~ Allgemeine Einstellungen, die für alle Shapes gelten
-\tikzset{
-    common/.style={
-        line cap=round
-    }    
-}
-
-%~~ ######################################
-%~~ EREIGNISSE
-%~~ ######################################
-
-\tikzset{
-    event/.style={
-        common,
-        draw,
-        inner sep=3ex,
-        color=event
-    }
-}
-
-\tikzset{
-    startevent/.style={
-        event,
-        color=startevent
-    }
-}
-
-\tikzset{
-    endevent/.style={
-        event,
-        color=endevent
-    }
-}
-
-\tikzset{
-    messageevent/.style={
-        event
-    }
-}
-
-\tikzset{
-    informationchangeevent/.style={
-        event
-    }
-}
-
-\tikzset{
-    newevent/.style={
-        event
-    }
-}
-
-\tikzset{
-    modifiedevent/.style={
-        event
-    }
-}
-
-\tikzset{
-    canceledevent/.style={
-        event
-    }
-}
-
-\tikzset{
-    loadedevent/.style={
-        event
-    }
-}
-
-%~~ ######################################
-%~~ PROZESSE
-%~~ ######################################
-
-\tikzset{
-    unspecifiedprocess/.style={
-        common,
-        draw,
-        inner sep=2.5ex,       
-        text width=4em        
-    }
-}
-
-\tikzset{
-    decompositionprocess/.style={
-        unspecifiedprocess
-    }
-}
-
-%~~ ######################################
-%~~ SYNCHRONISATION
-%~~ ######################################
-
-\tikzset{
-    sync/.style={
-        common,
-        draw,
-        inner sep=2.5ex,        
-    }
-}
-
-\tikzset{
-    andsync/.style={
-        sync      
-    }
-}
-
-\tikzset{
-    orsync/.style={
-        sync      
-    }
-}
-
-%~~ ######################################
-%~~ TEXTNODES
-%~~ ######################################
-
-\tikzset{
-    memotext/.style={
-        below,
-        align=center,
-        font=\footnotesize\sffamily        
-    }
-}
-
-%~~ ######################################
-%~~ VERBINDUNGSLINIEN
-%~~ ######################################
-\tikzset{
-    memoline/.style={
-        common,
-        line width=0.75pt  
-    }
-}
-
-%~~ ######################################
-%~~ VERBINDUNGSSTÜCKE
-%~~ ######################################
-
-\tikzset{
-    paraconn/.style={
-        common
-    }
-}
-
-%~~ ######################################
-%~~ ITERATIONSSTART
-%~~ ######################################
-\tikzset{
-    iterationstart/.style={
-        draw,
-        common,
-        inner sep=0ex,
-        color=iterationstart,
-        minimum height=3ex,
-        minimum width=3ex        
-    }
-}
-
+\definecolor{border}{RGB}{20,18,21}
+\definecolor{briefcase}{RGB}{255,253,232}
+\definecolor{plus}{RGB}{102,158,44}  
+\definecolor{pencil}{RGB}{0,143,204}     
+\definecolor{cross}{RGB}{223,11,37}   
+\definecolor{loaded}{RGB}{219,229,240}
+\definecolor{line}{RGB}{17,66,81}  
+\definecolor{background}{RGB}{198,212,220}
+\definecolor{beige}{RGB}{255,253,232}
+\definecolor{syncfill}{RGB}{218,229,235}
+\definecolor{syncedge}{RGB}{4,66,84}
+\definecolor{text}{RGB}{4,66,84}
+\definecolor{iterationarrow}{RGB}{255,255,255}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~ Definition der MEMO OrgML-Shapes
@@ -332,9 +177,8 @@
 	    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
     	
     	%~~ Definition der Farben für den Briefumschlag und
-    	%~~ den Hintergrund
-    	\definecolor{black}{RGB}{20,18,21}
-    	\pgfsetcolor{black}
+    	%~~ den Hintergrund    	
+    	\pgfsetcolor{border}
     	%~~ Hintergrund
     	\pgfsetfillcolor{white}
     	
@@ -391,11 +235,7 @@
         %~~ temporären PGF Registern xa,ya und xb und yb
 	    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
 	    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
-    	
-    	%~~ Schwarze Linien und Hintergrundfarbe
-    	\definecolor{border}{RGB}{20,18,21}
-    	%~~ Vordergrundfarbe der Aktenmappe
-    	\definecolor{briefcase}{RGB}{255,253,232}
+    	  	  	
     	\pgfsetcolor{border}
     	
     	%~~ Erzeugen des schwarzen Hintergrundes, der signalisiert,
@@ -456,10 +296,7 @@
         %~~ Speichern der Werte der Anker in den 
         %~~ temporären PGF Registern xa,ya und xb und yb
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
-        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
-              
-        %~~ Farbe für das Pluszeichen
-        \definecolor{plus}{RGB}{102,158,44}        
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y                        
                
         %~~ Erzeugen des Kreises
         \begin{pgfscope}
@@ -518,9 +355,7 @@
         %~~ Speichern der Werte der Anker in den 
         %~~ temporären PGF Registern xa,ya und xb und yb
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
-        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y    
-
-        \definecolor{pencil}{RGB}{0,143,204}    
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y     
                  
         %~~ Erzeugen der weißen Umrandung
         \begin{pgfscope}
@@ -647,10 +482,7 @@
         %~~ Speichern der Werte der Anker in den 
         %~~ temporären PGF Registern xa,ya und xb und yb
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
-        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
-                       
-        %~~ Farbe für das Pluszeichen
-        \definecolor{cross}{RGB}{223,11,37}                
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y                                            
         
         %~~ Erzeugen des Kreises
         \begin{pgfscope}
@@ -680,7 +512,7 @@
         
         %~~ Erzeugen der Linien in der Aktentasche
         \begin{pgfscope}
-            \pgfsetcolor{black}
+            \pgfsetcolor{border}
             \pgfsetlinewidth{0.25pt}
             \pgfpathmoveto{\pgfpoint{\pgf@xb*-0.65}{\pgf@ya*-0.35}}
             \pgfpathlineto{\pgfpoint{\pgf@xb*0.25}{\pgf@ya*-0.35}}
@@ -723,10 +555,7 @@
         %~~ Speichern der Werte der Anker in den 
         %~~ temporären PGF Registern xa,ya und xb und yb
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
-        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y     
-
-        \definecolor{loaded}{RGB}{219,229,240}
-        \definecolor{line}{RGB}{17,66,81}          
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y                    
         
         %~~ Erzeugen des "LOADED"-Schriftzuges unter dem Symbol
         \begin{pgfscope}
@@ -773,8 +602,7 @@
 		\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
 				
 		%~~ Definition der Farbe für die Linien und
-		%~~ den Hintergrund des Shapes
-		\definecolor{background}{RGB}{198,212,220}
+		%~~ den Hintergrund des Shapes		
 		\pgfsetcolor{background}
 				
     	%~~ Erzeugen des Notationssymbols eines
@@ -814,11 +642,9 @@
 		\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
 		
 		%~~ Linienfarbe
-    	\definecolor{black}{RGB}{20,18,21}
-    	\pgfsetcolor{black}
+    	\pgfsetcolor{border}
     	
-    	%~~ Hintergrund
-    	\definecolor{beige}{RGB}{255,253,232}
+    	%~~ Hintergrund    	
     	\pgfsetfillcolor{beige}
     	
     	%~~ Linienstärke
@@ -892,13 +718,11 @@
 		\southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
 		\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
 		
-		%~~ Farbe der Kantenlinien
-		\definecolor{edge}{RGB}{4,66,84}
-		\pgfsetcolor{edge}
+		%~~ Farbe der Kantenlinien		
+		\pgfsetcolor{syncedge}
 		
-		%~~ Hintergrund
-		\definecolor{fill}{RGB}{218,229,235}
-		\pgfsetfillcolor{fill}
+		%~~ Hintergrund		
+		\pgfsetfillcolor{syncfill}
 			
 		\pgfsetlinewidth{0.75pt}
 		\pgfpathmoveto{\pgfpoint{\pgf@xb*0}{\pgf@yb}}
@@ -938,8 +762,7 @@
 	    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
 	    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
 	    
-	    %~~ Farbe der Kantenlinien
-		\definecolor{text}{RGB}{4,66,84}
+	    %~~ Farbe der Kantenlinien		
 		\pgfsetcolor{text}
 	
 	    %~~ Erzeugen des Textes AND innerhalb des Symbols
@@ -970,8 +793,7 @@
 	    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
 	    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
 	    
-	    %~~ Farbe der Kantenlinien
-		\definecolor{text}{RGB}{4,66,84}
+	    %~~ Farbe der Kantenlinien		
 		\pgfsetcolor{text}
 	
 	    %~~ Erzeugen des Textes AND innerhalb des Symbols
@@ -1073,7 +895,6 @@
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
         
-        \definecolor{iterationarrow}{RGB}{255,255,255}
         \pgfsetcolor{iterationarrow}
         
         \pgfpathmoveto{\pgfpoint{\pgf@xa*0.4}{\pgf@yb*0.55}}
@@ -1174,7 +995,94 @@
     }
  }
 
+%~~ ######################################
+%~~ AUSNAHMEN
+%~~ ######################################
+%~~ Nicht spezifizierte Ausnahme
+\pgfdeclareshape{exception}{
+    %~~ Übernahme der Anchors aus dem
+    %~~ Rechteck
+	\inheritsavedanchors[from=rectangle]  	        
+	\inheritanchorborder[from=rectangle] 
+	\inheritanchor[from=rectangle]{center} 
+	\inheritanchor[from=rectangle]{north}
+ 	\inheritanchor[from=rectangle]{south}  
+	\inheritanchor[from=rectangle]{west}
+	\inheritanchor[from=rectangle]{east}
+            
+	%~~ Hintergrundpfad des Basisprozesses
+	\backgroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporären PGF Registern xa,ya und xb und yb
+		\southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+		\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+		
+		\definecolor{bottomgrey}{RGB}{231,231,232};
+		\definecolor{fillorange}{RGB}{235,105,11};
+				
+        \pgfsetlinewidth{0.6pt}
+    	
+    	
+    	\begin{pgfscope}
+    	    \pgfsetfillcolor{fillorange}
+            \pgfpathmoveto{\pgfpoint{0}{2.02}}
+        	\pgfpathlineto{\pgfpoint{0}{-4}}
+        	\pgfpathlineto{\pgfpoint{8}{-4}}
+        	\pgfpathlineto{\pgfpoint{8}{2.02}}
+        	\pgfpathlineto{\pgfpoint{0}{2.02}} 
+        	\pgfusepath{fill}
+    	\end{pgfscope}
+    	
+    	\begin{pgfscope}
+            \pgfsetfillcolor{fillorange}
+    
+        	%~~ Erzeugen des Verbindungsstückes für die
+        	%~~ parallele Ausführung von Prozessen  
+        	\pgfpathmoveto{\pgfpoint{0}{2}}
+        	\pgfpathcurveto{\pgfpoint{2}{6}}{\pgfpoint{6}{6}}{\pgfpoint{8}{2}}
+        	
+        	
+        	\pgfpathmoveto{\pgfpoint{0}{1.75}}
+        	\pgfpathlineto{\pgfpoint{0}{-4}} 
+        	
+        	\pgfpathmoveto{\pgfpoint{8}{1.75}}
+        	\pgfpathlineto{\pgfpoint{8}{-4}}		
+        	
+        	%~~ Erzeugen des Pfades und Setzen der Hintergrundfarbe
+        	\pgfusepath{stroke, fill}
+    	\end{pgfscope}
+
+    	\begin{pgfscope}
+    	    \pgfsetfillcolor{bottomgrey}
+    	    \pgfsetcornersarced{\pgfpoint{0.18pt}{0.5pt}}
+            \pgfpathrectanglecorners{\pgfpoint{-0.85}{-4}}{\pgfpoint{8.95}{-7.5}}       
+    	   \pgfusepath{stroke, fill}
+    	\end{pgfscope}
+
+        %~~ Weißer Bogen
+    	\begin{pgfscope}
+        	\pgfsetlinewidth{0.3pt}
+    	    \pgfsetfillcolor{white}
+    	    \pgfsetstrokecolor{white}
+    	    \pgfpathmoveto{\pgfpoint{4}{3.8}}
+    	    \pgfpathquadraticcurveto{\pgfpoint{7.2}{3.5}}{\pgfpoint{6.7}{-3}}
+    	    \pgfpathmoveto{\pgfpoint{4}{3.8}}
+    	    \pgfpathquadraticcurveto{\pgfpoint{7}{3.5}}{\pgfpoint{6.4}{-3}}
+    	    \pgfpathmoveto{\pgfpoint{4}{3.8}}
+    	    \pgfpathquadraticcurveto{\pgfpoint{6.8}{3.5}}{\pgfpoint{6.2}{-3}}
+    	    \pgfpathmoveto{\pgfpoint{4}{3.8}}
+    	    \pgfpathquadraticcurveto{\pgfpoint{6.6}{3.5}}{\pgfpoint{6}{-3}}
+    	    \pgfpathmoveto{\pgfpoint{6}{-3}}
+    	    \pgfpathlineto{\pgfpoint{6.7}{-3}}
+    	    \pgfusepath{stroke}
+    	\end{pgfscope}
+    	
+    	%~~ Abschluss des Pfades
+    	\pgfpathclose  	    			
+ 	}
+}
+
 \makeatother
 
-%~~ Ende des Erweiterungspaketes
+%~~ Ende des Paketes
 \endinput
