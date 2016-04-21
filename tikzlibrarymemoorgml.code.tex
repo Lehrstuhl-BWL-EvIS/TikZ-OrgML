@@ -142,9 +142,9 @@
         %~~ Der Node für das Verbindungsymbol wird nur einmal pro 
         %~~ Event erzeugt.
     }
-        
-    \draw[memoline] (#1.east) -- (#1_para.west);
-    \draw[memoline] (#1_para.east) |- (#2.west);    
+    
+    \memoconn{#1}{#1_para};
+    \memoconn{#1_para}{#2};   
 }
 
 

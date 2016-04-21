@@ -41,6 +41,9 @@
 \definecolor{syncedge}{RGB}{4,66,84}
 \definecolor{text}{RGB}{4,66,84}
 \definecolor{iterationarrow}{RGB}{255,255,255}
+\definecolor{bottomgrey}{RGB}{231,231,232};
+\definecolor{fillorange}{RGB}{235,105,11};
+\definecolor{decisiongrey}{RGB}{135,136,138}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~ Definition der MEMO OrgML-Shapes
@@ -999,88 +1002,164 @@
 %~~ AUSNAHMEN
 %~~ ######################################
 %~~ Nicht spezifizierte Ausnahme
-\pgfdeclareshape{exception}{
+\pgfdeclareshape{unspecifiedexception}{
     %~~ Übernahme der Anchors aus dem
     %~~ Rechteck
-	\inheritsavedanchors[from=rectangle]  	        
-	\inheritanchorborder[from=rectangle] 
-	\inheritanchor[from=rectangle]{center} 
-	\inheritanchor[from=rectangle]{north}
- 	\inheritanchor[from=rectangle]{south}  
-	\inheritanchor[from=rectangle]{west}
-	\inheritanchor[from=rectangle]{east}
+    \inheritsavedanchors[from=rectangle]            
+    \inheritanchorborder[from=rectangle] 
+    \inheritanchor[from=rectangle]{center} 
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{south}  
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
             
-	%~~ Hintergrundpfad des Basisprozesses
-	\backgroundpath{
+    %~~ Hintergrundpfad des Basisprozesses
+    \backgroundpath{
         %~~ Speichern der Werte der Anker in den 
         %~~ temporären PGF Registern xa,ya und xb und yb
-		\southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
-		\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
-		
-		\definecolor{bottomgrey}{RGB}{231,231,232};
-		\definecolor{fillorange}{RGB}{235,105,11};
-				
-        \pgfsetlinewidth{0.6pt}
-    	
-    	
-    	\begin{pgfscope}
-    	    \pgfsetfillcolor{fillorange}
-            \pgfpathmoveto{\pgfpoint{0}{2.02}}
-        	\pgfpathlineto{\pgfpoint{0}{-4}}
-        	\pgfpathlineto{\pgfpoint{8}{-4}}
-        	\pgfpathlineto{\pgfpoint{8}{2.02}}
-        	\pgfpathlineto{\pgfpoint{0}{2.02}} 
-        	\pgfusepath{fill}
-    	\end{pgfscope}
-    	
-    	\begin{pgfscope}
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y      
+                        
+        \pgfsetlinewidth{0.7pt}
+                
+        \begin{pgfscope}
             \pgfsetfillcolor{fillorange}
-    
-        	%~~ Erzeugen des Verbindungsstückes für die
-        	%~~ parallele Ausführung von Prozessen  
-        	\pgfpathmoveto{\pgfpoint{0}{2}}
-        	\pgfpathcurveto{\pgfpoint{2}{6}}{\pgfpoint{6}{6}}{\pgfpoint{8}{2}}
-        	
-        	
-        	\pgfpathmoveto{\pgfpoint{0}{1.75}}
-        	\pgfpathlineto{\pgfpoint{0}{-4}} 
-        	
-        	\pgfpathmoveto{\pgfpoint{8}{1.75}}
-        	\pgfpathlineto{\pgfpoint{8}{-4}}		
-        	
-        	%~~ Erzeugen des Pfades und Setzen der Hintergrundfarbe
-        	\pgfusepath{stroke, fill}
-    	\end{pgfscope}
+            \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+            \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb*1.1}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb*1.1}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+            \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@ya}} 
+            \pgfusepath{fill}
+        \end{pgfscope}
+        
+        \begin{pgfscope}
+           \pgfsetcolor{black}
+            \pgfsetfillcolor{fillorange}            
+            \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@yb*0.8}}
+            \pgfpathcurveto{\pgfpoint{\pgf@xa*-0.9}{\pgf@yb*2.3}}{\pgfpoint{\pgf@xb*1.1}{\pgf@yb*2.3}}{\pgfpoint{\pgf@xb}{\pgf@yb*0.8}} 
+            \pgfusepath{fill, stroke}    
+        \end{pgfscope}
+            
+        \begin{pgfscope}                
+            \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+            \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb*0.8}} 
+            
+            \pgfpathmoveto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb*0.8}}     
+            
+            %~~ Erzeugen des Pfades und Setzen der Hintergrundfarbe
+            \pgfusepath{stroke, fill}
+        \end{pgfscope}
 
-    	\begin{pgfscope}
-    	    \pgfsetfillcolor{bottomgrey}
-    	    \pgfsetcornersarced{\pgfpoint{0.18pt}{0.5pt}}
-            \pgfpathrectanglecorners{\pgfpoint{-0.85}{-4}}{\pgfpoint{8.95}{-7.5}}       
-    	   \pgfusepath{stroke, fill}
-    	\end{pgfscope}
+        \begin{pgfscope}
+            \pgfsetfillcolor{bottomgrey}
+            \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+            \pgfsetcornersarced{\pgfpoint{0.18pt}{0.5pt}}
+            \pgfpathrectanglecorners{\pgfpoint{\pgf@xa*-0.5}{\pgf@ya*0.9}}{\pgfpoint{\pgf@xa*1.8}{\pgf@ya*1.6}}       
+           \pgfusepath{stroke, fill}
+        \end{pgfscope}
 
-        %~~ Weißer Bogen
-    	\begin{pgfscope}
-        	\pgfsetlinewidth{0.3pt}
-    	    \pgfsetfillcolor{white}
-    	    \pgfsetstrokecolor{white}
-    	    \pgfpathmoveto{\pgfpoint{4}{3.8}}
-    	    \pgfpathquadraticcurveto{\pgfpoint{7.2}{3.5}}{\pgfpoint{6.7}{-3}}
-    	    \pgfpathmoveto{\pgfpoint{4}{3.8}}
-    	    \pgfpathquadraticcurveto{\pgfpoint{7}{3.5}}{\pgfpoint{6.4}{-3}}
-    	    \pgfpathmoveto{\pgfpoint{4}{3.8}}
-    	    \pgfpathquadraticcurveto{\pgfpoint{6.8}{3.5}}{\pgfpoint{6.2}{-3}}
-    	    \pgfpathmoveto{\pgfpoint{4}{3.8}}
-    	    \pgfpathquadraticcurveto{\pgfpoint{6.6}{3.5}}{\pgfpoint{6}{-3}}
-    	    \pgfpathmoveto{\pgfpoint{6}{-3}}
-    	    \pgfpathlineto{\pgfpoint{6.7}{-3}}
-    	    \pgfusepath{stroke}
-    	\end{pgfscope}
+        %~~ Erzeugen des weißen Bogens im Notationssymbol
+        \begin{pgfscope}           
+            %~~ Definition der Linienstärke und Farbe für alle
+            %~~ folgenden Scopes
+            \pgfsetlinewidth{0.2pt}         
+            \pgfsetstrokecolor{white}
+            
+            \begin{pgfscope}            
+                \pgfpathmoveto{\pgfpoint{\pgf@xb*0.3}{\pgf@yb*1.4}}
+                \pgfpathquadraticcurveto{\pgfpoint{\pgf@xb*1.3}{\pgf@yb*-3.5}}{\pgfpoint{\pgf@xb*0.7}{\pgf@ya*0.4}}
+                \pgfusepath{stroke}
+            \end{pgfscope}
+            
+            \begin{pgfscope}            
+                \pgfpathmoveto{\pgfpoint{\pgf@xb*0.3}{\pgf@yb*1.4}}
+                \pgfpathquadraticcurveto{\pgfpoint{\pgf@xb*1.3}{\pgf@yb*-3.5}}{\pgfpoint{\pgf@xb*0.67}{\pgf@ya*0.4}}
+                \pgfusepath{stroke}
+            \end{pgfscope}
+            
+            \begin{pgfscope}      
+                \pgfpathmoveto{\pgfpoint{\pgf@xb*0.3}{\pgf@yb*1.4}}
+                \pgfpathquadraticcurveto{\pgfpoint{\pgf@xb*1.3}{\pgf@yb*-3.5}}{\pgfpoint{\pgf@xb*0.65}{\pgf@ya*0.4}}
+                \pgfusepath{stroke}
+            \end{pgfscope}
+            
+            \begin{pgfscope}
+                \pgfpathmoveto{\pgfpoint{\pgf@xb*0.3}{\pgf@yb*1.4}}
+                \pgfpathquadraticcurveto{\pgfpoint{\pgf@xb*1.3}{\pgf@yb*-3.5}}{\pgfpoint{\pgf@xb*0.63}{\pgf@ya*0.4}}
+                \pgfusepath{stroke}
+            \end{pgfscope}
+            
+            \begin{pgfscope}
+                \pgfpathmoveto{\pgfpoint{\pgf@xb*0.3}{\pgf@yb*1.4}}
+                \pgfpathquadraticcurveto{\pgfpoint{\pgf@xb*1.3}{\pgf@yb*-3.5}}{\pgfpoint{\pgf@xb*0.61}{\pgf@ya*0.4}}
+                \pgfusepath{stroke}
+            \end{pgfscope}
+            
+            \begin{pgfscope}
+                \pgfpathmoveto{\pgfpoint{\pgf@xb*0.3}{\pgf@yb*1.4}}
+                \pgfpathquadraticcurveto{\pgfpoint{\pgf@xb*1.3}{\pgf@yb*-3.5}}{\pgfpoint{\pgf@xb*0.59}{\pgf@ya*0.4}}
+                \pgfusepath{stroke}
+            \end{pgfscope}
+            
+            \begin{pgfscope}
+                \pgfpathmoveto{\pgfpoint{\pgf@xb*0.3}{\pgf@yb*1.4}}
+                \pgfpathquadraticcurveto{\pgfpoint{\pgf@xb*1.3}{\pgf@yb*-3.5}}{\pgfpoint{\pgf@xb*0.57}{\pgf@ya*0.4}}
+                \pgfusepath{stroke}
+            \end{pgfscope}
+            
+            \begin{pgfscope}
+                \pgfpathmoveto{\pgfpoint{\pgf@xb*0.3}{\pgf@yb*1.4}}
+                \pgfpathquadraticcurveto{\pgfpoint{\pgf@xb*1.3}{\pgf@yb*-3.5}}{\pgfpoint{\pgf@xb*0.55}{\pgf@ya*0.4}}
+                \pgfusepath{stroke}
+            \end{pgfscope}
+            
+            \begin{pgfscope}
+                \pgfpathmoveto{\pgfpoint{\pgf@xb*0.3}{\pgf@yb*1.4}}
+                \pgfpathquadraticcurveto{\pgfpoint{\pgf@xb*1.3}{\pgf@yb*-3.5}}{\pgfpoint{\pgf@xb*0.53}{\pgf@ya*0.4}}
+                \pgfusepath{stroke}
+            \end{pgfscope}
+        \end{pgfscope}
+
     	
     	%~~ Abschluss des Pfades
     	\pgfpathclose  	    			
  	}
 }
+
+%~~ ######################################
+%~~ Entscheidungstypen
+%~~ ######################################
+%~~ Nicht spezifizerte Entscheidung
+\pgfdeclareshape{unspecifieddecision}{
+    %~~ Übernahme der Anchors aus dem
+    %~~ Rechteck
+    \inheritsavedanchors[from=rectangle]            
+    \inheritanchorborder[from=rectangle] 
+    \inheritanchor[from=rectangle]{center} 
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{south}  
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+            
+    %~~ Hintergrundpfad des Basisprozesses
+    \backgroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporären PGF Registern xa,ya und xb und yb
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        
+        \pgfsetcolor{decisiongrey}
+        
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+        \pgfpathcircle{\pgfpoint{\pgf@xa}{\pgf@yb*0}}{\pgf@xb}
+        \pgfusepath{stroke, fill}
+        
+        %~~ Abschluss des Pfades
+        \pgfpathclose                   
+    }
+}
+
 
 \makeatother
 

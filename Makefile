@@ -25,7 +25,7 @@ INSTALL_PREFIX_PGF=/usr/local/texlive/2015/texmf-dist/tex/generic/pgf
 #~~ Das einzige Target des Makefiles ist die Installation
 #~~ Verwendung: (sudo) make
 install: tikzlibrarymemoorgml.code.tex tikzlibrarymemoorgmlstyles.code.tex pgflibrarymemoorgmlshapes.code.tex 
-	#~~ Installation der Librariy für die Benutzerprogrammierschnittstelle
+	#~~ Installation der Library für die Benutzerprogrammierschnittstelle
 	install tikzlibrarymemoorgml.code.tex $(INSTALL_PREFIX_TIKZ)/libraries
 	#~~ Installation der Library für die Styles der Knoten
 	install tikzlibrarymemoorgmlstyles.code.tex $(INSTALL_PREFIX_TIKZ)/libraries
