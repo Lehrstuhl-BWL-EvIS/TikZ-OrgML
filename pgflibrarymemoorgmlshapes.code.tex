@@ -600,7 +600,7 @@
 	%~~ Hintergrundpfad des Basisprozesses
 	\backgroundpath{
         %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
+        %~~ temporären PGF RegistBlogern xa,ya und xb und yb
 		\southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
 		\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
 				
@@ -1151,9 +1151,11 @@
         
         \pgfsetcolor{decisiongrey}
         
-        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
-        \pgfpathcircle{\pgfpoint{\pgf@xa}{\pgf@yb*0}}{\pgf@xb}
-        \pgfusepath{stroke, fill}
+        \begin{pgfscope}
+            \pgfsetcolor{decisiongrey}        
+            \pgfpathcircle{\pgfpoint{\pgf@xb*0}{\pgf@yb*0}}{\pgf@xb}
+            \pgfusepath{stroke,fill} 
+        \end{pgfscope}
         
         %~~ Abschluss des Pfades
         \pgfpathclose                   
