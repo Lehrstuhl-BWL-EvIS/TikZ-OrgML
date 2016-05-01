@@ -17,10 +17,27 @@
 #~~
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#~~ Installationspfad für die TikZ-Libraries
-INSTALL_PREFIX_TIKZ=/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/frontendlayer/tikz
-#~~ Installationspfad für die PGF-Libraries
-INSTALL_PREFIX_PGF=/usr/local/texlive/2015/texmf-dist/tex/generic/pgf
+#~~ Ermitteln des Betriebssystems
+NIX_OS := $(shell uname -s)
+
+INSTALL_PREFIX_TIKZ=
+INSTALL_PREFIX_PGF=
+
+#~~ Mac OS X
+ifeq ($(NIX_OS), Darwin)
+	#~~ Installationspfad für die TikZ-Libraries
+	INSTALL_PREFIX_TIKZ=/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/frontendlayer/tikz
+	#~~ Installationspfad für die PGF-Libraries
+	INSTALL_PREFIX_PGF=/usr/local/texlive/2015/texmf-dist/tex/generic/pgf
+endif
+
+#~~ Linux
+ifeq ($(NIX_OS), Linux)
+	#~~ Installationspfad für die TikZ-Libraries
+	INSTALL_PREFIX_TIKZ=/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz
+	#~~ Installationspfad für die PGF-Libraries
+	INSTALL_PREFIX_PGF=/usr/share/texlive/texmf-dist/tex/generic/pgf
+endif
 
 #~~ Das einzige Target des Makefiles ist die Installation
 #~~ Verwendung: (sudo) make
