@@ -20,15 +20,15 @@
 #~~ Ermitteln des Betriebssystems
 NIX_OS := $(shell uname -s)
 
-INSTALL_PREFIX_TIKZ=
-INSTALL_PREFIX_PGF=
-
 #~~ Mac OS X
 ifeq ($(NIX_OS), Darwin)
+	#~~ Ermitteln der TeX-Live Version
+	TEX_LIVE_VERSION := $(shell tex --version | grep 'TeX Live' | grep -Eo '\d{4}.{1}$$' | grep -Eo '\d{4}')
+
 	#~~ Installationspfad für die TikZ-Libraries
-	INSTALL_PREFIX_TIKZ=/usr/local/texlive/2015/texmf-dist/tex/generic/pgf/frontendlayer/tikz
+	INSTALL_PREFIX_TIKZ=/usr/local/texlive/$(TEX_LIVE_VERSION)/texmf-dist/tex/generic/pgf/frontendlayer/tikz
 	#~~ Installationspfad für die PGF-Libraries
-	INSTALL_PREFIX_PGF=/usr/local/texlive/2015/texmf-dist/tex/generic/pgf
+	INSTALL_PREFIX_PGF=/usr/local/texlive/$(TEX_LIVE_VERSION)/texmf-dist/tex/generic/pgf
 endif
 
 #~~ Linux
