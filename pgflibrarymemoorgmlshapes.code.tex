@@ -832,17 +832,17 @@
         \pgfsetlinewidth{0.75pt}
         %~~ Erzeugen des Verbindungsstückes für die
         %~~ parallele Ausführung von Prozessen  
-        \pgfpathmoveto{\pgfpoint{\pgf@xb*1}{\pgf@ya}}
-        \pgfpathlineto{\pgfpoint{\pgf@xb*1}{\pgf@yb}}
+        \pgfpathmoveto{\pgfpoint{\pgf@xb*0}{\pgf@ya}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb*0}{\pgf@yb}}
         
         \pgfpathmoveto{\pgfpoint{\pgf@xb*1}{\pgf@yb*0}}
         \pgfpathlineto{\pgfpoint{\pgf@xb*-1}{\pgf@yb*0}}
         
         %~~ Erzeugen der doppelten Linien
-        \pgfpathmoveto{\pgfpoint{\pgf@xb*-0.8}{\pgf@yb*0.4}}
-        \pgflineto{\pgfpoint{\pgf@xb*-0.1}{\pgf@yb*0.4}}
-        \pgfpathmoveto{\pgfpoint{\pgf@xb*-0.8}{\pgf@yb*-0.4}}
-        \pgflineto{\pgfpoint{\pgf@xb*-0.1}{\pgf@yb*-0.4}}
+        \pgfpathmoveto{\pgfpoint{\pgf@xb*-2}{\pgf@yb*0.4}}
+        \pgflineto{\pgfpoint{\pgf@xb*-1.2}{\pgf@yb*0.4}}
+        \pgfpathmoveto{\pgfpoint{\pgf@xb*-2}{\pgf@yb*-0.4}}
+        \pgflineto{\pgfpoint{\pgf@xb*-1.2}{\pgf@yb*-0.4}}
                     
         %~~ Erzeugen des Pfades und Setzen der Hintergrundfarbe
         \pgfusepath{stroke}
@@ -855,7 +855,7 @@
 %~~ ######################################
 %~~ ITERATIONEN
 %~~ ######################################
-%~~ Verbindungsstück für die parallele Prozessausführung
+%~~ Start einer Iteration
 \pgfdeclareshape{iterationstart}{
     %~~ Die Anchor werden aus dem Basisshape für Events
     %~~ geerbt

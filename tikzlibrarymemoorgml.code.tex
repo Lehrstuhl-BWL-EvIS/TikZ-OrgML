@@ -108,9 +108,10 @@
 %            #2: Name des Nodes der erzeugt wird
 %            #3: x-Position
 %            #4: y-Position
+%            #5: Beschreibung der Ausnahme
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\def\memoexception#1#2#3#4{
-    \node[#1exception, shape=#1exception] (#2) at (#3, #4) {};
+\def\memoexception#1#2#3#4#5{
+    \node[#1exception, shape=#1exception] (#2) at (#3, #4) [label={below:#5}] {};
 }
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -130,21 +131,22 @@
 % Funktion:  Erzeugen einer parallelen Ausführung von Prozessen
 % Parameter: #1: Ausgangsereignis
 %            #2: Prozess n
+%            #3: Anker (north, west, south, east)
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\def\memoconnpara#1#2{
+\def\memoconnpara#1#2#3{
     %~~ Prüfen ob der Knoten für das Verbindungsstück schon erzeugt wurde
     \@ifundefined{pgf@sh@ns@#1_para}{
         %~~ Der Node für die Darstellung des Verbindungssymbols wird automatisch
         %~~ erzeugt. Die Positons des Nodes wird abhängig vom Vorgängersymbol
         %~~ errechnet.
-        \node[paraconn, shape=paraconn] (#1_para) at ($(#1) + (1,0)$) {};       
+        \node[paraconn, shape=paraconn] (#1_para) at ($(#1) + (1,0)$) {};    
+        \memoconn{#1}{#1_para};   
     }{
         %~~ Der Node für das Verbindungsymbol wird nur einmal pro 
         %~~ Event erzeugt.
-    }
-    
-    \memoconn{#1}{#1_para};
-    \memoconn{#1_para}{#2};   
+    }   
+   
+    \draw[memoline] (#1_para.#3) |- (#2.west);   
 }
 
 
@@ -167,12 +169,12 @@
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 % Macroname: memoconnsync
 % Funktion:  Synchronisation der parallel ausgeführten Prozesse
-% Parameter: #1: Erster Prozess
-%            #2: Verknüpfungsoperation (Symbol)
-%            #3: Anchor (north, west, south, east)
+% Parameter: #1: Name des Ereignis
+%            #2: Name der Verknüpfungsoperation (Symbol)
+%            #3: Anker (north, west, south, east)
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \def\memoconnsync#1#2#3{
-    \draw[memoline] (#1) -| (#2.#3);
+    \draw[memoline] (#1.east) -| (#2.#3);
 }
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
