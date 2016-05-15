@@ -142,7 +142,7 @@
         \node[paraconn, shape=paraconn] (#1_para) at ($(#1) + (1,0)$) {};    
         \memoconn{#1}{#1_para};   
     }{
-        %~~ Der Node für das Verbindungsymbol wird nur einmal pro 
+        %~~ Der Node, für das Verbindungsymbol wird nur einmal pro 
         %~~ Event erzeugt.
     }   
    
@@ -175,6 +175,52 @@
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \def\memoconnsync#1#2#3{
     \draw[memoline] (#1.east) -| (#2.#3);
+}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% Macroname: memoxorconn
+% Funktion:  Produktion eines alternativen Ereignisses ohne Wahrscheinlichkeit
+% Parameter: #1: Bezeichnung des Entscheidungstyps
+%            #2: Name des Prozesses (Symbol)
+%            #3: Name des Ereignisses (Symbol)
+%            #4: Anker (north, west, south, east)
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\def\memoxorconn#1#2#3#4{
+    \@ifundefined{pgf@sh@ns@#2_decision}{
+        %~~ Der Node für die Darstellung der Entscheidung wird für die gesamte
+        %~~ Entscheidung nur einmal erzeugt. Der Knoten wird im Abstand 1.6 Einheiten
+        %~~ zum ausgehenden Prozess erzeugt.
+        \node[#1decision, shape=#1decision] (#2_decision) at ($(#2) + (1.6,0)$) {};
+    }{
+        %~~ Der Node, für das Notationssymbol der Entscheidung wird nur einmal
+        %~~ pro Prozess erzeugt.
+    }
+    
+    \draw[memoline, shorten <= 3pt] (#2_decision.#4) -- (#3.west);
+}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% Macroname: memoxorprobabilityconn
+% Funktion:  Produktion eines alternativen Ereignisses mit Wahrscheinlichkeit
+% Parameter: #1: Bezeichnung des Entscheidungstyps
+%            #2: Name des Prozesses (Symbol)
+%            #3: Name des Ereignisses (Symbol)
+%            #4: Anker (north, west, south, east)
+%            #5: Wahrscheinlichkeit (0,1 - 0,9)
+%            #6: Kommentar
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\def\memoxorprobabilityconn#1#2#3#4#5#6{
+    \@ifundefined{pgf@sh@ns@#2_decision}{
+        %~~ Der Node für die Darstellung der Entscheidung wird für die gesamte
+        %~~ Entscheidung nur einmal erzeugt. Der Knoten wird im Abstand 1.6 Einheiten
+        %~~ zum ausgehenden Prozess erzeugt.
+        \node[#1decision, shape=#1decision] (#2_decision) at ($(#2) + (1.6,0)$) {};
+    }{
+        %~~ Der Node, für das Notationssymbol der Entscheidung wird nur einmal
+        %~~ pro Prozess erzeugt.
+    }
+    
+    \draw[memoline, shorten <= 3pt] (#2_decision.#4) -- (#3.west) node [midway, fill=probabilitygrey, rounded corners, label={below:\sf #6}] {\sf\textcolor{textwhite}{#5}};
 }
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
