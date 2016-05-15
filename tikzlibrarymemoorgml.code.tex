@@ -32,6 +32,10 @@
 \usetikzlibrary{backgrounds}
 \usetikzlibrary{positioning}
 
+
+\definecolor{probabilitygrey}{RGB}{135, 136, 138}
+\definecolor{textwhite}{RGB}{255, 255, 255}
+
 \makeatletter
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -185,12 +189,12 @@
 %            #3: Name des Ereignisses (Symbol)
 %            #4: Anker (north, west, south, east)
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\def\memoxorconn#1#2#3#4{
+\def\memoconnxor#1#2#3#4{
     \@ifundefined{pgf@sh@ns@#2_decision}{
         %~~ Der Node für die Darstellung der Entscheidung wird für die gesamte
         %~~ Entscheidung nur einmal erzeugt. Der Knoten wird im Abstand 1.6 Einheiten
         %~~ zum ausgehenden Prozess erzeugt.
-        \node[#1decision, shape=#1decision] (#2_decision) at ($(#2) + (1.6,0)$) {};
+        \node[#1decision, shape=#1decision] (#2_decision) at ($(#2) + (1.7,0)$) {};
     }{
         %~~ Der Node, für das Notationssymbol der Entscheidung wird nur einmal
         %~~ pro Prozess erzeugt.
@@ -209,18 +213,18 @@
 %            #5: Wahrscheinlichkeit (0,1 - 0,9)
 %            #6: Kommentar
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\def\memoxorprobabilityconn#1#2#3#4#5#6{
+\def\memoconnxorprobability#1#2#3#4#5#6{
     \@ifundefined{pgf@sh@ns@#2_decision}{
         %~~ Der Node für die Darstellung der Entscheidung wird für die gesamte
         %~~ Entscheidung nur einmal erzeugt. Der Knoten wird im Abstand 1.6 Einheiten
         %~~ zum ausgehenden Prozess erzeugt.
-        \node[#1decision, shape=#1decision] (#2_decision) at ($(#2) + (1.6,0)$) {};
+        \node[#1decision, shape=#1decision] (#2_decision) at ($(#2) + (1.7,0)$) {};
     }{
         %~~ Der Node, für das Notationssymbol der Entscheidung wird nur einmal
         %~~ pro Prozess erzeugt.
     }
     
-    \draw[memoline, shorten <= 3pt] (#2_decision.#4) -- (#3.west) node [midway, fill=probabilitygrey, rounded corners, label={below:\sf #6}] {\sf\textcolor{textwhite}{#5}};
+    \draw[memoline, shorten <= 3pt] (#2_decision.#4) -- (#3.west) node [midway, fill=probabilitygrey, rounded corners, label={below:\sf\tiny #6}] {\tiny\sf\textcolor{textwhite}{#5}};
 }
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
