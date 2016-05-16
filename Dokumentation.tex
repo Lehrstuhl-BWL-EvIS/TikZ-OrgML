@@ -1,0 +1,150 @@
+\documentclass[11pt]{article}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{doc}
+\usepackage{listings}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%~~ Formatierung des Quellcodes
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\definecolor{lstlila}{RGB}{139,0,139}
+\definecolor{lstcomment}{RGB}{152,152,152}
+
+\lstdefinelanguage{lsttex}{
+	morekeywords={ definecolor,
+				   tikzset,
+				   path,
+				   usetikzlibrary,
+				   usepackage,
+				   svg,
+				   draw,
+				   pic,
+				   backgroundpath,
+				   foregroundpath,
+				   inheritbackgroundpath,
+				   beforebackgroundpath,
+				   pgfdeclareshape,
+				   inheritsavedanchors,
+				   inheritanchorborder,
+				   inheritanchor,
+				   southwest,
+				   northeast,
+				   pgfsetcolor,
+				   pgfpathmoveto,
+				   pgfpoint,
+				   pgf,
+				   pgfusepath,
+				   pgfpathclose,
+				   pgfpathlineto,
+				   pgfsetlinewidth,
+				   pgfsetfillcolor,
+				   pgflineto,
+				   child,
+				   def,
+				   memonode,
+				   node,
+				   shape,
+				   label,
+				   tikzpicture,
+				   remember,
+				   picture,
+				   overlay,
+				   subfigure,
+				   figure,
+				   begin,
+				   end,
+				   centering,
+				   textwidth,
+				   at,
+				   line,
+				   width,
+				   color,
+				   style,
+				   beforeforegroundpath,
+				   inheritbeforebackgroundpath,
+				   from,
+				   cap,
+				   inner,
+				   sep,
+				   height,
+				   minimum,
+				   distance,
+				   sibling,
+				   level,
+				   edge,
+				   parent,
+				   fork,
+				   down,
+				   memoprocess,
+				   memoevent,
+				   memoexception,
+				   memoconn,
+				   memoconnpara,
+				   memosync,
+				   memoconnsync,
+				   memoconnxor,
+				   memoconnxorprobability,
+				   memoxor}
+				  }[keywords,tex,comments]
+
+\lstset{%
+    language=lsttex,
+    captionpos=t,
+    breaklines=true,
+    basicstyle=\footnotesize\ttfamily,
+    keywordstyle=\footnotesize\ttfamily\color{lstlila},
+    commentstyle=\footnotesize\ttfamily\color{lstcomment},
+    xleftmargin=25pt,
+    xrightmargin=25pt,
+    texcsstyle=*\footnotesize\ttfamily\color{lstlila},
+    numbers=left,
+    numberstyle=\ttfamily\small
+}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%~~ Beginn der Dokumentation
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\begin{document}
+\begin{titlepage}
+\title{\textit{PGF}/\textit{TikZ} Erweiterungspaket \texttt{memoorgml}} 
+\author{Fabian Schneider (fabian.schneider@studium.fernuni-hagen.de)}   
+\end{titlepage}
+\maketitle
+
+\section{Einführung}
+\label{sec:Einführung}
+
+\section{Installation}
+\label{sec:Installation}
+
+\section{Bereitgestellte Notationssymbole}
+\label{sec:Notationssymbole}
+
+\section{Makros}
+\label{sec:Makros}
+\DescribeMacro{\memoprocess} Das ist ein wirklich verrückter Test.\bigskip
+
+\DescribeMacro{\memoevent} Makro für Ereignisse.\bigskip
+
+\DescribeMacro{\memoexception} Makro für Ausnahmen.\bigskip
+
+\DescribeMacro{\memoconn} Makro für gerade Kanten.\bigskip
+
+\DescribeMacro{\memoparaconn} Makro für Parallelisierung.\bigskip
+
+\DescribeMacro{\memosync} Makro für Synchronisation.\bigskip
+
+\DescribeMacro{\memoconnsync} Makro für Synchronisation.\bigskip
+
+\DescribeMacro{\memoconnxor} Makro für XOR-Start.\bigskip
+
+\DescribeMacro{\memoconnxorprobability} Makro für XOR mit Wahrscheinlichkeit.\bigskip
+
+\DescribeMacro{\memoiterationuntil} Makro für beliebige Wiederholung.\bigskip
+
+\DescribeMacro{\memoiterationloop} Makro für For-Schleife.\bigskip
+
+\section{Erweiterung des Pakets}
+\label{sec:Erweiterung}
+\end{document}
