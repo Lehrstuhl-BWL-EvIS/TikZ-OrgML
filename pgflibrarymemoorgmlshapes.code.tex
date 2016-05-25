@@ -698,6 +698,408 @@
     }
 }
 
+%~~ Extern ausgeführter Prozess
+\pgfdeclareshape{externalprocess}{
+    %~~ Ãbernahme der Anchors aus dem
+    %~~ Rechteck
+    \inheritsavedanchors[from=unspecifiedprocess]           
+    \inheritanchorborder[from=unspecifiedprocess] 
+    \inheritanchor[from=unspecifiedprocess]{center} 
+    \inheritanchor[from=unspecifiedprocess]{north}
+    \inheritanchor[from=unspecifiedprocess]{south} 
+    \inheritanchor[from=unspecifiedprocess]{west} 
+    \inheritanchor[from=unspecifiedprocess]{east}
+            
+    %~~ Hintergrundpfad des unspezifizierten Prozesses erben
+    \inheritbackgroundpath[from=unspecifiedprocess]
+
+    %~~ Erzeugen der Dekompositionshierarchie innerhalb des Prozesses
+    \beforebackgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        
+        %~~ Linkes Rechteck
+        \begin{pgfscope}
+           \pgfsetlinewidth{0.6pt}
+            \pgfsetstrokecolor{black}
+            \pgfsetfillcolor{bottomgrey}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0}{\pgf@yb*0.5}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0}{\pgf@ya*0.4}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.05}{\pgf@ya*0.4}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.05}{\pgf@yb*0.5}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0}{\pgf@yb*0.5}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+
+            %~~ Linke Hand
+        \begin{pgfscope}
+            \pgfsetlinewidth{0.6pt}
+            \pgfsetstrokecolor{black}
+            \pgfsetfillcolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.05}{\pgf@yb*0.3}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.1}{\pgf@yb*0.3}}
+            \pgfpathquadraticcurveto{\pgfpoint{14}{13}}{\pgfpoint{22}{-5.5}}
+            \pgfpathlineto{\pgfpoint{13}{-6}}
+            \pgfpathlineto{\pgfpoint{6}{-2.6}}
+            \pgfpathlineto{\pgfpoint{3.2}{-2.6}}
+            \pgfpathlineto{\pgfpoint{3.2}{4}}
+            \pgfusepath{stroke, fill}
+        \end{pgfscope}
+
+        %~~ Rechtes Rechteck
+        \begin{pgfscope}
+           \pgfsetlinewidth{0.6pt}
+            \pgfsetcolor{black}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.4}{\pgf@yb*0.5}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.4}{\pgf@ya*0.4}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.45}{\pgf@ya*0.4}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.45}{\pgf@yb*0.5}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.4}{\pgf@yb*0.5}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{0.6pt}
+            \pgfsetstrokecolor{black}
+            \pgfsetfillcolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.39}{\pgf@yb*0.3}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.34}{\pgf@yb*0.3}}            
+            \pgfpathquadraticcurveto{\pgfpoint{18}{10}}{\pgfpoint{14}{4}}
+            \pgfpathlineto{\pgfpoint{15.3}{3}}
+            \pgfpathlineto{\pgfpoint{13}{0}}
+            \pgfpathquadraticcurveto{\pgfpoint{15}{-2}}{\pgfpoint{16.7}{1.4}}
+            \pgfpathlineto{\pgfpoint{21}{-3}}
+            \pgfpathlineto{\pgfpoint{23.7}{-3}}
+            \pgfpathlineto{\pgfpoint{23.7}{4}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}      
+        %~~ Finger
+        \begin{pgfscope}
+            \pgfsetlinewidth{0.5pt}
+            \pgfsetcolor{black}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.3}{\pgf@ya*0.42}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.25}{\pgf@ya*0.24}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{0.5pt}
+            \pgfsetcolor{black}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.34}{\pgf@ya*0.42}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.27}{\pgf@ya*0.14}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+  
+        \begin{pgfscope}
+            \pgfsetlinewidth{0.5pt}
+            \pgfsetstrokecolor{black}
+            \pgfsetfillcolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.15}{\pgf@ya*0.14}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.25}{\pgf@ya*0.37}}
+            \pgfpathquadraticcurveto{\pgfpoint{15}{-7.2}}{\pgfpoint{8.4}{-3.3}}
+            \pgfpathquadraticcurveto{\pgfpoint{7}{-1.6}}{\pgfpoint{9}{-1.8}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}      
+
+        %~~ Abschluss des Pfades
+        \pgfpathclose
+    }
+}
+
+%~~ Computergestützter Prozess
+\pgfdeclareshape{computersupportedprocess}{
+    %~~ Ãbernahme der Anchors aus dem
+    %~~ Rechteck
+    \inheritsavedanchors[from=unspecifiedprocess]           
+    \inheritanchorborder[from=unspecifiedprocess] 
+    \inheritanchor[from=unspecifiedprocess]{center} 
+    \inheritanchor[from=unspecifiedprocess]{north}
+    \inheritanchor[from=unspecifiedprocess]{south} 
+    \inheritanchor[from=unspecifiedprocess]{west} 
+    \inheritanchor[from=unspecifiedprocess]{east}
+            
+    %~~ Hintergrundpfad des unspezifizierten Prozesses erben
+    \inheritbackgroundpath[from=unspecifiedprocess]
+
+    %~~ Erzeugen der Dekompositionshierarchie innerhalb des Prozesses
+    \beforebackgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        
+        %~~ Kopf
+        \begin{pgfscope}
+            \pgfsetlinewidth{0.5pt}
+            \pgfsetfillcolor{beige}
+            \pgfsetstrokecolor{black}
+            \pgfpathcircle{\pgfpoint{8}{15.1}}{2.6}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+
+        %~~ KÃ¶rper
+        \begin{pgfscope}
+            \pgfsetlinewidth{0.5pt}
+            \pgfsetstrokecolor{black}
+            \pgfsetfillcolor{bottomgrey}
+            \pgfpathmoveto{\pgfpoint{4}{-3}}
+            \pgfpathlineto{\pgfpoint{4}{8.5}}
+            \pgfpathquadraticcurveto{\pgfpoint{7}{12.5}}{\pgfpoint{11}{8.5}}
+            \pgfpathlineto{\pgfpoint{11}{5}}
+            \pgfpathquadraticcurveto{\pgfpoint{17}{5}}{\pgfpoint{17}{2.5}}
+            \pgfpathlineto{\pgfpoint{11}{2.5}}
+            \pgfpathlineto{\pgfpoint{11}{-2}}
+            \pgfpathlineto{\pgfpoint{13}{-2}}
+            \pgfpathquadraticcurveto{\pgfpoint{16}{-2}}{\pgfpoint{16}{-6}}
+            \pgfpathlineto{\pgfpoint{16}{-15}}
+            \pgfpathquadraticcurveto{\pgfpoint{20}{-15}}{\pgfpoint{20}{-17}}
+            \pgfpathlineto{\pgfpoint{12.5}{-17}}
+            \pgfpathlineto{\pgfpoint{12.5}{-7}}
+            \pgfpathlineto{\pgfpoint{8}{-7}}
+            \pgfpathquadraticcurveto{\pgfpoint{4}{-7}}{\pgfpoint{4}{-3}}
+            \pgfusepath{stroke, fill}
+        \end{pgfscope}
+    
+        %~~ Tisch
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetlinewidth{2pt}
+            \pgfsetstrokecolor{black}
+            \pgfpathmoveto{\pgfpoint{14}{1.2}}
+            \pgfpathlineto{\pgfpoint{30}{1.2}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetlinewidth{3.5pt}
+            \pgfsetstrokecolor{black}
+            \pgfpathmoveto{\pgfpoint{24}{1.2}}
+            \pgfpathlineto{\pgfpoint{24}{-17}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        %~~ Computer
+        \begin{pgfscope}
+            \pgfsetcolor{white}
+            \pgfpathmoveto{\pgfpoint{20}{2.5}}
+            \pgfpathlineto{\pgfpoint{28}{2.5}}
+            \pgfpathlineto{\pgfpoint{28}{5}}
+            \pgfpathlineto{\pgfpoint{20}{5}}
+            \pgfpathlineto{\pgfpoint{20}{2.5}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetcolor{black}
+            \pgfpathmoveto{\pgfpoint{19.5}{2.8}}
+            \pgfpathlineto{\pgfpoint{19.5}{5.5}}
+            \pgfpathlineto{\pgfpoint{27.5}{5.5}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetcolor{black}
+            \pgfpathmoveto{\pgfpoint{21}{4}}
+            \pgfpathlineto{\pgfpoint{23.5}{4}}          
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        %~~ Monitor
+        \begin{pgfscope}
+            \pgfsetcolor{black}
+            \pgfpathmoveto{\pgfpoint{20}{8}}
+            \pgfpathlineto{\pgfpoint{21}{16}}
+            \pgfpathlineto{\pgfpoint{27}{16}}
+            \pgfpathlineto{\pgfpoint{26}{8}}
+            \pgfpathlineto{\pgfpoint{20}{8}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetcolor{black}
+            \pgfpathmoveto{\pgfpoint{21.5}{9.5}}
+            \pgfpathlineto{\pgfpoint{22.2}{14.5}}
+            \pgfpathlineto{\pgfpoint{25.5}{14.5}}
+            \pgfpathlineto{\pgfpoint{24.8}{9.5}}
+            \pgfpathlineto{\pgfpoint{21.5}{9.5}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+
+         \begin{pgfscope}
+            \pgfsetstrokecolor{black}
+            \pgfsetfillcolor{white}
+            \pgfpathmoveto{\pgfpoint{26}{8}}
+            \pgfpathlineto{\pgfpoint{26}{5.5}}
+            \pgfpathlineto{\pgfpoint{27}{5.5}}
+            \pgfpathquadraticcurveto{\pgfpoint{27}{10}}{\pgfpoint{26.3}{10}}
+            \pgfpathlineto{\pgfpoint{26}{8}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+        
+        %~~ Abschluss des Pfades
+        \pgfpathclose
+    }
+}
+
+%~~ Manueller Prozess ohne Computerunterstützung
+\pgfdeclareshape{manualprocess}{
+    %~~ Ãbernahme der Anchors aus dem
+    %~~ Rechteck
+    \inheritsavedanchors[from=unspecifiedprocess]           
+    \inheritanchorborder[from=unspecifiedprocess] 
+    \inheritanchor[from=unspecifiedprocess]{center} 
+    \inheritanchor[from=unspecifiedprocess]{north}
+    \inheritanchor[from=unspecifiedprocess]{south} 
+    \inheritanchor[from=unspecifiedprocess]{west} 
+    \inheritanchor[from=unspecifiedprocess]{east}
+            
+    %~~ Hintergrundpfad des unspezifizierten Prozesses erben
+    \inheritbackgroundpath[from=unspecifiedprocess]
+
+    %~~ Erzeugen der Dekompositionshierarchie innerhalb des Prozesses
+    \beforebackgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        
+        %~~ Kopf
+        \begin{pgfscope}
+            \pgfsetlinewidth{0.5pt}
+            \pgfsetfillcolor{beige}
+            \pgfsetstrokecolor{black}
+            \pgfpathcircle{\pgfpoint{16}{15.5}}{2.8}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+
+            %~~ KÃ¶rper
+        \begin{pgfscope}
+            \pgfsetstrokecolor{black}
+            \pgfsetfillcolor{bottomgrey}
+            \pgfpathmoveto{\pgfpoint{12}{12}}
+            \pgfpathlineto{\pgfpoint{20}{12}}
+            \pgfpathquadraticcurveto{\pgfpoint{22}{12}}{\pgfpoint{23}{1}}
+            \pgfpathlineto{\pgfpoint{19}{1}}
+            \pgfpathquadraticcurveto{\pgfpoint{19}{3}}{\pgfpoint{21}{3}}
+            \pgfpathlineto{\pgfpoint{19.5}{8}}
+            \pgfpathlineto{\pgfpoint{20}{-7}}
+            \pgfpathlineto{\pgfpoint{13}{-7}}
+            \pgfpathlineto{\pgfpoint{13}{1}}
+            \pgfpathquadraticcurveto{\pgfpoint{18}{0.5}}{\pgfpoint{13}{3.5}}
+            \pgfpathlineto{\pgfpoint{13}{9}}
+            \pgfpathmoveto{\pgfpoint{13}{1}}
+            \pgfpathlineto{\pgfpoint{11}{1}}
+            \pgfpathlineto{\pgfpoint{11}{8}}
+            \pgfpathquadraticcurveto{\pgfpoint{11}{12}}{\pgfpoint{12}{12}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+
+        %~~ Beine
+        \begin{pgfscope}
+            \pgfsetstrokecolor{black}
+            \pgfsetfillcolor{bottomgrey}
+            \pgfpathmoveto{\pgfpoint{13}{-7}}
+            \pgfpathlineto{\pgfpoint{12.5}{-17}}
+            \pgfpathquadraticcurveto{\pgfpoint{13.5}{-18}}{\pgfpoint{14.5}{-17}}
+            \pgfpathlineto{\pgfpoint{15}{-7}}
+            \pgfpathquadraticcurveto{\pgfpoint{13.5}{-5}}{\pgfpoint{13}{-7}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetstrokecolor{black}
+            \pgfsetfillcolor{bottomgrey}
+            \pgfpathmoveto{\pgfpoint{18}{-7}}
+            \pgfpathlineto{\pgfpoint{19}{-17}}
+            \pgfpathquadraticcurveto{\pgfpoint{20}{-18}}{\pgfpoint{21}{-17}}
+            \pgfpathlineto{\pgfpoint{20}{-7}}
+            \pgfpathquadraticcurveto{\pgfpoint{19}{-5}}{\pgfpoint{18}{-7}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+
+        % ~~ Stift
+        \begin{pgfscope}
+            \pgfsetstrokecolor{black}
+            \pgfpathmoveto{\pgfpoint{15}{2}}
+            \pgfpathlineto{\pgfpoint{14.5}{4}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+            %~~ Tisch
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetlinewidth{1.4pt}
+            \pgfsetcolor{black}
+            \pgfpathmoveto{\pgfpoint{6}{0.5}}
+            \pgfpathlineto{\pgfpoint{28}{0.5}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+        
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetlinewidth{1.8pt}
+            \pgfsetcolor{black}
+            \pgfpathmoveto{\pgfpoint{8}{-1.1}}
+            \pgfpathlineto{\pgfpoint{26}{-1.1}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetlinewidth{1.2pt}
+            \pgfsetcolor{black}
+            \pgfpathmoveto{\pgfpoint{8}{-0.2}}
+            \pgfpathlineto{\pgfpoint{8}{-18}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetlinewidth{1.2pt}
+            \pgfsetcolor{black}
+            \pgfpathmoveto{\pgfpoint{26}{-0.2}}
+            \pgfpathlineto{\pgfpoint{26}{-18}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+
+        %~~ Farbkorrekturen
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetlinewidth{1.2pt}
+            \pgfsetcolor{bottomgrey}
+            \pgfpathmoveto{\pgfpoint{12.2}{11.5}}
+            \pgfpathlineto{\pgfpoint{12}{2}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+        
+        \begin{pgfscope}
+            \pgfsetlinewidth{0.7pt}
+            \pgfsetcolor{bottomgrey}
+            \pgfpathmoveto{\pgfpoint{12}{1.6}}
+            \pgfpathlineto{\pgfpoint{14.8}{1.6}}
+            \pgfpathmoveto{\pgfpoint{12}{1.7}}
+            \pgfpathlineto{\pgfpoint{14.6}{1.7}}
+            \pgfpathmoveto{\pgfpoint{12}{1.9}}
+            \pgfpathlineto{\pgfpoint{14.3}{1.9}}
+            \pgfpathmoveto{\pgfpoint{12}{2.2}}
+            \pgfpathlineto{\pgfpoint{14.1}{2.2}}
+            \pgfpathmoveto{\pgfpoint{12}{2.4}}
+            \pgfpathlineto{\pgfpoint{13.7}{2.4}}
+            \pgfpathmoveto{\pgfpoint{12}{2.6}}
+            \pgfpathlineto{\pgfpoint{13.4}{2.6}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{0.7pt}
+            \pgfsetcolor{bottomgrey}
+            \pgfpathmoveto{\pgfpoint{19.7}{1.5}}
+            \pgfpathlineto{\pgfpoint{19.8}{2}}          
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+        
+        %~~ Abschluss des Pfades
+        \pgfpathclose
+    }
+}
+
 %~~ ######################################
 %~~ SYNCHRONISATION
 %~~ ######################################
