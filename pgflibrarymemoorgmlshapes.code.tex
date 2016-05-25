@@ -1564,6 +1564,345 @@
     }
 }
 
+\pgfdeclareshape{manualdecision}{
+    %~~ Übernahme der Anchors aus dem
+    %~~ Rechteck
+    \inheritsavedanchors[from=unspecifieddecision]            
+    \inheritanchorborder[from=unspecifieddecision] 
+    \inheritanchor[from=unspecifieddecision]{center} 
+    \inheritanchor[from=unspecifieddecision]{north}
+    \inheritanchor[from=unspecifieddecision]{south}  
+    \inheritanchor[from=unspecifieddecision]{west}
+    \inheritanchor[from=unspecifieddecision]{east}
+      
+    \inheritbackgroundpath[from=unspecifieddecision]      
+    %~~ Hintergrundpfad des Basisprozesses
+    \beforebackgroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporären PGF Registern xa,ya und xb und yb
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y      
+            
+       %~~ Kopf
+        \begin{pgfscope}
+            \pgfsetcolor{white}         
+            \pgfpathcircle{\pgfpoint{\pgf@xb*0.1}{\pgf@yb*0.5}}{\pgf@xb*0.21}
+            \pgfusepath{stroke,fill}            
+        \end{pgfscope}      
+
+       %~~ KÃÂÃÂ¶rper
+      \begin{pgfscope}
+        \pgfsetcolor{white}
+        \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+        \pgfpathmoveto{\pgfpoint{\pgf@xb*-0.4}{\pgf@yb*-0.65}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb*-0.4}{\pgf@yb*0.2}}
+        
+        \pgfpathlineto{\pgfpoint{\pgf@xb*0.6}{\pgf@yb*0.2}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb*0.6}{\pgf@yb*-0.65}}
+        \pgfusepath{stroke,fill}    
+      \end{pgfscope}
+
+     %~~  Arme
+    \begin{pgfscope}
+        \pgfsetcolor{decisiongrey}
+        \pgfsetlinewidth{0.7pt}
+        \pgfpathmoveto{\pgfpoint{\pgf@xb*-0.2}{\pgf@yb*-0.63}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb*-0.2}{\pgf@yb*-0.1}}
+        \pgfpathmoveto{\pgfpoint{\pgf@xb*0.4}{\pgf@yb*-0.63}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb*0.4}{\pgf@yb*-0.1}}
+        \pgfusepath{stroke} 
+    \end{pgfscope}
+
+        %~~ Abschluss des Pfades
+        \pgfpathclose                   
+    }
+}
+
+\pgfdeclareshape{automaticdecision}{
+    %~~ Übernahme der Anchors aus dem
+    %~~ Rechteck
+    \inheritsavedanchors[from=unspecifieddecision]            
+    \inheritanchorborder[from=unspecifieddecision] 
+    \inheritanchor[from=unspecifieddecision]{center} 
+    \inheritanchor[from=unspecifieddecision]{north}
+    \inheritanchor[from=unspecifieddecision]{south}  
+    \inheritanchor[from=unspecifieddecision]{west}
+    \inheritanchor[from=unspecifieddecision]{east}
+      
+    \inheritbackgroundpath[from=unspecifieddecision]      
+    %~~ Hintergrundpfad des Basisprozesses
+    \beforebackgroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporären PGF Registern xa,ya und xb und yb
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y      
+            
+        \pgfsetlinewidth{1.6pt}
+        %~~ Kleines linkes Zahnrad
+        \begin{pgfscope}
+            \pgfsetcolor{white}
+            \pgfpathcircle{\pgfpoint{\pgf@xb*0.45}{\pgf@yb*0.2}}{\pgf@xb*0.25}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        %~~ Grosses rechtes Zahnrad
+        \begin{pgfscope}
+            \pgfsetcolor{white}
+            \pgfpathcircle{\pgfpoint{\pgf@xb*-0.35}{\pgf@yb*-0.2}}{\pgf@xb*0.35}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        %~~ Zacken - kleines Zahnrand
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetlinewidth{1.5pt}
+            \pgfsetcolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.35}{\pgf@yb*0.54}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.5}{\pgf@yb*0.56}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{1.5pt}
+            \pgfsetbuttcap
+            \pgfsetcolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.72}{\pgf@yb*0.45}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.79}{\pgf@yb*0.32}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{1.5pt}
+            \pgfsetbuttcap
+            \pgfsetcolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.81}{\pgf@yb*0.13}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.76}{\pgf@yb*0}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{1.5pt}
+            \pgfsetbuttcap
+            \pgfsetcolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.58}{\pgf@yb*-0.14}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.42}{\pgf@yb*-0.17}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{1.5pt}
+            \pgfsetbuttcap
+            \pgfsetcolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.11}{\pgf@yb*0.1}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.19}{\pgf@yb*-0.05}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{1.5pt}
+            \pgfsetbuttcap
+            \pgfsetcolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.18}{\pgf@yb*0.43}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.1}{\pgf@yb*0.29}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+
+        %~~ Grosses Zahnrad
+        \begin{pgfscope}
+            \pgfsetlinewidth{1.5pt}
+            \pgfsetbuttcap
+            \pgfsetcolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*-0.52}{\pgf@yb*0.25}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*-0.28}{\pgf@yb*0.27}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+        
+        \begin{pgfscope}
+            \pgfsetlinewidth{1.5pt}
+            \pgfsetbuttcap
+            \pgfsetcolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*-0.15}{\pgf@yb*0.22}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.03}{\pgf@yb*0.07}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{1.5pt}
+            \pgfsetbuttcap
+            \pgfsetcolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.1}{\pgf@yb*-0.1}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.1}{\pgf@yb*-0.33}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{1.5pt}
+            \pgfsetbuttcap
+            \pgfsetcolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.06}{\pgf@yb*-0.47}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*-0.11}{\pgf@yb*-0.62}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{1.5pt}
+            \pgfsetbuttcap
+            \pgfsetcolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*-0.23}{\pgf@yb*-0.68}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*-0.48}{\pgf@yb*-0.68}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{1.5pt}
+            \pgfsetbuttcap
+            \pgfsetcolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*-0.62}{\pgf@yb*-0.58}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*-0.78}{\pgf@yb*-0.40}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{1.5pt}
+            \pgfsetbuttcap
+            \pgfsetcolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*-0.8}{\pgf@yb*-0.1}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*-0.8}{\pgf@yb*-0.3}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+        
+        \begin{pgfscope}
+            \pgfsetlinewidth{1.5pt}
+            \pgfsetbuttcap
+            \pgfsetcolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*-0.6}{\pgf@yb*0.2}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*-0.75}{\pgf@yb*0}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        %~~ Abschluss des Pfades
+        \pgfpathclose                   
+    }
+}
+
+\pgfdeclareshape{manualexplicitdecision}{
+    %~~ Übernahme der Anchors aus dem
+    %~~ Rechteck
+    \inheritsavedanchors[from=unspecifieddecision]            
+    \inheritanchorborder[from=unspecifieddecision] 
+    \inheritanchor[from=unspecifieddecision]{center} 
+    \inheritanchor[from=unspecifieddecision]{north}
+    \inheritanchor[from=unspecifieddecision]{south}  
+    \inheritanchor[from=unspecifieddecision]{west}
+    \inheritanchor[from=unspecifieddecision]{east}
+      
+    \inheritbackgroundpath[from=unspecifieddecision]      
+    %~~ Hintergrundpfad des Basisprozesses
+    \beforebackgroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporÃÂÃÂÃÂÃÂ¤ren PGF Registern xa,ya und xb und yb
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y      
+            
+       %~~ Kopf
+        \begin{pgfscope}
+            \pgfsetcolor{white}         
+            \pgfpathcircle{\pgfpoint{\pgf@xb*-0.1}{\pgf@yb*0.5}}{\pgf@xb*0.21}
+            \pgfusepath{stroke,fill}            
+        \end{pgfscope}      
+
+       %~~ KÃÂÃÂ¶rper
+      \begin{pgfscope}
+        \pgfsetcolor{white}
+        \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+        \pgfpathmoveto{\pgfpoint{\pgf@xb*-0.6}{\pgf@yb*-0.65}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb*-0.6}{\pgf@yb*0.2}}
+        
+        \pgfpathlineto{\pgfpoint{\pgf@xb*0.4}{\pgf@yb*0.2}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb*0.4}{\pgf@yb*-0.65}}
+        \pgfusepath{stroke,fill}    
+      \end{pgfscope}
+
+     %~~  Arme
+    \begin{pgfscope}
+        \pgfsetcolor{decisiongrey}
+        \pgfsetlinewidth{0.7pt}
+        \pgfpathmoveto{\pgfpoint{\pgf@xb*-0.4}{\pgf@yb*-0.63}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb*-0.4}{\pgf@yb*-0.1}}
+        \pgfpathmoveto{\pgfpoint{\pgf@xb*0.2}{\pgf@yb*-0.63}}
+        \pgfpathlineto{\pgfpoint{\pgf@xb*0.2}{\pgf@yb*-0.1}}
+        \pgfusepath{stroke} 
+    \end{pgfscope}
+
+    \pgfsetlinewidth{1.6pt}
+        %~~ Kleines linkes Zahnrad
+        \begin{pgfscope}
+            \pgfsetcolor{white}
+            \pgfpathcircle{\pgfpoint{\pgf@xb*0.45}{\pgf@yb*0.2}}{\pgf@xb*0.25}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+    
+        
+        %~~ Zacken - kleines Zahnrand
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetlinewidth{1.5pt}
+            \pgfsetcolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.35}{\pgf@yb*0.54}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.5}{\pgf@yb*0.56}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{1.5pt}
+            \pgfsetbuttcap
+            \pgfsetcolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.72}{\pgf@yb*0.45}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.79}{\pgf@yb*0.32}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{1.5pt}
+            \pgfsetbuttcap
+            \pgfsetcolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.81}{\pgf@yb*0.13}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.76}{\pgf@yb*0}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{1.5pt}
+            \pgfsetbuttcap
+            \pgfsetcolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.58}{\pgf@yb*-0.14}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.42}{\pgf@yb*-0.17}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{1.5pt}
+            \pgfsetbuttcap
+            \pgfsetcolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.11}{\pgf@yb*0.1}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.19}{\pgf@yb*-0.05}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{1.5pt}
+            \pgfsetbuttcap
+            \pgfsetcolor{white}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.18}{\pgf@yb*0.43}}
+            \pgfpathlineto{\pgfpoint{\pgf@xb*0.1}{\pgf@yb*0.29}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        %~~ Abschluss des Pfades
+        \pgfpathclose                   
+    }
+}
 
 \makeatother
 
