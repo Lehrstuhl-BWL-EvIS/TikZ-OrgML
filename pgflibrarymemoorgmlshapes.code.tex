@@ -1483,6 +1483,413 @@
     }
 }
 
+\pgfdeclareshape{manualexception}{
+    %~~ Ãbernahme der Anchors aus dem
+    %~~ Rechteck
+    \inheritsavedanchors[from=rectangle]            
+    \inheritanchorborder[from=rectangle] 
+    \inheritanchor[from=rectangle]{center} 
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{south}  
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    
+    \inheritbackgroundpath[from=unspecifiedexception]
+    %~~ Hintergrundpfad des Basisprozesses
+    \beforebackgroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporÃ¤ren PGF Registern xa,ya und xb und yb
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y  
+        
+         %~~ Kopf
+        \begin{pgfscope}
+            \pgfsetcolor{white}         
+            \pgfpathcircle{\pgfpoint{7}{2}}{3}
+            \pgfusepath{stroke,fill}            
+        \end{pgfscope}  
+        
+        \begin{pgfscope}
+            \pgfsetcolor{black}         
+            \pgfpathcircle{\pgfpoint{7}{2}}{2.5}
+            \pgfusepath{stroke,fill}            
+        \end{pgfscope}          
+
+       %~~ KÃ¶rper  
+      \begin{pgfscope}
+        \pgfsetcolor{white}
+        \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+        \pgfpathmoveto{\pgfpoint{0.3}{-15.7}}
+        \pgfpathlineto{\pgfpoint{0.3}{-1.3}}
+        
+        \pgfpathlineto{\pgfpoint{13.7}{-1.3}}
+        \pgfpathlineto{\pgfpoint{13.7}{-15.7}}
+        \pgfusepath{stroke,fill}    
+      \end{pgfscope}    
+
+      \begin{pgfscope}
+        \pgfsetcolor{black}
+        \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+        \pgfpathmoveto{\pgfpoint{1}{-15}}
+        \pgfpathlineto{\pgfpoint{1}{-2}}
+        
+        \pgfpathlineto{\pgfpoint{13}{-2}}
+        \pgfpathlineto{\pgfpoint{13}{-15}}
+        \pgfusepath{stroke,fill}    
+      \end{pgfscope}    
+
+     
+
+        %~~ Arme
+        \begin{pgfscope}
+            \pgfsetstrokecolor{white}
+            \pgfpathmoveto{\pgfpoint{4}{-5.5}}
+            \pgfpathlineto{\pgfpoint{4}{-15}}
+
+            \pgfpathmoveto{\pgfpoint{10}{-5.5}}
+            \pgfpathlineto{\pgfpoint{10}{-15}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+        
+        %~~ Abschluss des Pfades
+        \pgfpathclose                   
+    }
+}
+
+\pgfdeclareshape{timeexpiredexception}{
+    %~~ Ãbernahme der Anchors aus dem
+    %~~ Rechteck
+    \inheritsavedanchors[from=rectangle]            
+    \inheritanchorborder[from=rectangle] 
+    \inheritanchor[from=rectangle]{center} 
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{south}  
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    
+    \inheritbackgroundpath[from=unspecifiedexception]
+    %~~ Hintergrundpfad des Basisprozesses
+    \beforebackgroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporÃ¤ren PGF Registern xa,ya und xb und yb
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y  
+        
+        %~~ Ziffernblatt
+        \begin{pgfscope}
+            \pgfsetcolor{white}         
+            \pgfpathcircle{\pgfpoint{9}{-9}}{7.5}
+            \pgfusepath{stroke,fill}            
+        \end{pgfscope}  
+        
+        \begin{pgfscope}
+            \pgfsetcolor{black}         
+            \pgfpathcircle{\pgfpoint{9}{-9}}{7}
+            \pgfusepath{stroke}         
+        \end{pgfscope} 
+
+        %~~ Ziffern
+        \begin{pgfscope}
+            \pgfsetstrokecolor{black}   
+            \pgfpathmoveto{\pgfpoint{9}{-3}}
+            \pgfpathlineto{\pgfpoint{9}{-5}}
+            \pgfusepath{stroke} 
+        \end{pgfscope}  
+
+        \begin{pgfscope}
+            \pgfsetstrokecolor{black}   
+            \pgfpathmoveto{\pgfpoint{9}{-13}}
+            \pgfpathlineto{\pgfpoint{9}{-15}}
+            \pgfusepath{stroke} 
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetstrokecolor{black}   
+            \pgfpathmoveto{\pgfpoint{3}{-9}}
+            \pgfpathlineto{\pgfpoint{5}{-9}}
+            \pgfusepath{stroke} 
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetstrokecolor{black}   
+            \pgfpathmoveto{\pgfpoint{13}{-9}}
+            \pgfpathlineto{\pgfpoint{15}{-9}}
+            \pgfusepath{stroke} 
+        \end{pgfscope}
+             
+        %~~ Zeigermittelpunkt
+        \begin{pgfscope}
+            \pgfsetcolor{black}         
+            \pgfpathcircle{\pgfpoint{9}{-9}}{0.4}
+            \pgfusepath{stroke,fill}            
+        \end{pgfscope} 
+
+        %~~ Zeiger
+        \begin{pgfscope}
+            \pgfsetlinewidth{0.6pt}
+            \pgfsetstrokecolor{black}   
+            \pgfpathmoveto{\pgfpoint{9}{-9}}
+            \pgfpathlineto{\pgfpoint{12}{-12}}
+            \pgfusepath{stroke} 
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetlinewidth{1.2pt}
+            \pgfsetstrokecolor{black}   
+            \pgfpathmoveto{\pgfpoint{9}{-9}}
+            \pgfpathlineto{\pgfpoint{11}{-5}}
+            \pgfusepath{stroke} 
+        \end{pgfscope}
+
+        %~~ Abschluss des Pfades
+        \pgfpathclose                   
+    }
+}
+
+\pgfdeclareshape{technicalexception}{
+    %~~ Ãbernahme der Anchors aus dem
+    %~~ Rechteck
+    \inheritsavedanchors[from=rectangle]            
+    \inheritanchorborder[from=rectangle] 
+    \inheritanchor[from=rectangle]{center} 
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{south}  
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    
+    \inheritbackgroundpath[from=unspecifiedexception]
+    %~~ Hintergrundpfad des Basisprozesses
+    \beforebackgroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporÃ¤ren PGF Registern xa,ya und xb und yb
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y  
+        
+        %~~ Blitz
+        \begin{pgfscope}            
+            \pgfsetstrokecolor{black}   
+            \pgfsetfillcolor{memoyellow}
+            \pgfpathmoveto{\pgfpoint{13}{2}}
+            \pgfpathlineto{\pgfpoint{6}{-10}}
+            \pgfpathlineto{\pgfpoint{10}{-10}}
+            \pgfpathlineto{\pgfpoint{6}{-21}}
+            \pgfpathlineto{\pgfpoint{6}{-21}}
+            \pgfpathlineto{\pgfpoint{16}{-8}}
+            \pgfpathlineto{\pgfpoint{12}{-8}}
+            \pgfpathlineto{\pgfpoint{13}{2}}
+            \pgfusepath{stroke,fill}    
+        \end{pgfscope}      
+
+        %~~ Abschluss des Pfades
+        \pgfpathclose                   
+    }
+}
+
+\pgfdeclareshape{automaticexception}{
+    %~~ Ãbernahme der Anchors aus dem
+    %~~ Rechteck
+    \inheritsavedanchors[from=rectangle]            
+    \inheritanchorborder[from=rectangle] 
+    \inheritanchor[from=rectangle]{center} 
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{south}  
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    
+    \inheritbackgroundpath[from=unspecifiedexception]
+    %~~ Hintergrundpfad des Basisprozesses
+    \beforebackgroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporÃ¤ren PGF Registern xa,ya und xb und yb
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y  
+        
+        %~~ GroÃes Zahnrad
+        \begin{pgfscope}
+            \pgfsetstrokecolor{black}
+            \pgfpathmoveto{\pgfpoint{-8}{-1}}
+            \pgfpathlineto{\pgfpoint{-9.5}{0}}
+            \pgfpathlineto{\pgfpoint{-9.3}{1}}
+            \pgfpathlineto{\pgfpoint{-10.8}{1.8}}
+            \pgfpathlineto{\pgfpoint{-11.3}{1}}
+            \pgfpathlineto{\pgfpoint{-12.8}{1.4}}
+            \pgfpathlineto{\pgfpoint{-13}{2.4}}
+            \pgfpathlineto{\pgfpoint{-15.4}{2.2}}
+            \pgfpathlineto{\pgfpoint{-15.2}{1.2}}
+            \pgfpathlineto{\pgfpoint{-16.8}{0.4}}
+            \pgfpathlineto{\pgfpoint{-17.8}{1}}
+            \pgfpathlineto{\pgfpoint{-19.4}{-0.4}}
+            \pgfpathlineto{\pgfpoint{-18.8}{-1.2}}
+            \pgfpathlineto{\pgfpoint{-20}{-3}}
+            \pgfpathlineto{\pgfpoint{-21}{-2.7}}
+            \pgfpathlineto{\pgfpoint{-21.4}{-5.4}}
+            \pgfpathlineto{\pgfpoint{-20.6}{-5.7}}
+            \pgfpathlineto{\pgfpoint{-20.6}{-5.7}}
+            \pgfpathlineto{\pgfpoint{-20.3}{-7.7}}
+            \pgfpathlineto{\pgfpoint{-21}{-8.3}}
+            \pgfpathlineto{\pgfpoint{-19.5}{-10.4}}
+            \pgfpathlineto{\pgfpoint{-18.6}{-9.8}}
+            \pgfpathlineto{\pgfpoint{-16.5}{-11}}
+            \pgfpathlineto{\pgfpoint{-16.7}{-12}}
+            \pgfpathlineto{\pgfpoint{-14}{-12.3}}
+            \pgfpathlineto{\pgfpoint{-13.6}{-11.2}}
+            \pgfpathlineto{\pgfpoint{-11.8}{-10.5}}
+            \pgfpathlineto{\pgfpoint{-11}{-11.6}}
+            \pgfpathlineto{\pgfpoint{-9.2}{-10.7}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetcolor{black}         
+            \pgfpathcircle{\pgfpoint{-14}{-5}}{5}
+            \pgfusepath{stroke}         
+        \end{pgfscope} {pgfscope}       
+
+        \begin{pgfscope}
+            \pgfsetstrokecolor{black}
+            \pgfpathmoveto{\pgfpoint{-15.7}{1.4}}
+            \pgfpathlineto{\pgfpoint{-16.5}{1.1}}   
+            \pgfpathlineto{\pgfpoint{-17.8}{2.2}}
+            \pgfpathlineto{\pgfpoint{-20.8}{1.7}}
+            \pgfpathlineto{\pgfpoint{-21}{0.2}}
+            \pgfpathlineto{\pgfpoint{-23}{0.7}}
+            \pgfpathlineto{\pgfpoint{-22.6}{2.8}}
+            \pgfpathlineto{\pgfpoint{-25.4}{5.4}}
+            \pgfpathlineto{\pgfpoint{-27}{4.9}}
+            \pgfpathlineto{\pgfpoint{-27.4}{7}}
+            \pgfpathlineto{\pgfpoint{-25.5}{7.8}}
+            \pgfpathlineto{\pgfpoint{-24.8}{11.5}}
+            \pgfpathlineto{\pgfpoint{-25.5}{13}}
+            \pgfpathlineto{\pgfpoint{-23.4}{15}}
+            \pgfpathlineto{\pgfpoint{-22.4}{13.4}}
+            \pgfpathlineto{\pgfpoint{-18.4}{13.6}}
+            \pgfpathlineto{\pgfpoint{-17.4}{15}}
+            \pgfpathlineto{\pgfpoint{-15}{13}}
+            \pgfpathlineto{\pgfpoint{-15.5}{12}}
+            \pgfpathlineto{\pgfpoint{-14.5}{8.5}}
+            \pgfpathlineto{\pgfpoint{-13.5}{8}}
+            \pgfpathlineto{\pgfpoint{-14}{5.5}}
+            \pgfpathlineto{\pgfpoint{-15}{5.5}}
+            \pgfpathlineto{\pgfpoint{-16}{4}}
+            \pgfpathlineto{\pgfpoint{-15.7}{1.4}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetcolor{black}         
+            \pgfpathcircle{\pgfpoint{-20}{8}}{4.5}
+            \pgfusepath{stroke}         
+        \end{pgfscope} {pgfscope}   
+
+        %~~ Abschluss des Pfades
+        \pgfpathclose                   
+    }
+}
+
+\pgfdeclareshape{naturallanguageexception}{
+    %~~ Ãbernahme der Anchors aus dem
+    %~~ Rechteck
+    \inheritsavedanchors[from=rectangle]            
+    \inheritanchorborder[from=rectangle] 
+    \inheritanchor[from=rectangle]{center} 
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{south}  
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    
+    \inheritbackgroundpath[from=unspecifiedexception]
+    \inheritbeforebackgroundpath[from=automaticexception]
+    
+    %~~ Hintergrundpfad des Basisprozesses
+    \foregroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporÃ¤ren PGF Registern xa,ya und xb und yb
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y  
+        
+        %~~ Kopf
+        \begin{pgfscope}
+            \pgfsetcolor{white}         
+            \pgfpathcircle{\pgfpoint{7}{2}}{3}
+            \pgfusepath{stroke,fill}            
+        \end{pgfscope}  
+        
+        \begin{pgfscope}
+            \pgfsetcolor{black}         
+            \pgfpathcircle{\pgfpoint{7}{2}}{2.5}
+            \pgfusepath{stroke,fill}            
+        \end{pgfscope}          
+
+       %~~ KÃ¶rper  
+      \begin{pgfscope}
+        \pgfsetcolor{white}
+        \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+        \pgfpathmoveto{\pgfpoint{0.3}{-15.7}}
+        \pgfpathlineto{\pgfpoint{0.3}{-1.3}}
+        
+        \pgfpathlineto{\pgfpoint{13.7}{-1.3}}
+        \pgfpathlineto{\pgfpoint{13.7}{-15.7}}
+        \pgfusepath{stroke,fill}    
+      \end{pgfscope}    
+
+      \begin{pgfscope}
+        \pgfsetcolor{black}
+        \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+        \pgfpathmoveto{\pgfpoint{1}{-15}}
+        \pgfpathlineto{\pgfpoint{1}{-2}}
+        
+        \pgfpathlineto{\pgfpoint{13}{-2}}
+        \pgfpathlineto{\pgfpoint{13}{-15}}
+        \pgfusepath{stroke,fill}    
+      \end{pgfscope}    
+
+     
+
+        %~~ Arme
+        \begin{pgfscope}
+            \pgfsetstrokecolor{white}
+            \pgfpathmoveto{\pgfpoint{4}{-5.5}}
+            \pgfpathlineto{\pgfpoint{4}{-15}}
+
+            \pgfpathmoveto{\pgfpoint{10}{-5.5}}
+            \pgfpathlineto{\pgfpoint{10}{-15}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        %~~ Weisses Kreuz
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetlinewidth{1.4pt}
+            \pgfsetstrokecolor{white}
+            \pgfpathmoveto{\pgfpoint{-5}{7}}
+            \pgfpathlineto{\pgfpoint{3}{-0.5}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetlinewidth{1.4pt}
+            \pgfsetstrokecolor{white}
+            \pgfpathmoveto{\pgfpoint{2}{7}}
+            \pgfpathlineto{\pgfpoint{-5}{-0.5}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+        
+        %~~ Farbkorrekturen
+        \begin{pgfscope}
+            \pgfsetlinewidth{3.4pt}
+            \pgfsetstrokecolor{fillorange}
+            \pgfpathmoveto{\pgfpoint{2.4}{9.5}}
+            \pgfpathlineto{\pgfpoint{5}{6.2}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+        
+        %~~ Abschluss des Pfades
+        \pgfpathclose                   
+    }
+}
+
 
 %~~ ######################################
 %~~ Entscheidungstypen
