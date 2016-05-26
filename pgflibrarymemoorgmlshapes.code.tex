@@ -44,6 +44,8 @@
 \definecolor{bottomgrey}{RGB}{231,231,232}
 \definecolor{fillorange}{RGB}{235,105,11}
 \definecolor{decisiongrey}{RGB}{135,136,138}
+\definecolor{memoyellow}{RGB}{254,220,50}
+\definecolor{memolightblue}{RGB}{204,233,246}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~ Definition der MEMO OrgML-Shapes
@@ -581,6 +583,453 @@
     }
 }
 
+\pgfdeclareshape{timeevent}{
+    %~~ Ãbernahme der Anchor aus dem standard Rechteck
+    %~~ Shape
+    \inheritsavedanchors[from=rectangle]            
+    \inheritanchorborder[from=rectangle] 
+    \inheritanchor[from=rectangle]{center} 
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{south} 
+    \inheritanchor[from=rectangle]{west} 
+    \inheritanchor[from=rectangle]{east}
+
+    \inheritbackgroundpath[from=event]
+    %~~ Hintergrundpfad des Basisereignisses       
+    \beforebackgroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporÃ¤ren PGF Registern xa,ya und xb und yb
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+                
+        %~~ Ziffernblatt
+        \begin{pgfscope}
+            \pgfsetcolor{white}         
+            \pgfpathcircle{\pgfpoint{0}{0}}{11.5}
+            \pgfusepath{stroke,fill}            
+        \end{pgfscope}  
+        
+        \begin{pgfscope}
+            \pgfsetlinewidth{1pt}
+            \pgfsetcolor{black}         
+            \pgfpathcircle{\pgfpoint{0}{0}}{10}
+            \pgfusepath{stroke}         
+        \end{pgfscope} 
+
+        %~~ Ziffern
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetstrokecolor{black}   
+            \pgfpathmoveto{\pgfpoint{0}{8}}
+            \pgfpathlineto{\pgfpoint{0}{5}}
+            \pgfusepath{stroke} 
+        \end{pgfscope}  
+
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetstrokecolor{black}   
+            \pgfpathmoveto{\pgfpoint{0}{-5}}
+            \pgfpathlineto{\pgfpoint{0}{-8}}
+            \pgfusepath{stroke} 
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetstrokecolor{black}   
+            \pgfpathmoveto{\pgfpoint{-8}{0}}
+            \pgfpathlineto{\pgfpoint{-5}{0}}
+            \pgfusepath{stroke} 
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetstrokecolor{black}   
+            \pgfpathmoveto{\pgfpoint{5}{0}}
+            \pgfpathlineto{\pgfpoint{8}{0}}
+            \pgfusepath{stroke} 
+        \end{pgfscope}
+
+         \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetstrokecolor{black}   
+            \pgfpathmoveto{\pgfpoint{-6.5}{6.5}}
+            \pgfpathlineto{\pgfpoint{-5}{5}}
+            \pgfusepath{stroke} 
+        \end{pgfscope}
+
+         \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetstrokecolor{black}   
+            \pgfpathmoveto{\pgfpoint{6.5}{6.5}}
+            \pgfpathlineto{\pgfpoint{5}{5}}
+            \pgfusepath{stroke} 
+        \end{pgfscope}
+
+         \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetstrokecolor{black}   
+            \pgfpathmoveto{\pgfpoint{6.5}{-6.5}}
+            \pgfpathlineto{\pgfpoint{5}{-5}}
+            \pgfusepath{stroke} 
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetstrokecolor{black}   
+            \pgfpathmoveto{\pgfpoint{-6.5}{-6.5}}
+            \pgfpathlineto{\pgfpoint{-5}{-5}}
+            \pgfusepath{stroke} 
+        \end{pgfscope}
+             
+        %~~ Zeigermittelpunkt
+        \begin{pgfscope}
+            \pgfsetcolor{black}         
+            \pgfpathcircle{\pgfpoint{0}{0}}{0.4}
+            \pgfusepath{stroke,fill}            
+        \end{pgfscope} 
+
+        %~~ Zeiger
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetcolor{black}         
+            \pgfpathmoveto{\pgfpoint{0}{0}}
+            \pgfpathlineto{\pgfpoint{0}{4}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetcolor{black}
+            \pgfsetlinewidth{1.2pt}
+            \pgfpathmoveto{\pgfpoint{0}{0}}
+            \pgfpathlineto{\pgfpoint{4.5}{-4.5}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+                
+        %~~ Abschluss des Pfades        
+        \pgfpathclose                       
+    }
+}
+
+\pgfdeclareshape{pointintimeevent}{
+    %~~ Ãbernahme der Anchor aus dem standard Rechteck
+    %~~ Shape
+    \inheritsavedanchors[from=rectangle]            
+    \inheritanchorborder[from=rectangle] 
+    \inheritanchor[from=rectangle]{center} 
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{south} 
+    \inheritanchor[from=rectangle]{west} 
+    \inheritanchor[from=rectangle]{east}
+
+    \inheritbackgroundpath[from=event]
+    \inheritbeforebackgroundpath[from=timeevent]    
+
+    %~~ Hintergrundpfad des Basisereignisses       
+    \foregroundpath{
+         \begin{pgfscope}
+            \pgfsetcolor{red}         
+            \pgfpathcircle{\pgfpoint{5.5}{5.5}}{1.2}
+            \pgfusepath{stroke,fill}            
+        \end{pgfscope} 
+        \pgfpathclose       
+    }
+}
+
+\pgfdeclareshape{timespanevent}{
+    %~~ Ãbernahme der Anchor aus dem standard Rechteck
+    %~~ Shape
+    \inheritsavedanchors[from=rectangle]            
+    \inheritanchorborder[from=rectangle] 
+    \inheritanchor[from=rectangle]{center} 
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{south} 
+    \inheritanchor[from=rectangle]{west} 
+    \inheritanchor[from=rectangle]{east}
+
+   \inheritbackgroundpath[from=event]
+    \inheritbeforebackgroundpath[from=timeevent]
+
+    %~~ Hintergrundpfad des Basisereignisses       
+    \foregroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporÃ¤ren PGF Registern xa,ya und xb und yb
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+                
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetstrokeopacity{0.85}
+            \pgfsetlinewidth{2pt}
+            \pgfsetstrokecolor{red}
+            \pgfpathmoveto{\pgfpoint{6}{-5.6}}
+            \pgfpatharc{-40}{90}{8}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+                
+        %~~ Abschluss des Pfades        
+        \pgfpathclose                       
+    }
+}
+
+\pgfdeclareshape{softwareevent}{
+    %~~ Ãbernahme der Anchor aus dem standard Rechteck
+    %~~ Shape
+    \inheritsavedanchors[from=rectangle]            
+    \inheritanchorborder[from=rectangle] 
+    \inheritanchor[from=rectangle]{center} 
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{south} 
+    \inheritanchor[from=rectangle]{west} 
+    \inheritanchor[from=rectangle]{east}
+
+    \inheritbackgroundpath[from=event]
+ 
+    \beforebackgroundpath{
+       \begin{pgfscope}
+        \pgfsetlinewidth{1.0pt}
+        \pgfsetstrokecolor{black}
+        \pgfsetfillcolor{memolightblue}
+        \pgfpathmoveto{\pgfpoint{-12}{11}}
+        \pgfpathlineto{\pgfpoint{12}{11}}
+        \pgfpathlineto{\pgfpoint{12}{-7}}
+        \pgfpathlineto{\pgfpoint{-12}{-7}}
+        \pgfpathlineto{\pgfpoint{-12}{11}}          
+        \pgfusepath{stroke,fill}
+      \end{pgfscope}
+
+    \begin{pgfscope}
+        \pgfsetlinewidth{1.0pt}
+        \pgfsetstrokecolor{black}
+        \pgfsetfillcolor{white}
+        \pgfpathmoveto{\pgfpoint{-12}{8}}
+        \pgfpathlineto{\pgfpoint{12}{8}}
+        \pgfpathlineto{\pgfpoint{12}{11}}
+        \pgfpathlineto{\pgfpoint{-12}{11}}
+        \pgfpathlineto{\pgfpoint{-12}{8}}
+        \pgfusepath{stroke,fill}
+    \end{pgfscope}
+
+    \begin{pgfscope}
+        \pgfsetlinewidth{1.0pt}
+        \pgfsetstrokecolor{black}
+        \pgfsetbuttcap
+        \pgfpathmoveto{\pgfpoint{-10.5}{10}}
+        \pgfpathlineto{\pgfpoint{-10.5}{9}}
+        \pgfusepath{stroke}
+    \end{pgfscope}
+
+    \begin{pgfscope}
+        \pgfsetlinewidth{0.8pt}
+        \pgfsetstrokecolor{black}
+        \pgfsetbuttcap
+        \pgfpathmoveto{\pgfpoint{10.5}{10}}
+        \pgfpathlineto{\pgfpoint{10.5}{9.2}}
+        \pgfpathmoveto{\pgfpoint{9.3}{10}}
+        \pgfpathlineto{\pgfpoint{9.3}{9.2}}
+        \pgfpathmoveto{\pgfpoint{8.1}{10}}
+        \pgfpathlineto{\pgfpoint{8.1}{9.2}}
+        \pgfusepath{stroke}
+    \end{pgfscope}
+                
+        %~~ Abschluss des Pfades        
+        \pgfpathclose                       
+    }
+}
+
+\pgfdeclareshape{pollsoftwareevent}{
+    %~~ Ãbernahme der Anchor aus dem standard Rechteck
+    %~~ Shape
+    \inheritsavedanchors[from=rectangle]            
+    \inheritanchorborder[from=rectangle] 
+    \inheritanchor[from=rectangle]{center} 
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{south} 
+    \inheritanchor[from=rectangle]{west} 
+    \inheritanchor[from=rectangle]{east}
+
+    \inheritbackgroundpath[from=event]
+    \inheritbeforebackgroundpath[from=softwareevent]
+    \foregroundpath{
+        
+        \begin{pgfscope}
+            \pgfsetlinewidth{1.0pt}
+            \pgfsetstrokecolor{black}
+            \pgfsetbuttcap
+            \pgfpathmoveto{\pgfpoint{-6}{4}}
+            \pgfpathlineto{\pgfpoint{6}{4}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{1.0pt}
+            \pgfsetstrokecolor{black}
+            \pgfsetbuttcap
+            \pgfpathmoveto{\pgfpoint{-6}{-4}}
+            \pgfpathlineto{\pgfpoint{6}{-4}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{0.5pt}
+            \pgfsetcolor{black}         
+            \pgfpathcircle{\pgfpoint{4}{0}}{1.5}
+            \pgfusepath{stroke,fill}    
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{0.5pt}
+            \pgfsetcolor{black}         
+            \pgfpathcircle{\pgfpoint{0}{0}}{1.5}
+            \pgfusepath{stroke}     
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{0.5pt}
+            \pgfsetcolor{black}         
+            \pgfpathcircle{\pgfpoint{-4}{0}}{1.5}
+            \pgfusepath{stroke}     
+        \end{pgfscope}
+                
+        %~~ Abschluss des Pfades        
+        \pgfpathclose                       
+    }
+}
+
+\pgfdeclareshape{publishsoftwareevent}{
+    %~~ Ãbernahme der Anchor aus dem standard Rechteck
+    %~~ Shape
+    \inheritsavedanchors[from=rectangle]            
+    \inheritanchorborder[from=rectangle] 
+    \inheritanchor[from=rectangle]{center} 
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{south} 
+    \inheritanchor[from=rectangle]{west} 
+    \inheritanchor[from=rectangle]{east}
+
+    \inheritbackgroundpath[from=event]
+    \inheritbeforebackgroundpath[from=softwareevent]
+    \foregroundpath{
+        %~~ VerstÃ¤rkung des Rahmens
+        \begin{pgfscope}
+            \pgfsetstrokecolor{black}
+            \pgfsetbuttcap
+            \pgfsetlinewidth{1pt}
+            \pgfpathmoveto{\pgfpoint{11}{8}}
+            \pgfpathlineto{\pgfpoint{11}{-7}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetstrokecolor{black}
+            \pgfsetbuttcap
+            \pgfsetlinewidth{1pt}
+            \pgfpathmoveto{\pgfpoint{-12}{-6}}
+            \pgfpathlineto{\pgfpoint{11}{-6}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+        
+        %~~ Antenne
+        \begin{pgfscope}
+            \pgfsetstrokecolor{black}
+            \pgfsetbuttcap
+            \pgfsetlinewidth{1pt}
+            \pgfpathmoveto{\pgfpoint{0}{-6}}
+            \pgfpathlineto{\pgfpoint{0}{0}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        %~~ Funksignal
+        \begin{pgfscope}
+            \pgfsetcolor{black}         
+            \pgfpathcircle{\pgfpoint{0}{1}}{1.5}
+            \pgfusepath{stroke,fill}            
+        \end{pgfscope}  
+
+        \begin{pgfscope}
+            \pgfsetcolor{black}
+            \pgfsetbuttcap
+            \pgfpathmoveto{\pgfpoint{3}{5}}
+            \pgfpathquadraticcurveto{\pgfpoint{6}{0.5}}{\pgfpoint{3}{-3}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetcolor{black}
+            \pgfsetbuttcap
+            \pgfpathmoveto{\pgfpoint{4.5}{6}}
+            \pgfpathquadraticcurveto{\pgfpoint{8}{0.5}}{\pgfpoint{4.5}{-4}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetcolor{black}
+            \pgfsetbuttcap
+            \pgfpathmoveto{\pgfpoint{6}{7}}
+            \pgfpathquadraticcurveto{\pgfpoint{10}{0.5}}{\pgfpoint{6}{-5}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetcolor{black}
+            \pgfsetbuttcap
+            \pgfpathmoveto{\pgfpoint{-3}{5}}
+            \pgfpathquadraticcurveto{\pgfpoint{-6}{0.5}}{\pgfpoint{-3}{-3}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetcolor{black}
+            \pgfsetbuttcap
+            \pgfpathmoveto{\pgfpoint{-4.5}{6}}
+            \pgfpathquadraticcurveto{\pgfpoint{-8}{0.5}}{\pgfpoint{-4.5}{-4}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetcolor{black}
+            \pgfsetbuttcap
+            \pgfpathmoveto{\pgfpoint{-6}{7}}
+            \pgfpathquadraticcurveto{\pgfpoint{-10}{0.5}}{\pgfpoint{-6}{-5}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        %~~ Mauszeiger
+        \begin{pgfscope}
+            \pgfsetstrokecolor{black}
+            \pgfsetfillcolor{black}
+            \pgfsetlinewidth{0.2pt}
+            \pgfpathmoveto{\pgfpoint{8.5}{-2}}
+            \pgfpathlineto{\pgfpoint{12.5}{-8}}
+            \pgfpathlineto{\pgfpoint{10.5}{-7}}
+            \pgfpathlineto{\pgfpoint{12.5}{-12}}
+            \pgfpathlineto{\pgfpoint{11}{-12.5}}
+            \pgfpathlineto{\pgfpoint{9}{-7.5}}
+            \pgfpathlineto{\pgfpoint{7.5}{-9.5}}
+            \pgfpathlineto{\pgfpoint{8.5}{-2}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetstrokecolor{white}
+            \pgfsetfillcolor{black}
+            \pgfsetlinewidth{0.2pt}
+            \pgfpathmoveto{\pgfpoint{9}{-1}}
+            \pgfpathlineto{\pgfpoint{13}{-7}}
+            \pgfpathlineto{\pgfpoint{11}{-6}}
+            \pgfpathlineto{\pgfpoint{13}{-11}}
+            \pgfpathlineto{\pgfpoint{11.5}{-11.5}}
+            \pgfpathlineto{\pgfpoint{9.5}{-6.5}}
+            \pgfpathlineto{\pgfpoint{8}{-8.5}}
+            \pgfpathlineto{\pgfpoint{9}{-1}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+                
+        %~~ Abschluss des Pfades        
+        \pgfpathclose                       
+    }
+}
+
 %~~ ######################################
 %~~ PROZESSE
 %~~ ######################################
@@ -1097,6 +1546,230 @@
         
         %~~ Abschluss des Pfades
         \pgfpathclose
+    }
+}
+
+\pgfdeclareshape{automatedprocess}{
+    %~~ ÃÂbernahme der Anchors aus dem
+    %~~ Rechteck
+    \inheritsavedanchors[from=unspecifiedprocess]           
+    \inheritanchorborder[from=unspecifiedprocess] 
+    \inheritanchor[from=unspecifiedprocess]{center} 
+    \inheritanchor[from=unspecifiedprocess]{north}
+    \inheritanchor[from=unspecifiedprocess]{south} 
+    \inheritanchor[from=unspecifiedprocess]{west} 
+    \inheritanchor[from=unspecifiedprocess]{east}
+            
+    %~~ Hintergrundpfad des unspezifizierten Prozesses erben
+    \inheritbackgroundpath[from=unspecifiedprocess]
+
+    %~~ Erzeugen der Dekompositionshierarchie innerhalb des Prozesses
+    \beforebackgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        
+        %~~ ComputergehÃ¤use
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetlinewidth{1.4pt}
+            \pgfsetstrokecolor{black}
+            \pgfsetfillcolor{bottomgrey}
+            \pgfpathmoveto{\pgfpoint{5}{22}}
+            \pgfpathlineto{\pgfpoint{5}{-22}}
+            \pgfpathlineto{\pgfpoint{28}{-22}}
+            \pgfpathlineto{\pgfpoint{28}{-22}}
+            \pgfpathlineto{\pgfpoint{28}{22}}
+            \pgfpathlineto{\pgfpoint{4.3}{22}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+
+        %~~ Unterer Rand
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetlinewidth{1.4pt}
+            \pgfsetcolor{memodarkgrey}          
+            \pgfpathmoveto{\pgfpoint{5.8}{-20.5}}           
+            \pgfpathlineto{\pgfpoint{26.6}{-20.5}}
+            \pgfpathlineto{\pgfpoint{26.6}{-17.5}}
+            \pgfpathlineto{\pgfpoint{6.4}{-17.5}}
+            \pgfpathlineto{\pgfpoint{6.4}{-20.5}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+
+        %~~ Linien
+            \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetlinewidth{0.7pt}
+            \pgfsetstrokecolor{black}           
+            \pgfpathmoveto{\pgfpoint{13}{-16.5}}            
+            \pgfpathlineto{\pgfpoint{21}{-16.5}}
+            \pgfpathmoveto{\pgfpoint{13}{-14.5}}            
+            \pgfpathlineto{\pgfpoint{21}{-14.5}}
+            \pgfpathmoveto{\pgfpoint{13}{-12.5}}            
+            \pgfpathlineto{\pgfpoint{21}{-12.5}}
+            \pgfpathmoveto{\pgfpoint{13}{-10.5}}            
+            \pgfpathlineto{\pgfpoint{21}{-10.5}}
+            \pgfpathmoveto{\pgfpoint{13}{-8.5}}         
+            \pgfpathlineto{\pgfpoint{21}{-8.5}}
+            \pgfpathmoveto{\pgfpoint{13}{-6.5}}         
+            \pgfpathlineto{\pgfpoint{21}{-6.5}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetlinewidth{1.2pt}
+            \pgfsetcolor{black}         
+            \pgfpathmoveto{\pgfpoint{12.5}{-4.5}}   
+            \pgfpathlineto{\pgfpoint{21.5}{-4.5}}
+            \pgfpathlineto{\pgfpoint{21.5}{0.5}}
+            \pgfpathlineto{\pgfpoint{12.5}{0.5}}
+            \pgfpathlineto{\pgfpoint{12.5}{-4.5}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetlinewidth{1.2pt}
+            \pgfsetcolor{black}         
+            \pgfpathmoveto{\pgfpoint{9}{3}} 
+            \pgfpathlineto{\pgfpoint{25}{3}}
+            \pgfpathlineto{\pgfpoint{25}{7}}
+            \pgfpathlineto{\pgfpoint{9}{7}}
+            \pgfpathlineto{\pgfpoint{9}{3}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetlinewidth{1.2pt}
+            \pgfsetcolor{black}         
+            \pgfpathmoveto{\pgfpoint{9}{9}} 
+            \pgfpathlineto{\pgfpoint{25}{9}}
+            \pgfpathlineto{\pgfpoint{25}{13}}
+            \pgfpathlineto{\pgfpoint{9}{13}}
+            \pgfpathlineto{\pgfpoint{9}{9}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetbuttcap
+            \pgfsetlinewidth{1.2pt}
+            \pgfsetcolor{black}         
+            \pgfpathmoveto{\pgfpoint{9}{15}}    
+            \pgfpathlineto{\pgfpoint{25}{15}}
+            \pgfpathlineto{\pgfpoint{25}{19}}
+            \pgfpathlineto{\pgfpoint{9}{19}}
+            \pgfpathlineto{\pgfpoint{9}{15}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+        
+        
+        %~~ Abschluss des Pfades
+        \pgfpathclose
+    }
+}
+
+\pgfdeclareshape{businessprocess}{
+    %~~ ÃÂbernahme der Anchors aus dem
+    %~~ Rechteck
+    \inheritsavedanchors[from=rectangle]            
+    \inheritanchorborder[from=rectangle] 
+    \inheritanchor[from=rectangle]{center} 
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{south} 
+    \inheritanchor[from=rectangle]{west} 
+    \inheritanchor[from=rectangle]{east}
+     
+    \inheritbackgroundpath[from=unspecifiedprocess]
+       
+    %~~ Hintergrundpfad des Basisprozesses
+    \beforebackgroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporÃÂ¤ren PGF RegistBlogern xa,ya und xb und yb
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+    
+         \begin{pgfscope}
+            \pgfsetlinewidth{0.6pt}
+            \pgfsetstrokecolor{black}
+            \pgfsetfillcolor{memolightgreen}
+            \pgfpathmoveto{\pgfpoint{-10}{2}}
+            \pgfpathlineto{\pgfpoint{4}{2}}
+            \pgfpathlineto{\pgfpoint{6}{0}}
+            \pgfpathlineto{\pgfpoint{4}{-2}}
+            \pgfpathlineto{\pgfpoint{-10}{-2}}
+            \pgfpathlineto{\pgfpoint{-10}{2}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{0.6pt}
+            \pgfsetstrokecolor{black}
+            \pgfsetfillcolor{briefcase}
+            \pgfpathmoveto{\pgfpoint{12}{8}}
+            \pgfpathlineto{\pgfpoint{26}{8}}
+            \pgfpathlineto{\pgfpoint{28}{6}}
+            \pgfpathlineto{\pgfpoint{26}{4}}
+            \pgfpathlineto{\pgfpoint{12}{4}}
+            \pgfpathlineto{\pgfpoint{12}{8}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{0.6pt}
+            \pgfsetstrokecolor{black}
+            \pgfsetfillcolor{briefcase}
+            \pgfpathmoveto{\pgfpoint{12}{-8}}
+            \pgfpathlineto{\pgfpoint{26}{-8}}
+            \pgfpathlineto{\pgfpoint{28}{-6}}
+            \pgfpathlineto{\pgfpoint{26}{-4}}
+            \pgfpathlineto{\pgfpoint{12}{-4}}
+            \pgfpathlineto{\pgfpoint{12}{-8}}
+            \pgfusepath{stroke,fill}
+        \end{pgfscope}
+
+         \begin{pgfscope}
+            \pgfsetlinewidth{0.6pt}
+            \pgfsetstrokecolor{black}
+            \pgfsetfillcolor{memolightorange}
+            \pgfpathmoveto{\pgfpoint{32}{2}}
+            \pgfpathlineto{\pgfpoint{46}{2}}
+            \pgfpathlineto{\pgfpoint{48}{0}}
+            \pgfpathlineto{\pgfpoint{46}{-2}}
+            \pgfpathlineto{\pgfpoint{32}{-2}}
+            \pgfpathlineto{\pgfpoint{32}{2}}
+            \pgfusepath{stroke, fill}
+        \end{pgfscope}
+
+        %~~ Kanten
+         \begin{pgfscope}
+            \pgfsetlinewidth{1pt}
+            \pgfsetstrokecolor{black}           
+            \pgfpathmoveto{\pgfpoint{6}{0}}
+            \pgfpathlineto{\pgfpoint{8}{0}}
+            \pgfpathlineto{\pgfpoint{8}{6}}
+            \pgfpathlineto{\pgfpoint{12}{6}}
+            \pgfpathmoveto{\pgfpoint{8}{0}}
+            \pgfpathlineto{\pgfpoint{8}{-6}}
+            \pgfpathlineto{\pgfpoint{12}{-6}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+
+        \begin{pgfscope}
+            \pgfsetlinewidth{1pt}
+            \pgfsetstrokecolor{black}           
+            \pgfpathmoveto{\pgfpoint{28}{6}}
+            \pgfpathlineto{\pgfpoint{29.5}{6}}
+            \pgfpathlineto{\pgfpoint{29.5}{-6}}
+            \pgfpathlineto{\pgfpoint{28}{-6}}
+            \pgfpathmoveto{\pgfpoint{29.5}{0}}
+            \pgfpathlineto{\pgfpoint{32}{0}}
+            \pgfusepath{stroke}
+        \end{pgfscope}
+        
+        %~~ Abschluss des Pfades
+        \pgfpathclose                   
     }
 }
 
