@@ -1433,13 +1433,13 @@
             \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@ya}} 
             \pgfusepath{fill}
         \end{pgfscope}
-        
+               
         \begin{pgfscope}
            \pgfsetcolor{black}
             \pgfsetfillcolor{fillorange}            
             \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@yb*0.8}}
-            \pgfpathcurveto{\pgfpoint{\pgf@xa*-0.9}{\pgf@yb*2.3}}{\pgfpoint{\pgf@xb*1.1}{\pgf@yb*2.3}}{\pgfpoint{\pgf@xb}{\pgf@yb*0.8}} 
-            \pgfusepath{fill, stroke}    
+            \pgfpathcurveto{\pgfpoint{-8}{13.5}}{\pgfpoint{8.4}{13.5}}{\pgfpoint{\pgf@xb}{\pgf@yb*0.8}} 
+            \pgfusepath{fill,stroke}    
         \end{pgfscope}
             
         \begin{pgfscope}                
@@ -1465,69 +1465,24 @@
         \begin{pgfscope}           
             %~~ Definition der Linienstärke und Farbe für alle
             %~~ folgenden Scopes
-            \pgfsetlinewidth{0.2pt}         
+            \pgfsetbuttcap
+            \pgfsetlinewidth{1.3pt}         
             \pgfsetstrokecolor{white}
-            
+                      
             \begin{pgfscope}            
-                \pgfpathmoveto{\pgfpoint{\pgf@xb*0.3}{\pgf@yb*1.4}}
-                \pgfpathquadraticcurveto{\pgfpoint{\pgf@xb*1.3}{\pgf@yb*-3.5}}{\pgfpoint{\pgf@xb*0.7}{\pgf@ya*0.4}}
+                \pgfpathmoveto{\pgfpoint{\pgf@xb*0.3}{\pgf@yb*1.3}}
+                \pgfpathquadraticcurveto{\pgfpoint{6}{9.8}}{\pgfpoint{5}{-3}}
                 \pgfusepath{stroke}
-            \end{pgfscope}
-            
-            \begin{pgfscope}            
-                \pgfpathmoveto{\pgfpoint{\pgf@xb*0.3}{\pgf@yb*1.4}}
-                \pgfpathquadraticcurveto{\pgfpoint{\pgf@xb*1.3}{\pgf@yb*-3.5}}{\pgfpoint{\pgf@xb*0.67}{\pgf@ya*0.4}}
-                \pgfusepath{stroke}
-            \end{pgfscope}
-            
-            \begin{pgfscope}      
-                \pgfpathmoveto{\pgfpoint{\pgf@xb*0.3}{\pgf@yb*1.4}}
-                \pgfpathquadraticcurveto{\pgfpoint{\pgf@xb*1.3}{\pgf@yb*-3.5}}{\pgfpoint{\pgf@xb*0.65}{\pgf@ya*0.4}}
-                \pgfusepath{stroke}
-            \end{pgfscope}
-            
-            \begin{pgfscope}
-                \pgfpathmoveto{\pgfpoint{\pgf@xb*0.3}{\pgf@yb*1.4}}
-                \pgfpathquadraticcurveto{\pgfpoint{\pgf@xb*1.3}{\pgf@yb*-3.5}}{\pgfpoint{\pgf@xb*0.63}{\pgf@ya*0.4}}
-                \pgfusepath{stroke}
-            \end{pgfscope}
-            
-            \begin{pgfscope}
-                \pgfpathmoveto{\pgfpoint{\pgf@xb*0.3}{\pgf@yb*1.4}}
-                \pgfpathquadraticcurveto{\pgfpoint{\pgf@xb*1.3}{\pgf@yb*-3.5}}{\pgfpoint{\pgf@xb*0.61}{\pgf@ya*0.4}}
-                \pgfusepath{stroke}
-            \end{pgfscope}
-            
-            \begin{pgfscope}
-                \pgfpathmoveto{\pgfpoint{\pgf@xb*0.3}{\pgf@yb*1.4}}
-                \pgfpathquadraticcurveto{\pgfpoint{\pgf@xb*1.3}{\pgf@yb*-3.5}}{\pgfpoint{\pgf@xb*0.59}{\pgf@ya*0.4}}
-                \pgfusepath{stroke}
-            \end{pgfscope}
-            
-            \begin{pgfscope}
-                \pgfpathmoveto{\pgfpoint{\pgf@xb*0.3}{\pgf@yb*1.4}}
-                \pgfpathquadraticcurveto{\pgfpoint{\pgf@xb*1.3}{\pgf@yb*-3.5}}{\pgfpoint{\pgf@xb*0.57}{\pgf@ya*0.4}}
-                \pgfusepath{stroke}
-            \end{pgfscope}
-            
-            \begin{pgfscope}
-                \pgfpathmoveto{\pgfpoint{\pgf@xb*0.3}{\pgf@yb*1.4}}
-                \pgfpathquadraticcurveto{\pgfpoint{\pgf@xb*1.3}{\pgf@yb*-3.5}}{\pgfpoint{\pgf@xb*0.55}{\pgf@ya*0.4}}
-                \pgfusepath{stroke}
-            \end{pgfscope}
-            
-            \begin{pgfscope}
-                \pgfpathmoveto{\pgfpoint{\pgf@xb*0.3}{\pgf@yb*1.4}}
-                \pgfpathquadraticcurveto{\pgfpoint{\pgf@xb*1.3}{\pgf@yb*-3.5}}{\pgfpoint{\pgf@xb*0.53}{\pgf@ya*0.4}}
-                \pgfusepath{stroke}
-            \end{pgfscope}
-        \end{pgfscope}
+            \end{pgfscope} 
 
-    	
-    	%~~ Abschluss des Pfades
-    	\pgfpathclose  	    			
- 	}
+       \end{pgfscope}
+
+        
+        %~~ Abschluss des Pfades
+        \pgfpathclose                   
+    }
 }
+
 
 %~~ ######################################
 %~~ Entscheidungstypen
