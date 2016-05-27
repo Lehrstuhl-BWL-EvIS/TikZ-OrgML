@@ -106,6 +106,19 @@
 }
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% Macroname: memoeventloaded
+% Funktion:  Erzeugen eines überladenen MEMO OrgML Events mit dem passenden
+%            Shape, an der definierten Stelle mit dem definierten Text
+% Parameter: #1: Name des zu verwendenden Shapes
+%            #2: Name des Nodes der erzeugt wird
+%            #3: x-Position
+%            #4: y-Position
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\def\memoeventloaded#1#2#3#4{
+    \node[#1event, shape=#1event] (#2) at (#3, #4) [label={[draw=line, rounded corners, fill=loaded, text=line,font=\footnotesize\sffamily\bfseries]below:LOADED}] {};
+}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 % Macroname: memoexception
 % Funktion:  Erzeugen einer MEMO OrgML Exception mit dem passenden
 %            Shape und an der definierten Stelle
@@ -320,7 +333,7 @@
 %            #4: y-Position
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \def\memocomment#1#2#3#4{
-    \node[draw] (#1_comment) at (#3,#4) [label={[draw, align=left, dashed]right:\sffamily #2}] {\sffamily c#1}
+    \node[draw] (#1_comment) at (#3,#4) [label={[draw, align=left, dashed, font=\sffamily]right:#2}] {\sffamily c#1}
 }
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -332,7 +345,7 @@
 %            #4: y-Position
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \def\memoconstraint#1#2#3#4{
-    \node[draw, fill=memoconstraintred, text=white] (#1_constraint) at (#3,#4) [label={[draw, align=left, memoconstraintred, text=black]right:\sffamily #2}] {\sffamily c#1}
+    \node[draw, fill=memoconstraintred, text=white] (#1_constraint) at (#3,#4) [label={[draw, align=left, memoconstraintred, text=black, font=\sffamily]right: #2}] {\sffamily c#1}
 }
 \makeatother
 %~~ Ende des Erweiterungspaketes
