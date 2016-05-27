@@ -127,19 +127,30 @@
 \DescribeMacro{\memoprocess} \meta{Shape}\meta{Name}\meta{x-Pos.}\meta{y-Pos.}\meta{Org.-Einheit}\meta{ID}\meta{Bezeichnung}\medskip
 
 Das ist ein wirklich verrückter Test.
+
     \begin{lstlisting}
 \memoprocess{unspecified}{p1}{0}{0}{}{}{};    
-    \end{lstlisting}
+    \end{lstlisting}\bigskip
 
-    \bigskip
+\DescribeMacro{\memoevent}\meta{Shape}\meta{Name}\meta{x-Pos.}\meta{y-Pos.}\meta{ID}\meta{Bezeichnung}\medskip
 
-\DescribeMacro{\memoevent} Makro für Ereignisse.\bigskip
+Makro für Ereignisse.\bigskip
 
-\DescribeMacro{\memoexception} Makro für Ausnahmen.\bigskip
+\DescribeMacro{\memoeventloaded}\meta{Shape}\meta{Name}\meta{x-Pos.}\meta{y-Pos.}\medskip
 
-\DescribeMacro{\memoconn} Makro für gerade Kanten.\bigskip
+Makro für überladene Ereignisse.\bigskip
 
-\DescribeMacro{\memoparaconn} Makro für Parallelisierung.\bigskip
+\DescribeMacro{\memoexception}\meta{Shape}\meta{Name}\meta{x-Pos.}\meta{y-Pos.}\meta{Beschreibung}\medskip
+
+ Makro für Ausnahmen.\bigskip
+
+\DescribeMacro{\memoconn}\meta{Name linker Knoten}\meta{Name rechter Knoten}\medskip
+
+ Makro für gerade Kanten.\bigskip
+
+\DescribeMacro{\memoparaconn}\meta{Name Ereignis}\meta{Name Prozess}\meta{Anker}\medskip
+
+Makro für Parallelisierung.\bigskip
 
 \DescribeMacro{\memosync} Makro für Synchronisation.\bigskip
 
