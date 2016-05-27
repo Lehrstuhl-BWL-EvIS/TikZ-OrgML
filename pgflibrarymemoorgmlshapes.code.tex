@@ -398,8 +398,10 @@
             %~~ Abschluss
             \pgfpathlineto{\pgfpoint{\pgf@xb*0.25}{\pgf@yb*0.25}}
             
-            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.94}{\pgf@yb*1.09}}             
-            \pgfpathquadraticcurveto{\pgfpoint{\pgf@xb*1.1}{\pgf@yb*1.31}}{\pgfpoint{\pgf@xb*1.095}{\pgf@yb*0.96}}
+            \pgfpathmoveto{\pgfpoint{\pgf@xb*0.94}{\pgf@yb*1.09}}  
+            
+                       
+            \pgfpathquadraticcurveto{\pgfpoint{18}{19}}{\pgfpoint{15.8}{14}} 
            
             \pgfusepath{stroke,fill}
         \end{pgfscope}
@@ -415,10 +417,12 @@
             \pgfpathlineto{\pgfpoint{\pgf@xb*0.4}{\pgf@yb*0.16}}                       
             
             \pgfpathmoveto{\pgfpoint{\pgf@xb*0.94}{\pgf@yb*1.09}}             
-            \pgfpathquadraticcurveto{\pgfpoint{\pgf@xb*1.1}{\pgf@yb*1.31}}{\pgfpoint{\pgf@xb*1.095}{\pgf@yb*0.96}}
+            \pgfpathquadraticcurveto{\pgfpoint{18}{19}}{\pgfpoint{15.8}{14}} 
+            
+            
            
             \pgfusepath{stroke}
-        \end{pgfscope}        
+        \end{pgfscope}       
         
         %~~ Erzeugen der weißen Umrandung des Stiftes
         \begin{pgfscope}
@@ -462,6 +466,7 @@
         \pgfpathclose
     }
 }
+
 
 
 %~~ Änderung - Abgebrochen
