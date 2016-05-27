@@ -4,6 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{doc}
 \usepackage{listings}
+\usepackage{color}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~ Formatierung des Quellcodes
@@ -123,7 +124,14 @@
 
 \section{Makros}
 \label{sec:Makros}
-\DescribeMacro{\memoprocess} Das ist ein wirklich verrückter Test.\bigskip
+\DescribeMacro{\memoprocess} \meta{Shape}\meta{Name}\meta{x-Pos.}\meta{y-Pos.}\meta{Org.-Einheit}\meta{ID}\meta{Bezeichnung}\medskip
+
+Das ist ein wirklich verrückter Test.
+    \begin{lstlisting}
+\memoprocess{unspecified}{p1}{0}{0}{}{}{};    
+    \end{lstlisting}
+
+    \bigskip
 
 \DescribeMacro{\memoevent} Makro für Ereignisse.\bigskip
 
