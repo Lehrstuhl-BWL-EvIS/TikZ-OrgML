@@ -83,7 +83,7 @@
     %~~ Die Verwendung des richtigen Styles wird durch die Namensgleichheit
     %~~ des Styles und des Shapes erreicht.
     %~~ Die Beschriftung des Notationssymbols erfolgt durch ein Label.
-    \node[#1process, shape=#1process] (#2) at (#3, #4) [label={[memotext]above:#5}] [label={[memotext]below:#6\\#7}] {};       
+    ¿\node[#1process, shape=#1process] (#2) at (#3, #4) [label={[memotext]above:#5}] [label={[memotext]below:#6\\#7}] {};       
 }
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -238,7 +238,7 @@
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \def\memoconnxorprobability#1#2#3#4#5#6{
     \memoxor{#1}{#2}    
-    \draw[memoline, shorten <= 3pt] (#2_decision.#4) -- (#3.west) node [midway, fill=probabilitygrey, rounded corners, label={below:\sffamilyfamily\tiny #6}] {\tiny\sffamily\textcolor{textwhite}{#5}};
+    \draw[memoline, shorten <= 3pt] (#2_decision.#4) -- (#3.west) node [midway, fill=probabilitygrey, rounded corners, label={below:\sffamily\tiny #6}] {\tiny\sffamily\textcolor{textwhite}{#5}};
 }
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
