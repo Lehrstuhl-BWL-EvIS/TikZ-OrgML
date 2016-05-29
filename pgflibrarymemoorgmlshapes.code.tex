@@ -2947,6 +2947,55 @@
     }
 }
 
+%~~ ######################################
+%~~ Verbindungsstück Dekompositionsdiagramm
+%~~ ######################################
+\pgfdeclareshape{decompositionplus}{
+    %~~ Übernahme der Anchors aus dem
+    %~~ Rechteck
+    \inheritsavedanchors[from=rectangle]            
+    \inheritanchorborder[from=rectangle] 
+    \inheritanchor[from=rectangle]{center} 
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{south}  
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+            
+    %~~ Hintergrundpfad des Basisprozesses
+    \backgroundpath{
+        %~~ Speichern der Werte der Anker in den 
+        %~~ temporären PGF Registern xa,ya und xb und yb
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        
+        \begin{pgfscope}
+            \pgfsetfillcolor{white}        
+            \pgfpathcircle{\pgfpoint{\pgf@xb*0}{\pgf@yb*0}}{\pgf@xb}
+            \pgfusepath{stroke,fill} 
+        \end{pgfscope}
+
+           \begin{pgfscope}
+            \pgfsetcolor{blue}        
+            \pgfsetlinewidth{2pt}
+            \pgfpathmoveto{\pgfpoint{0}{19}}
+           \pgfpathlineto{\pgfpoint{0}{22}}            
+            \pgfusepath{stroke,fill} 
+        \end{pgfscope}
+
+         \begin{pgfscope}
+            \pgfsetcolor{blue}        
+            \pgfsetlinewidth{2pt}            
+            \pgfpathmoveto{\pgfpoint{19}{0}}
+           \pgfpathlineto{\pgfpoint{22}{0}}
+            \pgfusepath{stroke,fill} 
+        \end{pgfscope}
+
+        
+        %~~ Abschluss des Pfades
+        \pgfpathclose                   
+    }
+}
+
 \makeatother
 
 %~~ Ende des Paketes
