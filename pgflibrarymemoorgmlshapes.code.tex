@@ -74,8 +74,7 @@
     
     %~~ Hintergrundpfad des Basisereignisses       
 	\backgroundpath{
-        %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
+       
 	    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
 	    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
 			    
@@ -119,8 +118,7 @@
 	
 	%~~ Erzeugen des Textes "START" überhalb des Events
 	\beforebackgroundpath{
-	    %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
+	   
 	    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
 	    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
 	
@@ -149,8 +147,7 @@
 	
 	%~~ Erzeugen des Textes "STOP" überhalb des Events
 	\beforebackgroundpath{
-	    %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
+	   
 	    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
 	    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
 	
@@ -179,8 +176,7 @@
 	
 	%~~ Erzeugen des Briefumschlages 
 	\beforebackgroundpath{
-	    %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
+	   
 	    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
 	    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
     	
@@ -238,9 +234,7 @@
 	\inheritbackgroundpath[from=event]
 	
 	%~~ Erzeugen des Aktensymbols 
-	\beforebackgroundpath{
-	    %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
+	\beforebackgroundpath{	 
 	    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
 	    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
     	  	  	
@@ -301,8 +295,7 @@
     
     %~~ Erzeugen des Pluszeichens
     \beforeforegroundpath{
-        %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
+       
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y                        
                
@@ -360,8 +353,7 @@
     
     %~~ Erzeugen des Stiftes 
     \beforeforegroundpath{
-        %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
+       
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y     
                  
@@ -492,8 +484,7 @@
     
     %~~ Erzeugen des Aktensymbols 
     \beforeforegroundpath{
-        %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
+       
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y                                            
         
@@ -565,8 +556,7 @@
     
     %~~ Erzeugen des Aktensymbols 
     \beforeforegroundpath{
-        %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
+       
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y                    
         
@@ -591,8 +581,9 @@
     }
 }
 
+%~~ Basisshape für zeitliches Ereignis
 \pgfdeclareshape{timeevent}{
-    %~~ Ãbernahme der Anchor aus dem standard Rechteck
+    %~~ Übernahme der Anchor aus dem standard Rechteck
     %~~ Shape
     \inheritsavedanchors[from=rectangle]            
     \inheritanchorborder[from=rectangle] 
@@ -605,8 +596,6 @@
     \inheritbackgroundpath[from=event]
     %~~ Hintergrundpfad des Basisereignisses       
     \beforebackgroundpath{
-        %~~ Speichern der Werte der Anker in den 
-        %~~ temporÃ¤ren PGF Registern xa,ya und xb und yb
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
                 
@@ -719,6 +708,7 @@
     }
 }
 
+%~~ Zeitliches Ereignis - Zeitpunkt erreicht
 \pgfdeclareshape{pointintimeevent}{
     %~~ Ãbernahme der Anchor aus dem standard Rechteck
     %~~ Shape
@@ -744,6 +734,7 @@
     }
 }
 
+%~~ Zeitliches Ereignis - Zeitdauer erreicht
 \pgfdeclareshape{timespanevent}{
     %~~ Ãbernahme der Anchor aus dem standard Rechteck
     %~~ Shape
@@ -761,7 +752,7 @@
     %~~ Hintergrundpfad des Basisereignisses       
     \foregroundpath{
         %~~ Speichern der Werte der Anker in den 
-        %~~ temporÃ¤ren PGF Registern xa,ya und xb und yb
+        %~~ temporären PGF Registern xa,ya und xb und yb
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
                 
@@ -780,6 +771,7 @@
     }
 }
 
+%~~ Basisshape für Softwarebenachrichtigung
 \pgfdeclareshape{softwareevent}{
     %~~ Ãbernahme der Anchor aus dem standard Rechteck
     %~~ Shape
@@ -845,8 +837,9 @@
     }
 }
 
+%~~ Softwarebenachrichtigung - Poll
 \pgfdeclareshape{pollsoftwareevent}{
-    %~~ Ãbernahme der Anchor aus dem standard Rechteck
+    %~~ Üernahme der Anchor aus dem standard Rechteck
     %~~ Shape
     \inheritsavedanchors[from=rectangle]            
     \inheritanchorborder[from=rectangle] 
@@ -904,8 +897,9 @@
     }
 }
 
+%~~ Softwarebenachrichtigung - Publish
 \pgfdeclareshape{publishsoftwareevent}{
-    %~~ Ãbernahme der Anchor aus dem standard Rechteck
+    %~~ Üernahme der Anchor aus dem standard Rechteck
     %~~ Shape
     \inheritsavedanchors[from=rectangle]            
     \inheritanchorborder[from=rectangle] 
@@ -918,7 +912,7 @@
     \inheritbackgroundpath[from=event]
     \inheritbeforebackgroundpath[from=softwareevent]
     \foregroundpath{
-        %~~ VerstÃ¤rkung des Rahmens
+        %~~ Verstärkung des Rahmens
         \begin{pgfscope}
             \pgfsetstrokecolor{black}
             \pgfsetbuttcap
@@ -1044,8 +1038,7 @@
 
 %~~ Unspezifizierter Prozess
 \pgfdeclareshape{unspecifiedprocess}{
-    %~~ Übernahme der Anchors aus dem
-    %~~ Rechteck
+
 	\inheritsavedanchors[from=rectangle]  	        
 	\inheritanchorborder[from=rectangle] 
 	\inheritanchor[from=rectangle]{center} 
@@ -1083,8 +1076,7 @@
 
 %~~ Dekomponierbarer Prozess
 \pgfdeclareshape{decompositionprocess}{
-    %~~ Übernahme der Anchors aus dem
-    %~~ Rechteck
+
 	\inheritsavedanchors[from=unspecifiedprocess]  	        
 	\inheritanchorborder[from=unspecifiedprocess] 
 	\inheritanchor[from=unspecifiedprocess]{center} 
@@ -1557,9 +1549,9 @@
     }
 }
 
+%~~ Automatisierter Prozess
 \pgfdeclareshape{automatedprocess}{
-    %~~ ÃÂbernahme der Anchors aus dem
-    %~~ Rechteck
+
     \inheritsavedanchors[from=unspecifiedprocess]           
     \inheritanchorborder[from=unspecifiedprocess] 
     \inheritanchor[from=unspecifiedprocess]{center} 
@@ -1576,7 +1568,7 @@
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
         
-        %~~ ComputergehÃ¤use
+        %~~ Computergehäuse
         \begin{pgfscope}
             \pgfsetbuttcap
             \pgfsetlinewidth{1.4pt}
@@ -1679,8 +1671,7 @@
 }
 
 \pgfdeclareshape{businessprocess}{
-    %~~ ÃÂbernahme der Anchors aus dem
-    %~~ Rechteck
+
     \inheritsavedanchors[from=rectangle]            
     \inheritanchorborder[from=rectangle] 
     \inheritanchor[from=rectangle]{center} 
@@ -1693,8 +1684,6 @@
        
     %~~ Hintergrundpfad des Basisprozesses
     \beforebackgroundpath{
-        %~~ Speichern der Werte der Anker in den 
-        %~~ temporÃÂ¤ren PGF RegistBlogern xa,ya und xb und yb
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
     
@@ -1787,8 +1776,7 @@
 
 %~~ Generisches Notationssymbol für die Synchronisierung
 \pgfdeclareshape{sync}{
-    %~~ Übernahme der Anchors aus dem
-    %~~ Rechteck
+
 	\inheritsavedanchors[from=rectangle]  	        
 	\inheritanchorborder[from=rectangle] 
 	\inheritanchor[from=rectangle]{center} 
@@ -1799,8 +1787,7 @@
             
 	%~~ Hintergrundpfad des Synchronisationssymbols
 	\backgroundpath{
-        %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
+       
 		\southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
 		\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
 		
@@ -1827,8 +1814,7 @@
 
 %~~ Notationssymbols zur Synchronisation nach Beendigung aller Prozesse
 \pgfdeclareshape{andsync}{
-    %~~ Übernahme der Anchors aus dem
-    %~~ Rechteck
+
 	\inheritsavedanchors[from=sync]  	        
 	\inheritanchorborder[from=sync] 
 	\inheritanchor[from=sync]{center} 
@@ -1843,8 +1829,7 @@
     
     %~~ Erzeugen des Texts AND im Notationssymbl
     \beforebackgroundpath{
-        %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
+       
 	    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
 	    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
 	    
@@ -1858,8 +1843,7 @@
 
 %~~ Notationssymbol zur Synchronisation nach Beendigung des ersten Prozesses 
 \pgfdeclareshape{orsync}{
-    %~~ Übernahme der Anchors aus dem
-    %~~ Rechteck
+
 	\inheritsavedanchors[from=sync]  	        
 	\inheritanchorborder[from=sync] 
 	\inheritanchor[from=sync]{center} 
@@ -1874,8 +1858,7 @@
     
     %~~ Erzeugen des Texts AND im Notationssymbl
     \beforebackgroundpath{
-        %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
+       
 	    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
 	    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
 	    
@@ -1895,8 +1878,7 @@
 
 %~~ Verbindungsstück für die parallele Prozessausführung
 \pgfdeclareshape{paraconn}{
-    %~~ Übernahme der Anchors aus dem
-    %~~ Rechteck
+
 	\inheritsavedanchors[from=rectangle]  	        
 	\inheritanchorborder[from=rectangle] 
 	\inheritanchor[from=rectangle]{center} 
@@ -1907,8 +1889,7 @@
             
 	%~~ Hintergrundpfad des Basisprozesses
 	\backgroundpath{
-        %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
+       
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
                 
@@ -1940,8 +1921,7 @@
 %~~ ######################################
 %~~ Start einer Iteration
 \pgfdeclareshape{iterationstart}{
-    %~~ Die Anchor werden aus dem Basisshape für Events
-    %~~ geerbt
+
     \inheritsavedanchors[from=rectangle]            
     \inheritanchorborder[from=rectangle] 
     \inheritanchor[from=rectangle]{center} 
@@ -1949,13 +1929,11 @@
     \inheritanchor[from=rectangle]{south} 
     \inheritanchor[from=rectangle]{west} 
     \inheritanchor[from=rectangle]{east}
-
-    
+   
     
     %~~ Hintergrundpfad des Iterationsstartsymbols
     \backgroundpath{
-        %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
+       
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
                 
@@ -1976,8 +1954,7 @@
     
     %~~ Pfad des weißen Pfeils
     \beforebackgroundpath{
-        %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
+       
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
         
@@ -1997,8 +1974,7 @@
 %~~ Generisches Notationssymbol für die Darstellung einer Iteration
 %~~ (Verschlungene Pfeile
 \pgfdeclareshape{iteration}{
-    %~~ Übernahme der Anchors aus dem
-    %~~ Rechteck
+
     \inheritsavedanchors[from=rectangle]            
     \inheritanchorborder[from=rectangle] 
     \inheritanchor[from=rectangle]{center} 
@@ -2009,8 +1985,7 @@
             
     %~~ Hintergrundpfad des Basisprozesses
     \backgroundpath{
-       %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
+      
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
             
@@ -2086,8 +2061,7 @@
 %~~ ######################################
 %~~ Nicht spezifizierte Ausnahme
 \pgfdeclareshape{unspecifiedexception}{
-    %~~ Übernahme der Anchors aus dem
-    %~~ Rechteck
+
     \inheritsavedanchors[from=rectangle]            
     \inheritanchorborder[from=rectangle] 
     \inheritanchor[from=rectangle]{center} 
@@ -2098,8 +2072,7 @@
             
     %~~ Hintergrundpfad des Basisprozesses
     \backgroundpath{
-        %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
+       
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y      
                         
@@ -2164,9 +2137,8 @@
     }
 }
 
+%~~ Manuelle Ausnahme
 \pgfdeclareshape{manualexception}{
-    %~~ Ãbernahme der Anchors aus dem
-    %~~ Rechteck
     \inheritsavedanchors[from=rectangle]            
     \inheritanchorborder[from=rectangle] 
     \inheritanchor[from=rectangle]{center} 
@@ -2179,7 +2151,7 @@
     %~~ Hintergrundpfad des Basisprozesses
     \beforebackgroundpath{
         %~~ Speichern der Werte der Anker in den 
-        %~~ temporÃ¤ren PGF Registern xa,ya und xb und yb
+        %~~ temporären PGF Registern xa,ya und xb und yb
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y  
         
@@ -2237,9 +2209,8 @@
     }
 }
 
+%~~ Zeit abgelaufen Ausnahme
 \pgfdeclareshape{timeexpiredexception}{
-    %~~ Ãbernahme der Anchors aus dem
-    %~~ Rechteck
     \inheritsavedanchors[from=rectangle]            
     \inheritanchorborder[from=rectangle] 
     \inheritanchor[from=rectangle]{center} 
@@ -2252,7 +2223,7 @@
     %~~ Hintergrundpfad des Basisprozesses
     \beforebackgroundpath{
         %~~ Speichern der Werte der Anker in den 
-        %~~ temporÃ¤ren PGF Registern xa,ya und xb und yb
+        %~~ temporären PGF Registern xa,ya und xb und yb
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y  
         
@@ -2328,9 +2299,9 @@
     }
 }
 
+%~~ Technischer Fehler
 \pgfdeclareshape{technicalexception}{
-    %~~ Ãbernahme der Anchors aus dem
-    %~~ Rechteck
+
     \inheritsavedanchors[from=rectangle]            
     \inheritanchorborder[from=rectangle] 
     \inheritanchor[from=rectangle]{center} 
@@ -2343,7 +2314,7 @@
     %~~ Hintergrundpfad des Basisprozesses
     \beforebackgroundpath{
         %~~ Speichern der Werte der Anker in den 
-        %~~ temporÃ¤ren PGF Registern xa,ya und xb und yb
+        %~~ temporären PGF Registern xa,ya und xb und yb
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y  
         
@@ -2367,9 +2338,9 @@
     }
 }
 
+%~~ Automatische Ausnahme
 \pgfdeclareshape{automaticexception}{
-    %~~ Ãbernahme der Anchors aus dem
-    %~~ Rechteck
+
     \inheritsavedanchors[from=rectangle]            
     \inheritanchorborder[from=rectangle] 
     \inheritanchor[from=rectangle]{center} 
@@ -2382,7 +2353,7 @@
     %~~ Hintergrundpfad des Basisprozesses
     \beforebackgroundpath{
         %~~ Speichern der Werte der Anker in den 
-        %~~ temporÃ¤ren PGF Registern xa,ya und xb und yb
+        %~~ temporären PGF Registern xa,ya und xb und yb
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y  
         
@@ -2468,9 +2439,9 @@
     }
 }
 
+%~~ Natürlichsprachliche Ausnahme
 \pgfdeclareshape{naturallanguageexception}{
-    %~~ Ãbernahme der Anchors aus dem
-    %~~ Rechteck
+
     \inheritsavedanchors[from=rectangle]            
     \inheritanchorborder[from=rectangle] 
     \inheritanchor[from=rectangle]{center} 
@@ -2485,7 +2456,7 @@
     %~~ Hintergrundpfad des Basisprozesses
     \foregroundpath{
         %~~ Speichern der Werte der Anker in den 
-        %~~ temporÃ¤ren PGF Registern xa,ya und xb und yb
+        %~~ temporären PGF Registern xa,ya und xb und yb
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y  
         
@@ -2502,7 +2473,7 @@
             \pgfusepath{stroke,fill}            
         \end{pgfscope}          
 
-       %~~ KÃ¶rper  
+       %~~ Körper  
       \begin{pgfscope}
         \pgfsetcolor{white}
         \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
@@ -2523,8 +2494,7 @@
         \pgfpathlineto{\pgfpoint{13}{-2}}
         \pgfpathlineto{\pgfpoint{13}{-15}}
         \pgfusepath{stroke,fill}    
-      \end{pgfscope}    
-
+      \end{pgfscope}   
      
 
         %~~ Arme
@@ -2577,8 +2547,7 @@
 %~~ ######################################
 %~~ Nicht spezifizerte Entscheidung
 \pgfdeclareshape{unspecifieddecision}{
-    %~~ Übernahme der Anchors aus dem
-    %~~ Rechteck
+
     \inheritsavedanchors[from=rectangle]            
     \inheritanchorborder[from=rectangle] 
     \inheritanchor[from=rectangle]{center} 
@@ -2589,8 +2558,7 @@
             
     %~~ Hintergrundpfad des Basisprozesses
     \backgroundpath{
-        %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
+       
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
         
@@ -2607,9 +2575,9 @@
     }
 }
 
+%~~ Manuelle Entscheidung
 \pgfdeclareshape{manualdecision}{
-    %~~ Übernahme der Anchors aus dem
-    %~~ Rechteck
+
     \inheritsavedanchors[from=unspecifieddecision]            
     \inheritanchorborder[from=unspecifieddecision] 
     \inheritanchor[from=unspecifieddecision]{center} 
@@ -2621,8 +2589,7 @@
     \inheritbackgroundpath[from=unspecifieddecision]      
     %~~ Hintergrundpfad des Basisprozesses
     \beforebackgroundpath{
-        %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
+       
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y      
             
@@ -2661,9 +2628,9 @@
     }
 }
 
+%~~ Maschinelle Entscheidung
 \pgfdeclareshape{automaticdecision}{
-    %~~ Übernahme der Anchors aus dem
-    %~~ Rechteck
+
     \inheritsavedanchors[from=unspecifieddecision]            
     \inheritanchorborder[from=unspecifieddecision] 
     \inheritanchor[from=unspecifieddecision]{center} 
@@ -2675,8 +2642,7 @@
     \inheritbackgroundpath[from=unspecifieddecision]      
     %~~ Hintergrundpfad des Basisprozesses
     \beforebackgroundpath{
-        %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
+       
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y      
             
@@ -2829,9 +2795,9 @@
     }
 }
 
+%~~ Manuelle Entscheidung mit eindeutigen Regeln
 \pgfdeclareshape{manualexplicitdecision}{
-    %~~ Übernahme der Anchors aus dem
-    %~~ Rechteck
+
     \inheritsavedanchors[from=unspecifieddecision]            
     \inheritanchorborder[from=unspecifieddecision] 
     \inheritanchor[from=unspecifieddecision]{center} 
@@ -2951,8 +2917,7 @@
 %~~ Verbindungsstück Dekompositionsdiagramm
 %~~ ######################################
 \pgfdeclareshape{decompositionplus}{
-    %~~ Übernahme der Anchors aus dem
-    %~~ Rechteck
+
     \inheritsavedanchors[from=rectangle]            
     \inheritanchorborder[from=rectangle] 
     \inheritanchor[from=rectangle]{center} 
@@ -2963,8 +2928,7 @@
             
     %~~ Hintergrundpfad des Basisprozesses
     \backgroundpath{
-        %~~ Speichern der Werte der Anker in den 
-        %~~ temporären PGF Registern xa,ya und xb und yb
+       
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
         
