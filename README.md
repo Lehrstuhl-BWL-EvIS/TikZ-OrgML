@@ -1,5 +1,6 @@
 ## memoorgml
 ###PGF\TikZ - Erweiterungspaket zur Darstellung von Kontrollfluss- und Dekompositionsdiagrammen
+#### Fabian Schneider (fabian.schneider@studium.fernuni-hagen.de)
 
 Dieses Erweiterungspaket für PGF bzw. TikZ dient der Erstellung von MEMO OrgML Kontrollfluss- und Dekompositionsdiagrammen in TEX bzw. LATEX Dokumenten.
 Das Paket stellt dabei Shapes für TikZ-Knoten bereit, welche die Notationssymbole der MEMO OrgML Sprachkonzepte abbilden.
