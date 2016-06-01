@@ -178,21 +178,21 @@ Das Paket stellt dabei Shapes für \textit{TikZ}-Knoten bereit, welche die Notat
 \begin{itemize}
     \item {\texttt{pgflibrarymemoorgmlshapes.code.tex}: Diese Bibliotheksdatei enthält die Definition aller benötigter Shapes.}
     \item {\texttt{tikzlibrarymemoorgmlstyles.code.tex}: Diese Bibliotheksdatei enthält die vordefinierten Styles zur Formatierung der Shapes.}
-    \item {\texttt{tikzlibrarymemoorgml.code.tex}: Diese Bibliotheksdatei stellt Makros zur Verfügung, die zur Unterstützung der Diagrammerstellung dienen.}
+    \item {\texttt{tikzlibrarymemoorgml.code.tex}: Diese Bibliotheksdatei stellt Makros zur Unterstützung der Diagrammerstellung bereit.}
 \end{itemize}
 \noindent Das Paket wurde gegen die \TeX-Live Distributionen 2015 und 2016 getestet.\medskip
 \newpage
 
 \section{Installation}
 \label{sec:Installation}
-Das Erweiterungspaket auf \url{https://github.com/Lehrstuhl-BWL-EvIS/TikZ} heruntergeladen werden. Das heruntergeladene Verzeichnis enthält neben den eigentlichen Bibliotheksdateien noch ein \texttt{Makefile} zur Installation der des Erweiterungspaketes unter \textsf{Mac OS X} und \textsf{Linux}.\medskip
+Das Erweiterungspaket kann von \url{https://github.com/Lehrstuhl-BWL-EvIS/TikZ} heruntergeladen werden. Das heruntergeladene Verzeichnis enthält neben den eigentlichen Bibliotheksdateien noch ein \texttt{Makefile} zur Installation der des Erweiterungspaketes unter \textsf{Mac OS X} und \textsf{Linux}.\medskip
 
 \noindent Zur Installation des Erweiterungspaketes unter \texttt{Mac OS X} und \texttt{Linux} muss \textsf{GNU Make} installiert sein.
 Das \texttt{Makefile} muss dann als Super-User mit folgendem Befehl ausgeführt werden:
 \begin{lstlisting}[language=C]
     sudo make
 \end{lstlisting}
-Das \texttt{Makefile} selbst hat nur ein Target und kopiert die Bibliotheksdateien mittels \texttt{install} in das entsprechende Verzeichnis. Anschließend wird der \texttt{texmf}-Tree erneuert.
+Das \texttt{Makefile} selbst hat nur ein Target und kopiert die Bibliotheksdateien mittels \texttt{install} in das entsprechende Verzeichnis. Anschließend wird der \texttt{texmf}-Tree aktualisiert.
 
 \section{Bereitgestellte Notationssymbole}
 \label{sec:Notationssymbole}
@@ -245,7 +245,7 @@ Das Erweiterungspaket stellt zum aktuellen Zeitpunkt die Shapes für eine Unterm
         Plussymbol Dekomposition & decompositionplus & - \\
         \bottomrule    
 \end{longtable}
-\noindent Das Suffix definiert den Typ zu welcher Gruppe von Notationssymbolen es gehört. Beispielsweise enden alle Shapes für Ereignisse mit dem Suffix \texttt{event}.\newpage
+\noindent Das Suffix definiert zu welcher Gruppe von Notationssymbolen es gehört. Beispielsweise enden alle Shapes für Ereignisse mit dem Suffix \texttt{event}.\newpage
 
 \section{Makros}
 \label{sec:Makros}
