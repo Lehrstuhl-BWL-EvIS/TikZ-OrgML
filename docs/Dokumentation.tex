@@ -1,3 +1,24 @@
+\begin{filecontents}{Literatur.bib}
+@Manual{Tantau:Tikz,
+  Title        = {{TikZ \& PGF Manual for Version 3.0.1a}},
+  Author       = {Till Tantau}, 
+  Organization = {Institut f\"ur Theoretische Informatik},
+  Address      = {Universit\"at zu L\"ubeck},
+  Edition      = {3},
+  Month        = {7},
+  Year         = {2015},
+  Note         = {\url{ftp://ftp.fu-berlin.de/tex/CTAN/graphics/pgf/base/doc/pgfmanual.pdf}}
+}
+
+@techreport{Frank:MEMOOrgML2,
+	author = {Ulrich Frank},
+	title = {{MEMO Organisation Modelling Language (2): Focus on Business Processes}},
+	address = {ICB-Research Report No. 49, Institute for Computer Science and Business Information Systems (ICB), University Duisburg-Essen},
+	year = {2011}
+}
+\end{filecontents}
+
+
 \documentclass[12pt, a4paper]{article}
 \usepackage[ngerman]{babel}
 \usepackage[T1]{fontenc}
@@ -7,21 +28,25 @@
 \usepackage{tikz}
 \usepackage{color}
 \usepackage[colorlinks=false, pdfborder={0 0 0}]{hyperref}
+
 \usepackage{doc}
+\marginparwidth=130.0pt
+
 \usepackage[
-    left=4cm,
+    left=5.5cm,
     right=2cm,
     top=2cm,
     bottom=2.5cm,
     includeheadfoot]
 {geometry}
-\usepackage[square,numbers]{natbib}
+
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{subcaption}
 \usepackage{lscape}
-
-\bibliographystyle{abbrvnat}
 
 \usetikzlibrary{memoorgml}
 
@@ -139,12 +164,15 @@
     numberstyle=\ttfamily\small
 }
 
+\usepackage{xspace}
+\newcommand{\memoorgml}{MEMO~O\textsc{rg}ML\@\xspace}
+
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 %~~ Beginn der Dokumentation
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \begin{document}
 \begin{titlepage}
-\title{\textit{PGF}/\textit{TikZ} Erweiterungspaket \texttt{memoorgml}} 
+\title{\textit{PGF}/TikZ Erweiterungspaket \texttt{memoorgml}} 
 \author{Fabian Schneider (fabian.schneider@studium.fernuni-hagen.de)}
 \bigskip
 \bigskip  
@@ -168,11 +196,11 @@
 
 \section{Einführung}
 \label{sec:Einfuehrung}
-Dieses Erweiterungspaket für \textit{PGF} bzw. \textit{TikZ} dient der Erstellung von \textit{MEMO OrgML} Kontrollfluss- und
-Dekompositionsdiagrammen in \TeX{} bzw. \LaTeX{} Dokumenten \cite{Frank:MEMOOrgML2}.\newline
-Das Paket stellt dabei Shapes für \textit{TikZ}-Knoten bereit, welche die Notationssymbole der \textit{MEMO OrgML} Sprachkonzepte abbilden \cite{Tantau:Tikz}.\medskip
 
-\noindent Zur Verwendung des Pakets muss zuerst \textit{TikZ} über den \texttt{usepackage}-Befehl geladen werden: \lstinline|\usepackage{tikz}|, anschließend kann dann das Erweiterungspaket geladen werden: \lstinline|\usetikzlibrary{memoorgml}|.\medskip
+Dieses Erweiterungspaket für PGF/TikZ dient der Erstellung von \memoorgml Kontrollfluss- und
+Dekompositionsdiagrammen \citep{Frank:MEMOOrgML2} in \TeX{} bzw. \LaTeX{} Dokumenten.
+Die entwickelte TikZ-Bibliothek enthält definierte Makros, welche die Notationselemente der Modellierungssprache \memoorgml darstellen können.
+Zur Verwendung des Pakets muss zuerst TikZ über den \texttt{usepackage}-Befehl geladen werden: \lstinline|\usepackage{tikz}|, anschließend kann dann das Erweiterungspaket geladen werden: \lstinline|\usetikzlibrary{memoorgml}|.\medskip
 
 \noindent Das Erweiterungspaket besteht aus drei Dateien:
 \begin{itemize}
@@ -185,18 +213,20 @@ Das Paket stellt dabei Shapes für \textit{TikZ}-Knoten bereit, welche die Notat
 
 \section{Installation}
 \label{sec:Installation}
-Das Erweiterungspaket kann von \url{https://github.com/Lehrstuhl-BWL-EvIS/TikZ} heruntergeladen werden. Das heruntergeladene Verzeichnis enthält neben den eigentlichen Bibliotheksdateien noch ein \texttt{Makefile} zur Installation der des Erweiterungspaketes unter \textsf{Mac OS X} und \textsf{Linux}.\medskip
+Das Erweiterungspaket über GitHub \href{https://github.com/Lehrstuhl-BWL-EvIS/TikZ-OrgML}{Lehrstuhl-BWL-EvIS/TikZ-OrgML} heruntergeladen werden. Das heruntergeladene Verzeichnis enthält neben den eigentlichen Bibliotheksdateien noch ein \texttt{Makefile} zur Installation der des Erweiterungspaketes unter \textsf{Mac OS X} und \textsf{Linux}.\medskip
 
 \noindent Zur Installation des Erweiterungspaketes unter \texttt{Mac OS X} und \texttt{Linux} muss \textsf{GNU Make} installiert sein.
 Das \texttt{Makefile} muss dann als Super-User mit folgendem Befehl ausgeführt werden:
+
 \begin{lstlisting}[language=C]
     sudo make
 \end{lstlisting}
-Das \texttt{Makefile} selbst hat nur ein Target und kopiert die Bibliotheksdateien mittels \texttt{install} in das entsprechende Verzeichnis. Anschließend wird der \texttt{texmf}-Tree aktualisiert.
+
+Das \texttt{Makefile} selbst hat nur eine Funktion und kopiert die Bibliotheksdateien mit dem Befehl \texttt{install} in das entsprechende \texttt{texmf} Verzeichnis. Anschließend wird der \texttt{texmf}-Tree aktualisiert (durch die Nutzung von \texttt{texhash}).
 
 \section{Bereitgestellte Notationssymbole}
 \label{sec:Notationssymbole}
-Das Erweiterungspaket stellt zum aktuellen Zeitpunkt die Shapes für eine Untermenge der Notationssymbole der \textit{MEMO OrgML} bereit. Alle bereitgestellten Shapes sind in der folgen Tabelle aufgeführt:
+Das Erweiterungspaket stellt zum aktuellen Zeitpunkt die Shapes für eine Untermenge der Notationssymbole der \textit{\memoorgml} bereit. Alle bereitgestellten Shapes sind in der folgen Tabelle aufgeführt:
 \begin{longtable}{lll}
         \toprule
         Konzept & Bezeichnung Notationssymbol & Suffix\\
@@ -411,7 +441,8 @@ Dieses Makro muss für jeden Knoten, der einen (Teil-) Prozess darstellt, und Te
 \end{figure}
 
 \noindent Das Makro \lstinline|\memoconnsync| erzeugt eine rechtwinklige Kante zwischen einem der Knoten die das Ende, der Parallelisierung darstellen und zwischen dem mit dem Makro \lstinline|\memosync| erzeugten Knoten für das Notationssymbol, dass die logische Verknüpfungsoperation darstellt. Der übergebene Anker definiert die Position der eingehenden Kante des Knotens, der die logische Verknüpfungsoperation darstellt. Sinnvolle Anker: \texttt{west}, \texttt{south}, \texttt{north}.\newline
-Die Knoten für die Ereignisse und Prozesse, die Teil der Parallelisierung sind, müssen zuvor mit den eingangs genannten Makros erstellt worden sein.
+Die Knoten für die Ereignisse und Prozesse, die Teil der Parallelisierung sind, müssen zuvor mit den eingangs genannten Makros erstellt worden sein.\\
+
 \begin{figure}[htbp]
     \centering
     \caption[Beispiel: Synchronisation parallel ausgeführter Prozesse.]{Beispiel: Synchronisation parallel ausgeführter Prozesse.}
@@ -450,11 +481,14 @@ Die Knoten für die Ereignisse und Prozesse, die Teil der Parallelisierung sind,
     \label{fig:SynchronisationProzesse}
 \end{figure}
 
-\noindent\DescribeMacro{\memoconnxor}\meta{Shape Entscheidungstyp}\meta{Name Prozess}\meta{Name Ereignis}\meta{Anker}\newline
-\DescribeMacro{\memoconnxorprobability}\indent\indent\meta{Shape Entscheidungstyp}\meta{Name Prozess}\meta{Name Ereignis}\meta{Anker}\\\meta{Wahrscheinlichkeit}\meta{Kommentar}\medskip
+
 
 \noindent Mit diesen Makros können die Kontrollstrukturen \textit{<Prozess> produziert alternatives <Ereignis> mit Wahrscheinlichkeiten (exklusives ODER)} und \textit{<Prozess> produziert alternatives <Ereignis> ohne Wahrscheinlichkeiten (exklusives ODER)} erzeugt werden.
-Die beiden Makros erzeugen vor dem Knoten, der den (Teil-) Prozess darstellt, einen Knoten mit dem Shape des jeweiligen Entscheidungstyps. Weiterhin erzeugt das Makro ausgehend von dem Knoten, der den Entscheidungstyp darstellt, eine gerade Kante zum übergebenen Knoten, der das Ereignis darstellt. Der übergebene Anker definiert die Position der ausgehenden Kante des Knotens des Entscheidungstyps. Sinnvolle Anker: \texttt{east}, \texttt{south}, \texttt{north}.
+Die beiden Makros erzeugen vor dem Knoten, der den (Teil-) Prozess darstellt, einen Knoten mit dem Shape des jeweiligen Entscheidungstyps. Weiterhin erzeugt das Makro ausgehend von dem Knoten, der den Entscheidungstyp darstellt, eine gerade Kante zum übergebenen Knoten, der das Ereignis darstellt. Der übergebene Anker definiert die Position der ausgehenden Kante des Knotens des Entscheidungstyps. Sinnvolle Anker: \texttt{east}, \texttt{south}, \texttt{north}.\\
+
+\noindent\DescribeMacro{\memoconnxor}\meta{Shape Entscheidungstyp}\meta{Name Prozess}\meta{Name Ereignis}\meta{Anker}\newline
+\DescribeMacro{\memoconnxorprobability}\meta{Shape Entscheidungstyp}\meta{Name Prozess}\meta{Name Ereignis}\meta{Anker}\\\meta{Wahrscheinlichkeit}\meta{Kommentar}\medskip
+
 \begin{figure}[htbp]
     \centering
     \caption[Beispiel: Produktion eines alternativen Ereignisses mit Wahrscheinlichkeit.]{Beispiel: Produktion eines alternativen Ereignisses mit Wahrscheinlichkeit.}
@@ -489,7 +523,7 @@ Die beiden Makros erzeugen vor dem Knoten, der den (Teil-) Prozess darstellt, ei
     \label{fig:EntscheidungMit}
 \end{figure}
 
-\noindent Dem Makro \lstinline|\memoconnxorprobability| können zusätzlich noch die Parameter für die Angabe der Wahrscheinlichkeit ($0.1 - 0.9$) sowie einen Kommentar, der bei der Wahrscheinlichkeit angezeigt wird, übergeben werden. Die Darstellung der Wahrscheinlichkeit erfolgt als Knoten auf der Kante zwischen dem Knoten für den Entscheidungstyp und dem Knoten für das Ereignis. Der Kommentar ist als Label implementiert.
+\noindent Dem Makro \lstinline|\memoconnxorprobability| können zusätzlich noch die Parameter für die Angabe der Wahrscheinlichkeit ($0.1 - 0.9$) sowie einen Kommentar, der bei der Wahrscheinlichkeit angezeigt wird, übergeben werden. Die Darstellung der Wahrscheinlichkeit erfolgt als Knoten auf der Kante zwischen dem Knoten für den Entscheidungstyp und dem Knoten für das Ereignis. Der Kommentar ist als Label implementiert.\\
 \begin{figure}[htbp]
     \centering
     \caption[Beispiel: Produktion eines alternativen Ereignisses ohne Wahrscheinlichkeit.]{Beispiel: Produktion eines alternativen Ereignisses ohne Wahrscheinlichkeit.}
@@ -529,11 +563,11 @@ Die beiden Makros erzeugen vor dem Knoten, der den (Teil-) Prozess darstellt, ei
 
 \noindent Diese Makros dienen zur Implementierung von Iterationen mit \textit{beliebiger Wiederholung} und einer \textit{n-fachen Wiederholung (For-Loop)}.
 Die beiden Makros erzeugen jeweils nach dem Knoten, der das Startereignis der Iteration darstellt und vor dem Knoten der das Endereignis darstellt, jeweils die Knoten mit den Shapes  \texttt{iterationstart} und \texttt{iteration}. Der Abstand nach dem Startereignis und vor dem Endereignis wird über die Parameter \meta{Abstand Startereignis} und \meta{Abstand Endereignis} definiert. Der Parameter \meta{Höhe der Verbindungslinie} definiert die absolute Höhe des blauen Verbindungspfeiles. Dies wurde variabel gestaltet, um auch verschachtelte Itertionen zu ermöglichen ohne, dass die Kanten sich überlappen.\newline
-Mit dem Parameter \meta{Anzahl Iterationen} des Makros kann die Anzahl der Iterationen definiert werden. Diese wird als Label unterhalb des Knotens, der die verschlungenen Pfeile darstellt, erstellt.
+Mit dem Parameter \meta{Anzahl Iterationen} des Makros kann die Anzahl der Iterationen definiert werden. Diese wird als Label unterhalb des Knotens, der die verschlungenen Pfeile darstellt, erstellt.\\
 \begin{figure}[htbp]
     \centering
     \caption[Beispiel: Iterationen]{Beispiel: Iterationen}
-    \begin{subfigure}{1\textwidth}
+    \begin{subfigure}{1.1\textwidth}
         \centering
         \begin{tikzpicture}
             \memoevent{start}{e1}{0}{0}{}{};
@@ -572,11 +606,11 @@ Mit dem Parameter \meta{Anzahl Iterationen} des Makros kann die Anzahl der Itera
     \label{fig:IterationenBeispiel}
 \end{figure} 
 
-\noindent\DescribeMacro{memocomment}\meta{Nummer des Kommentars}\meta{Text}\meta{x-Pos.}\meta{y.-Pos.}\newline
-\DescribeMacro{memoconstraint}\meta{Nummer der Integritätsbed.}\meta{Text}\meta{x-Pos.}\meta{y.-Pos.}\medskip
+\noindent\DescribeMacro{\memocomment}\meta{Nummer des Kommentars}\meta{Text}\meta{x-Pos.}\meta{y.-Pos.}\newline
+\DescribeMacro{\memoconstraint}\meta{Nummer der Integritätsbed.}\meta{Text}\meta{x-Pos.}\meta{y.-Pos.}\medskip
 
 \noindent Mit Hilfe dieser Makros können \textit{natürlichsprachlichen Kommentaren} und \textit{natürlichsprachlichen Integritätsbedingungen} erzeugt werden.\newline
-Die beiden Makros erzeugen einen neuen Knoten an der angegebenen Position, der als Knotentext den String \textit{Cn} enthält, wobei $n$ die laufende Nummer des Kommentars bzw. der Integritätsbedingung ist. Der Kommentar- bzw. Bedingungstext wird als Label links neben dem Konten dargestellt.\medskip
+Die beiden Makros erzeugen einen neuen Knoten an der angegebenen Position, der als Knotentext den String \textit{Cn} enthält, wobei $n$ die laufende Nummer des Kommentars bzw. der Integritätsbedingung ist. Der Kommentar- bzw. Bedingungstext wird als Label links neben dem Konten dargestellt.\\
 \begin{figure}[htbp]
 	\centering
 	\caption[Beispiel: Kommentare und Integritätsbedingungen.]{Beispiel: Kommentare und Integritätsbedinungen.}
@@ -600,9 +634,9 @@ Die beiden Makros erzeugen einen neuen Knoten an der angegebenen Position, der a
 \end{figure}
 
 \noindent\DescribeMacro{\memodecomproot}\meta{Shape}\meta{Name}\meta{x-Pos.}\meta{y-Pos.}\meta{Org.Einheit}\meta{ID}\meta{Bezeichnung}\newline
-\DescribeMacro{memodecompchild}\meta{Name}\meta{Org.Einheit}\meta{ID}\meta{Bezeichnung}\medskip
+\DescribeMacro{\memodecompchild}\meta{Name}\meta{Org.Einheit}\meta{ID}\meta{Bezeichnung}\medskip
 
-\noindent Diese Makros dienen der Erstellung von Dekompositionsdiagrammen. Die Erstellung der Dekompositionsdiagramme basiert dabei auf dem \lstinline|child|-Befehl, mit dem Bäume aufgespannt werden können. Mit dem Makro \lstinline|\memodecomproot| wird der Wurzelknoten des Baums definiert. Die Wurzel des Baumes kann dabei wiederum an einer beliebigen Stelle des Diagramms platziert werden. Mittels des \lstinline|child|-Befehls werden dann die Kinknoten unterhalb der Wurzel erzeugt. Der Befehl umschließt dabei das Makro \lstinline|\memodecompchild|.\newpage
+\noindent Diese Makros dienen der Erstellung von Dekompositionsdiagrammen. Die Erstellung der Dekompositionsdiagramme basiert dabei auf dem \lstinline|child|-Befehl, mit dem Bäume aufgespannt werden können. Mit dem Makro \lstinline|\memodecomproot| wird der Wurzelknoten des Baums definiert. Die Wurzel des Baumes kann dabei wiederum an einer beliebigen Stelle des Diagramms platziert werden. Mittels des \lstinline|child|-Befehls werden dann die Kindknoten unterhalb der Wurzel erzeugt (\lstinline|\memodecompchild|).
 
 \begin{figure}[htbp]
 	\centering
@@ -611,12 +645,14 @@ Die beiden Makros erzeugen einen neuen Knoten an der angegebenen Position, der a
 \begin{tikzpicture}[decompositiondiagramstyle]
 		\memodecomproot{decomposition}{d1}{0}{0}{OrgUnit}{ID}{Bezeichnung}	
 			[edge from parent fork down]
-			child {\memodecompchild{decomposition}{OrgUnit}{ID}{Bezeichnung} 
-			     child[subprocess,firstsubprocess] {\memodecompchild{business}{OrgUnit}{ID}{Bezeichnung}}		    
+			child {\memodecompchild{decomposition}{OrgUnit}{ID}{Bezeichnung} 		    
 			}
 			child { \memodecompchild{decomposition}{OrgUnit}{ID}{Bezeichnung} edge from parent node[shape=decompositionplus, decompositionplus, midway] {}}
 			child { \memodecompchild{decomposition}{OrgUnit}{ID}{Bezeichnung} };		
 \end{tikzpicture}
+
+\vspace{1cm}
+
 	\end{subfigure}
 	\begin{subfigure}{1\textwidth}
 		\centering
@@ -624,8 +660,7 @@ Die beiden Makros erzeugen einen neuen Knoten an der angegebenen Position, der a
 \begin{tikzpicture}[decompositiondiagramstyle]
     \memodecomproot{decomposition}{d1}{0}{0}{OrgUnit}{ID}{Bezeichnung}	
 	[edge from parent fork down]
-	   child {\memodecompchild{decomposition}{OrgUnit}{ID}{Bezeichnung} 
-	       child[subprocess,firstsubprocess] {\memodecompchild{business}{OrgUnit}{ID}{Bezeichnung}}		    
+	   child {\memodecompchild{decomposition}{OrgUnit}{ID}{Bezeichnung} 	    
 		}
 		child { \memodecompchild{decomposition}{OrgUnit}{ID}{Bezeichnung} 
 		%~~ Einfuegen des Gabelungssymbols (Pluszeichen)
@@ -635,9 +670,10 @@ Die beiden Makros erzeugen einen neuen Knoten an der angegebenen Position, der a
 		\end{lstlisting}
 	\end{subfigure}
 	\label{fig:BeispielDekompositionsdiagrammQuellcode}
-\end{figure}\newpage
+\end{figure}
 
-\noindent Die Formatierung des Diagramms muss dabei mit den entsprechenden Einstellungen Erfolgen. Folgendes Listing zeigt ein Beispiel:
+\noindent Die Formatierung des Diagramms muss dabei mit den entsprechenden Einstellungen Erfolgen. Folgendes Listing zeigt ein Beispiel:\\
+
 \begin{lstlisting}
 \tikzset{
 decompositiondiagramstyle/.style={		
@@ -649,137 +685,134 @@ decompositiondiagramstyle/.style={
 	level 3/.style = {node distance=40em, sibling distance = 10em},
 	subprocess/.style={grow=down,xshift=5em,
         edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}},
-    firstsubprocess/.style={level distance=14ex}      
-}
-}
+    firstsubprocess/.style={level distance=14ex}}}      
 \end{lstlisting}
-\newpage
 
 
 
-\section{Weitere Beispiele}
-\label{sec:Beispiele}
-Folgendes Beispiel stellt einen komplettes Kontrollflussdiagramm dar, dass auf \cite[][S. 92]{Frank:MEMOOrgML2} basiert:
-\begin{lstlisting}
-    \begin{tikzpicture}
-    \memoevent{start}{start}{0}{0}{}{Bestellung\\erhalten};
-    \memoprocess{computersupported}{credit_check}{2}{0}{}{}{Pruefen\\Kreditwuerdigkeit};
-    \memoconn{start}{credit_check};
-    
-     \memoevent{informationchange}{i1}{5}{3}{}{Keine\\Kreditwuerdigkeit};
-     \memoevent{informationchange}{i2}{5}{-3}{}{Kreditwuerdig};
-     
-     \memoconnxor{manualexplicit}{credit_check}{i1}{north};
-     \memoconnxor{manualexplicit}{credit_check}{i2}{south};
-     
-     \memoprocess{computersupported}{inform_customer}{9}{3}{}{}{Kunde\\benachrichtigen};
-     \memoevent{end}{end_inform}{12}{5}{}{Keine\\Kreditwuerdigkeit};
-     \memoconn{i1}{inform_customer};
-     
-     \memoconnxor{manualexplicit}{inform_customer}{end_inform}{north};
-     \memoconnxor{manualexplicit}{inform_customer}{i2}{south};
-     
-     \memoprocess{computersupported}{avail_check}{9}{-1}{}{}{Verfuegbarkeit\\pruefen};
-     \memoprocess{computersupported}{deliv_check}{9}{-8}{}{}{Lieferbarkeit\\pruefen};
-     
-     \memoconnpara{i2}{avail_check}{north};
-     \memoconnpara{i2}{deliv_check}{south};
-     
-     \memoevent{informationchange}{i3}{13}{1}{}{Menge nicht\\verfuegbar};
-     \memoevent{informationchange}{i4}{13}{-3}{}{Menge\\verfuegbar};
-     
-     \memoconnxor{manualexplicit}{avail_check}{i3}{north};
-     \memoconnxor{manualexplicit}{avail_check}{i4}{south};
-     
-     \memoevent{informationchange}{i5}{13}{-6}{}{Lieferdatum nicht\\moeglich};
-     \memoevent{informationchange}{i6}{13}{-8.5}{}{Lieferdatum\\moeglich};
-     
-      \memoconnxor{manualexplicit}{deliv_check}{i5}{north};
-     \memoconnxor{manualexplicit}{deliv_check}{i6}{south};
-     
-     \memosync{or}{sync_or}{15}{-1};
-     \memosync{and}{sync_and}{13}{-6};
-     
-     \memoconnsync{i3}{sync_or}{north};
-     \memoconnsync{i5}{sync_or}{south};
-     
-     \memoconnsync{i4}{sync_and}{north};
-     \memoconnsync{i6}{sync_and}{south};
-     
-     \memoprocess{computersupported}{deny_order}{17}{-1}{}{}{Bestellung\\ablehnen};
-     \memoprocess{computersupported}{confirm_order}{19}{-6}{}{}{Bestellung\\bestaetigen};
-     \memoconn{sync_or}{deny_order};
-     \memoconn{sync_and}{confirm_order};
-     
-     \memoevent{end}{end_deny}{20}{-1}{}{Bestellung\\abgelehnt};
-     \memoevent{end}{end_confirm}{21}{-6}{}{Bestellung\\bestaetigt};
-     
-       \memoconn{deny_order}{end_deny};
-     \memoconn{confirm_order}{end_confirm};
-\end{tikzpicture}
-\end{lstlisting}\newpage
-
-\begin{landscape}
-\begin{figure}[htbp]
-
-\begin{tikzpicture}
-    \memoevent{start}{start}{0}{0}{}{Bestellung\\erhalten};
-    \memoprocess{computersupported}{credit_check}{2}{0}{}{}{Prüfen\\Kreditwürdigkeit};
-    \memoconn{start}{credit_check};
-    
-     \memoevent{informationchange}{i1}{5}{3}{}{Keine\\Kreditwürdigkeit};
-     \memoevent{informationchange}{i2}{5}{-3}{}{Kreditwürdig};
-     
-     \memoconnxor{manualexplicit}{credit_check}{i1}{north};
-     \memoconnxor{manualexplicit}{credit_check}{i2}{south};
-     
-     \memoprocess{computersupported}{inform_customer}{9}{3}{}{}{Kunde\\benachrichtigen};
-     \memoevent{end}{end_inform}{12}{5}{}{Keine\\Kreditwürdigkeit};
-     \memoconn{i1}{inform_customer};
-     
-     \memoconnxor{manualexplicit}{inform_customer}{end_inform}{north};
-     \memoconnxor{manualexplicit}{inform_customer}{i2}{south};
-     
-     \memoprocess{computersupported}{avail_check}{9}{-1}{}{}{Verfügbarkeit\\prüfen};
-     \memoprocess{computersupported}{deliv_check}{9}{-8}{}{}{Lieferbarkeit\\prüfen};
-     
-     \memoconnpara{i2}{avail_check}{north};
-     \memoconnpara{i2}{deliv_check}{south};
-     
-     \memoevent{informationchange}{i3}{13}{1}{}{Menge nicht\\verfügbar};
-     \memoevent{informationchange}{i4}{13}{-3}{}{Menge\\verfügbar};
-     
-     \memoconnxor{manualexplicit}{avail_check}{i3}{north};
-     \memoconnxor{manualexplicit}{avail_check}{i4}{south};
-     
-     \memoevent{informationchange}{i5}{13}{-6}{}{Lieferdatum nicht\\möglich};
-     \memoevent{informationchange}{i6}{13}{-8.5}{}{Lieferdatum\\möglich};
-     
-      \memoconnxor{manualexplicit}{deliv_check}{i5}{north};
-     \memoconnxor{manualexplicit}{deliv_check}{i6}{south};
-     
-     \memosync{or}{sync_or}{15}{-1};
-     \memosync{and}{sync_and}{16}{-6};
-     
-     \memoconnsync{i3}{sync_or}{north};
-     \memoconnsync{i5}{sync_or}{south};
-     
-     \memoconnsync{i4}{sync_and}{north};
-     \memoconnsync{i6}{sync_and}{south};
-     
-     \memoprocess{computersupported}{deny_order}{17}{-1}{}{}{Bestellung\\ablehnen};
-     \memoprocess{computersupported}{confirm_order}{18}{-6}{}{}{Bestellung\\bestätigen};
-     \memoconn{sync_or}{deny_order};
-     \memoconn{sync_and}{confirm_order};
-     
-     \memoevent{end}{end_deny}{20}{-1}{}{Bestellung\\abgelehnt};
-     \memoevent{end}{end_confirm}{20.5}{-6}{}{Bestellung\\bestätigt};
-     
-       \memoconn{deny_order}{end_deny};
-     \memoconn{confirm_order}{end_confirm};
-\end{tikzpicture}
-\end{figure}
-\end{landscape}
+%\section{Weitere Beispiele}
+%\label{sec:Beispiele}
+%Folgendes Beispiel stellt einen komplettes Kontrollflussdiagramm dar, dass auf \cite[][S. 92]{Frank:MEMOOrgML2} basiert:
+%\begin{lstlisting}
+%    \begin{tikzpicture}
+%    \memoevent{start}{start}{0}{0}{}{Bestellung\\erhalten};
+%    \memoprocess{computersupported}{credit_check}{2}{0}{}{}{Pruefen\\Kreditwuerdigkeit};
+%    \memoconn{start}{credit_check};
+%    
+%     \memoevent{informationchange}{i1}{5}{3}{}{Keine\\Kreditwuerdigkeit};
+%     \memoevent{informationchange}{i2}{5}{-3}{}{Kreditwuerdig};
+%     
+%     \memoconnxor{manualexplicit}{credit_check}{i1}{north};
+%     \memoconnxor{manualexplicit}{credit_check}{i2}{south};
+%     
+%     \memoprocess{computersupported}{inform_customer}{9}{3}{}{}{Kunde\\benachrichtigen};
+%     \memoevent{end}{end_inform}{12}{5}{}{Keine\\Kreditwuerdigkeit};
+%     \memoconn{i1}{inform_customer};
+%     
+%     \memoconnxor{manualexplicit}{inform_customer}{end_inform}{north};
+%     \memoconnxor{manualexplicit}{inform_customer}{i2}{south};
+%     
+%     \memoprocess{computersupported}{avail_check}{9}{-1}{}{}{Verfuegbarkeit\\pruefen};
+%     \memoprocess{computersupported}{deliv_check}{9}{-8}{}{}{Lieferbarkeit\\pruefen};
+%     
+%     \memoconnpara{i2}{avail_check}{north};
+%     \memoconnpara{i2}{deliv_check}{south};
+%     
+%     \memoevent{informationchange}{i3}{13}{1}{}{Menge nicht\\verfuegbar};
+%     \memoevent{informationchange}{i4}{13}{-3}{}{Menge\\verfuegbar};
+%     
+%     \memoconnxor{manualexplicit}{avail_check}{i3}{north};
+%     \memoconnxor{manualexplicit}{avail_check}{i4}{south};
+%     
+%     \memoevent{informationchange}{i5}{13}{-6}{}{Lieferdatum nicht\\moeglich};
+%     \memoevent{informationchange}{i6}{13}{-8.5}{}{Lieferdatum\\moeglich};
+%     
+%      \memoconnxor{manualexplicit}{deliv_check}{i5}{north};
+%     \memoconnxor{manualexplicit}{deliv_check}{i6}{south};
+%     
+%     \memosync{or}{sync_or}{15}{-1};
+%     \memosync{and}{sync_and}{13}{-6};
+%     
+%     \memoconnsync{i3}{sync_or}{north};
+%     \memoconnsync{i5}{sync_or}{south};
+%     
+%     \memoconnsync{i4}{sync_and}{north};
+%     \memoconnsync{i6}{sync_and}{south};
+%     
+%     \memoprocess{computersupported}{deny_order}{17}{-1}{}{}{Bestellung\\ablehnen};
+%     \memoprocess{computersupported}{confirm_order}{19}{-6}{}{}{Bestellung\\bestaetigen};
+%     \memoconn{sync_or}{deny_order};
+%     \memoconn{sync_and}{confirm_order};
+%     
+%     \memoevent{end}{end_deny}{20}{-1}{}{Bestellung\\abgelehnt};
+%     \memoevent{end}{end_confirm}{21}{-6}{}{Bestellung\\bestaetigt};
+%     
+%       \memoconn{deny_order}{end_deny};
+%     \memoconn{confirm_order}{end_confirm};
+%\end{tikzpicture}
+%\end{lstlisting}\newpage
+%
+%\begin{landscape}
+%\begin{figure}[htbp]
+%
+%\begin{tikzpicture}
+%    \memoevent{start}{start}{0}{0}{}{Bestellung\\erhalten};
+%    \memoprocess{computersupported}{credit_check}{2}{0}{}{}{Prüfen\\Kreditwürdigkeit};
+%    \memoconn{start}{credit_check};
+%    
+%     \memoevent{informationchange}{i1}{5}{3}{}{Keine\\Kreditwürdigkeit};
+%     \memoevent{informationchange}{i2}{5}{-3}{}{Kreditwürdig};
+%     
+%     \memoconnxor{manualexplicit}{credit_check}{i1}{north};
+%     \memoconnxor{manualexplicit}{credit_check}{i2}{south};
+%     
+%     \memoprocess{computersupported}{inform_customer}{9}{3}{}{}{Kunde\\benachrichtigen};
+%     \memoevent{end}{end_inform}{12}{5}{}{Keine\\Kreditwürdigkeit};
+%     \memoconn{i1}{inform_customer};
+%     
+%     \memoconnxor{manualexplicit}{inform_customer}{end_inform}{north};
+%     \memoconnxor{manualexplicit}{inform_customer}{i2}{south};
+%     
+%     \memoprocess{computersupported}{avail_check}{9}{-1}{}{}{Verfügbarkeit\\prüfen};
+%     \memoprocess{computersupported}{deliv_check}{9}{-8}{}{}{Lieferbarkeit\\prüfen};
+%     
+%     \memoconnpara{i2}{avail_check}{north};
+%     \memoconnpara{i2}{deliv_check}{south};
+%     
+%     \memoevent{informationchange}{i3}{13}{1}{}{Menge nicht\\verfügbar};
+%     \memoevent{informationchange}{i4}{13}{-3}{}{Menge\\verfügbar};
+%     
+%     \memoconnxor{manualexplicit}{avail_check}{i3}{north};
+%     \memoconnxor{manualexplicit}{avail_check}{i4}{south};
+%     
+%     \memoevent{informationchange}{i5}{13}{-6}{}{Lieferdatum nicht\\möglich};
+%     \memoevent{informationchange}{i6}{13}{-8.5}{}{Lieferdatum\\möglich};
+%     
+%      \memoconnxor{manualexplicit}{deliv_check}{i5}{north};
+%     \memoconnxor{manualexplicit}{deliv_check}{i6}{south};
+%     
+%     \memosync{or}{sync_or}{15}{-1};
+%     \memosync{and}{sync_and}{16}{-6};
+%     
+%     \memoconnsync{i3}{sync_or}{north};
+%     \memoconnsync{i5}{sync_or}{south};
+%     
+%     \memoconnsync{i4}{sync_and}{north};
+%     \memoconnsync{i6}{sync_and}{south};
+%     
+%     \memoprocess{computersupported}{deny_order}{17}{-1}{}{}{Bestellung\\ablehnen};
+%     \memoprocess{computersupported}{confirm_order}{18}{-6}{}{}{Bestellung\\bestätigen};
+%     \memoconn{sync_or}{deny_order};
+%     \memoconn{sync_and}{confirm_order};
+%     
+%     \memoevent{end}{end_deny}{20}{-1}{}{Bestellung\\abgelehnt};
+%     \memoevent{end}{end_confirm}{20.5}{-6}{}{Bestellung\\bestätigt};
+%     
+%       \memoconn{deny_order}{end_deny};
+%     \memoconn{confirm_order}{end_confirm};
+%\end{tikzpicture}
+%\end{figure}
+%\end{landscape}
 
 
 \section{Erweiterung des Pakets}
@@ -787,7 +820,9 @@ Folgendes Beispiel stellt einen komplettes Kontrollflussdiagramm dar, dass auf \
 Um weitere Notationssymbole zu dem Erweiterungspaket hinzuzufügen muss die Datei \texttt{pgflibrarymemoorgmlshapes.code.tex} erweitert werden. Dort muss mit Hilfe des \textit{PGF} Befehls \lstinline|\pgfdeclareshape| ein neues Shape definiert werden. Eine Vorlage findet sich in \cite[][S. 1034]{Tantau:Tikz}. Zu jedem Shape gehört auch ein Style, der den gleichen Namen wie das Shape trägt. Deshalb muss noch ein entsprechender Style in der Datei \texttt{tikzlibrarymemoorgmlstyles.code.tex} definiert werden.\medskip
 
 \noindent Weitere Makros müssen in der Datei \texttt{tikzlibrarymemoorgml.code.tex} implementiert werden.
-\newpage
+%\newpage
+
+
 
 \bibliography{Literatur}
 \end{document}
