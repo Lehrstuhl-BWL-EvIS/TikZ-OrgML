@@ -1,1 +1,13 @@
 /tikz-er2/tikz-er2.sty
+
+*.out
+
+*.aux
+
+*.bbl
+
+*.blg
+
+*.log
+
+*.gz
