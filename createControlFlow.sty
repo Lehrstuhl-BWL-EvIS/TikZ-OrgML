@@ -1,0 +1,385 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{custom}[2013/01/13 Custom Package]
+
+%---------------------------------------------------------------------
+% createControlFlow - Version 1.0
+%---------------------------------------------------------------------
+
+%Implementierung aller für die Erstellung von Kontrollflussdiagrammen
+%erforderlichen Makros
+
+%Copyright 2016_09 
+%by: M. Niesner (uni-hagen@briefmail.org)
+
+%---------------------------------------------------------------------
+% Alle vollständigen Daten in geordneter Liste eingeben:
+%---------------------------------------------------------------------
+
+%Definiere neues Kommando "\dataArray" mit 2 Parametern;
+% #1 = arrayName (z.B. \type) und 2 = Inhalt (z.B. {Wert1}{Wert2})
+%Definiere neue Zählvariabele "\num"
+%Setze Zählvariable "\num" = 0
+%Definiere \arrayName
+%Definiere \dataArrayInner in der Art: "{\type:1{Wert1}}{\type:1{Wert2}}";
+
+\newcounter{num}
+\newcommand{\dataArray}[2]{ \setcounter{num}{0} \def\arrayName{\string#1} \dataArrayInner#2\endofArray}
+%Definiere \endofArray, muss nicht definiert werden, kann auch durch "\end" oder ähnliches ersetzt werden
+\def\endofArray{End}
+%Definiere \endofArrayInner, unterscheide zwei Situationen
+\def\dataArrayInner#1{ 
+	   \ifx\endofArray#1{\relax} %Vergleiche, ob #1 = \endofArray, wenn ja, dann tue nichts
+	   \else%in allen anderen Fällen:
+		  %Definiere in der Art "\type:1{Wert}"
+		  %expandafter lässt "\def\csname \arrayName:\the\num\endcsname" unberührt
+		  % und setzt es jeweils vor jedes Element aus #1
+		  % so ensteht die Kette {\type:1{Wert1}}{\type:1{Wert2}}
+		  \stepcounter{num}
+		  % Erhöhe \num um 1 --> Array startet mit Index 1, falls nicht gewünscht, hier auskommentieren und unter nächster Zeile \expandafter\advance\num by1 einfügen
+		  \expandafter\def\csname \arrayName:\the\value{num}\endcsname{#1}%expandafter meint "läuft ab nach", \csname \endcsname erzeugt Kontrollsequenz (Knuth 1984, Seite 213) \the\tmpnum steht für aktuelle Nummer - (Knuth 1984, Seite 121)
+		  % falls Index 0 gewünscht hier: \expandafter\advance\num by1 
+		  \expandafter\dataArrayInner\fi % "Conditional Comments always end with a final /fi" (Knuth 1984, Seite 207)
+}
+
+%---------------------------------------------------------------------
+% Einzelne Daten in Array einfügen/überschreiben:
+% zur näheren Eläuterung siehe: "Alle vollständigen Daten in geordneter Liste eingeben"
+%---------------------------------------------------------------------
+\newcounter{putNum}
+\newcommand{\putintoArray}[3]{ \setcounter{putNum}{#2} \def\putarrayName{\string#1} \putintoDataArrayInner{\string#3}\endofArray}
+
+\def\putintoDataArrayInner#1{ 
+	   \ifx\endofArray#1{\relax}
+	   \else
+		  \expandafter\def\csname \putarrayName:\the\value{putNum}\endcsname{#1}
+		  \expandafter\putintoDataArrayInner\fi
+}
+
+%---------------------------------------------------------------------
+% Datenliste einfügen/überschreiben
+% zur näheren Eläuterung siehe: "Alle vollständigen Daten in geordneter Liste eingeben"
+%---------------------------------------------------------------------
+\newcommand{\putListintoArray}[2]{\setcounter{num}{0} \def\arrayName{\string#1} \putListintoArrayInner#2\endofArray}
+\def\endofArray{End}
+\def\putListintoArrayInner#1{ 
+	   \ifx\endofArray#1{\relax} 
+	   \else
+		\stepcounter{num}
+		\ifodd\the\value{num} {\setcounter{putNum}{#1}}
+		\else
+		  \expandafter\def\csname \arrayName:\the\value{putNum}\endcsname{#1}
+		  \fi
+		  \expandafter\putListintoArrayInner\fi
+}
+
+%---------------------------------------------------------------------
+% Definiere neues Kommando \set zum definieren von Variablen mit Hilfe eines einzelnen Arrays:
+% zur näheren Eläuterung siehe: "Alle vollständigen Daten in geordneter Liste eingeben"
+%---------------------------------------------------------------------
+
+\newcommand{\set}[2]{\def\putName{\string#1} \putintoInner{\string#2}\endofArray}
+\def\putintoInner#1{ 
+	   \ifx\endofArray#1{\relax}
+	   \else
+		  \expandafter\def\csname \putName:{1}\endcsname{#1}
+		  \expandafter\putintoInner\fi
+}
+
+%---------------------------------------------------------------------
+% Definiere neues Kommando \getData für die Abfrage der Array-Daten:
+%---------------------------------------------------------------------
+%Definiere in der Art "\type:1", Abfrage durch \getdata{Index}\nameOfArray
+%\string liefert einzelne Zeichen der Zeichenkette, 
+%\csname...\endcsname verkettet zurück zu einer Kontrollsequenz
+\def\getdata#1#2{\csname \string#2:#1\endcsname}
+
+%---------------------------------------------------------------------
+% Definiere neues Kommando \get für die Abfrage der Daten:
+%---------------------------------------------------------------------
+%Definiere in der Art "\type:1", Abfrage durch \get\nameOfArray
+%\string liefert einzelne Zeichen der Zeichenkette, 
+%\csname...\endcsname verkettet zurück zu einer Kontrollsequenz
+
+\newcommand{\get}[1]{\csname\string#1:{1}\endcsname}
+
+%---------------------------------------------------------------------
+% Definition der Übergangslinien:
+%---------------------------------------------------------------------
+\def\breakOut#1{
+    \begin{scope}[on background layer]
+        \draw[dashed] (#1.east) + (0,0) -- +(0.5cm,0);
+    \end{scope}
+}
+\def\breakIn#1{
+   \begin{scope}[on background layer]
+        \draw[dashed] (#1.west) + (0,0) -- +(-0.5cm,0);
+	\end{scope}
+}
+
+%---------------------------------------------------------------------
+% Bestimmung der Shapeart
+%---------------------------------------------------------------------
+
+
+\newcommand{\findShapeType}[1]{
+
+% für Erklärung des ifthen Pakets siehe Lamport 1994, S. 195f.
+
+\ifthenelse{\equal{\getdata{#1}\type}{start} \OR 
+			\equal{\getdata{#1}\type}{end} \OR
+			\equal{\getdata{#1}\type}{message} \OR
+			\equal{\getdata{#1}\type}{informationchange} \OR
+			\equal{\getdata{#1}\type}{modified} \OR
+			\equal{\getdata{#1}\type}{time} \OR
+			\equal{\getdata{#1}\type}{software} \OR
+			\equal{\getdata{#1}\type}{pollsoftware} \OR
+			\equal{\getdata{#1}\type}{publishsoftware} }
+					{\putintoArray\valueOfYShift{1}{0.5ex}\expandafter
+					\memoevent{\getdata{#1}\type}{\getdata{#1}\name}{}{}{\getdata{#1}\id}{\getdata{#1}\label};}
+					{\putintoArray\valueOfYShift{1}{0.0ex}\expandafter
+					\memoprocess{\getdata{#1}\type}{\getdata{#1}\name}{}{}{\getdata{#1}\unit}{\getdata{#1}\id}{\getdata{#1}\label};}
+
+}
+
+%---------------------------------------------------------------------
+% Erzeugen des allgemeinen Grundgerüst vom Kontrollflussdiagramm:
+%---------------------------------------------------------------------
+\newcommand{\createControlFlow}{
+
+	\begin{figure}[htbp]
+		\begin{tikzpicture}[remember picture, inner sep=0, minimum height=\get\minHeight, place3/.style={rectangle, minimum width=12cm, fill=yellow!80!black}, start chain=lines going below, node distance=\get\verticalDistance]
+
+			\node [text height=0, minimum width=\paperwidth]{}; 
+			% Unsichtbares \node: wichtig für die Rotation + Skalierung, das \node bewirkt darüber hinaus die Mindestgröße für das umgebende {tikzpicture}
+			
+			\node [rotate around={\get\rotation:(0,0)}, scale=\get\scale, fill=\get\backgroundColor, text width=\get\width, align=\get\align, xshift=\get\shiftX, yshift=\get\shiftY] { 
+			% Äußerstes \node des Diagramms: text width ist hier nötig für align
+									
+				\begin{tikzpicture}[remember picture,every node/.style={}]
+											
+					\startingCreateLines
+					\createEdges
+				\end{tikzpicture} 	
+			};
+								
+		\end{tikzpicture} 
+	\end{figure}
+									
+
+}
+
+%---------------------------------------------------------------------
+% Erzeugen der ersten Zeile des Kontrollflussdiagramms:
+%---------------------------------------------------------------------
+\newcommand{\firstLine}[2]{
+
+	\node [scale=1, ][on chain=lines]{
+	% Zeile 1 des Diagramms
+	
+		\begin{tikzpicture}[remember picture, start chain=rows going right,
+		node distance=\get\horizontalDistance, every node/.style={}, minimum height=3.3cm, text height=3.3cm, minimum width=3ex,text width={}]
+			
+			% zur Erklärung der foreach Schleife siehe auch Tantau 2013, S. 901f.
+			\foreach \x in {#1,...,#2} {\followingElement{\x}}
+			
+								
+		\end{tikzpicture}
+					
+	};
+}
+
+%---------------------------------------------------------------------
+% Erzeugen des ersten Elements:
+%---------------------------------------------------------------------
+
+
+\newcommand{\firstElement}{
+	
+	
+	
+	\node  [on chain=rows] {
+	% Element 1 von Zeile 1 des Diagramms
+										
+		\begin{tikzpicture}[text height={},minimum height=1ex,]
+			
+			
+
+
+			
+			\node (controlFlow001)[]{
+			% Neue \node Ebene zur Möglichkeit der Namensreferenzierung und leichten Anordnung von Ausnahmen per 'above'
+			
+				\begin{tikzpicture}[remember picture,  every node/.style={scale=1}, every label/.style={yshift=\getdata{1}\valueOfYShift, scale=1, minimum height=\get\minHeightNodeOfLabels, minimum width=\get\minWidthNodeOfElements}]
+					\findShapeType{1}
+				\end{tikzpicture}
+				
+				
+			};
+			
+			
+		\end{tikzpicture}
+	};
+
+}
+
+%---------------------------------------------------------------------
+% Erzeugen von Folgeelementen:
+%---------------------------------------------------------------------
+
+
+
+\newcommand{\followingElement}[1]{
+
+
+\node [on chain=rows] {
+										
+										
+		\begin{tikzpicture}[text height={},minimum height=1ex,]
+			
+			\node (controlFlow002)[]{
+				\begin{tikzpicture}[remember picture, every node/.style={scale=1, yshift=\getdata{1}\valueOfYShift}, every label/.style={scale=1, minimum height=\get\minHeightNodeOfLabels, minimum width=\get\minWidthNodeOfElements}]
+					\findShapeType{#1}
+				\end{tikzpicture}
+			};
+			
+			
+		\end{tikzpicture}
+	};
+
+	
+		
+
+	
+}
+
+%---------------------------------------------------------------------
+% Erzeugen von Folgelinien:
+%---------------------------------------------------------------------
+
+\newcommand{\followingLine}[2]{
+
+	\node [scale=1][on chain=lines]{
+	%erzeugt die zweite Zeile des Diagramms
+								
+		\begin{tikzpicture}[remember picture, start chain=rows going right,
+			start chain=2 going below,
+			node distance=\get\horizontalDistance, every node/.style={}, minimum height=3.3cm, text height=3.3cm, minimum width=3ex,text width={}]
+			
+			% zur Erklärung der foreach Schleife siehe auch Tantau 2013, S. 901f.
+			\foreach \x in {#1,...,#2} {\followingElement{\x}}
+			
+		
+			
+	
+		\end{tikzpicture}
+		
+	
+
+	};
+								
+}
+%---------------------------------------------------------------------
+% Kommando zum Start der Erzeugung der Linien
+%---------------------------------------------------------------------
+\newcommand{\createLines}[1]{\newcommand\startingCreateLines{#1}}
+
+%---------------------------------------------------------------------
+% Übernahme von Schneider 2016 zur problemlosen Einbindung
+% Zählt nicht zur eigenständigen Weiterentwicklung!
+% Formatierung des Quellcodes:
+%---------------------------------------------------------------------
+\definecolor{lstlila}{RGB}{139,0,139}
+\definecolor{lstcomment}{RGB}{152,152,152}
+
+\lstdefinelanguage{lsttex}{
+	morekeywords={ definecolor,
+				   tikzset,
+				   path,
+				   usetikzlibrary,
+				   usepackage,
+				   svg,
+				   draw,
+				   pic,
+				   backgroundpath,
+				   foregroundpath,
+				   inheritbackgroundpath,
+				   beforebackgroundpath,
+				   pgfdeclareshape,
+				   inheritsavedanchors,
+				   inheritanchorborder,
+				   inheritanchor,
+				   southwest,
+				   northeast,
+				   pgfsetcolor,
+				   pgfpathmoveto,
+				   pgfpoint,
+				   pgf,
+				   pgfusepath,
+				   pgfpathclose,
+				   pgfpathlineto,
+				   pgfsetlinewidth,
+				   pgfsetfillcolor,
+				   pgflineto,
+				   child,
+				   def,
+				   memonode,
+				   node,
+				   shape,
+				   label,
+				   tikzpicture,
+				   remember,
+				   picture,
+				   overlay,
+				   subfigure,
+				   figure,
+				   begin,
+				   end,
+				   centering,
+				   textwidth,
+				   at,
+				   line,
+				   width,
+				   color,
+				   style,
+				   beforeforegroundpath,
+				   inheritbeforebackgroundpath,
+				   from,
+				   cap,
+				   inner,
+				   sep,
+				   height,
+				   minimum,
+				   distance,
+				   sibling,
+				   level,
+				   edge,
+				   parent,
+				   fork,
+				   down,
+				   memoprocess,
+				   memoevent,
+				   memoexception,
+				   memoconn,
+				   memoconnpara,
+				   memosync,
+				   memoconnsync,
+				   memoconnxor,
+				   memoconnxorprobability,
+				   memoxor,
+				   memodecompchild,
+				   memodecomproot}
+				  }[keywords,tex,comments]
+
+\lstset{%
+    language=lsttex,
+    captionpos=t,
+    breaklines=true,
+    basicstyle=\footnotesize\ttfamily,
+    keywordstyle=\footnotesize\ttfamily\color{lstlila},
+    commentstyle=\footnotesize\ttfamily\color{lstcomment},
+    xleftmargin=25pt,
+    xrightmargin=25pt,
+    texcsstyle=*\footnotesize\ttfamily\color{lstlila},
+    numbers=left,
+    numberstyle=\ttfamily\small
+}

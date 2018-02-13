@@ -29,6 +29,8 @@ ifeq ($(NIX_OS), Darwin)
 	INSTALL_PREFIX_TIKZ=/usr/local/texlive/$(TEX_LIVE_VERSION)/texmf-dist/tex/generic/pgf/frontendlayer/tikz
 	#~~ Installationspfad für die PGF-Libraries
 	INSTALL_PREFIX_PGF=/usr/local/texlive/$(TEX_LIVE_VERSION)/texmf-dist/tex/generic/pgf
+	#~~ Installationspfad für sty-Dateien
+	INSTALL_PREFIX_STY=/usr/local/texlive/$(TEX_LIVE_VERSION)/texmf-dist/tex/latex
 endif
 
 #~~ Linux
@@ -36,7 +38,9 @@ ifeq ($(NIX_OS), Linux)
 	#~~ Installationspfad für die TikZ-Libraries
 	INSTALL_PREFIX_TIKZ=/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz
 	#~~ Installationspfad für die PGF-Libraries
-	INSTALL_PREFIX_PGF=/usr/share/texlive/texmf-dist/tex/generic/pgf
+	INSTALL_PREFIX_PGF=/usr/share/texlive/texmf-dist/tex/generic/
+	#~~ Installationspfad für sty-Dateien
+	INSTALL_PREFIX_STY=/usr/share/texlive/texmf-dist/tex/latex
 endif
 
 #~~ Das einzige Target des Makefiles ist die Installation
@@ -48,5 +52,8 @@ install: tikzlibrarymemoorgml.code.tex tikzlibrarymemoorgmlstyles.code.tex pgfli
 	install tikzlibrarymemoorgmlstyles.code.tex $(INSTALL_PREFIX_TIKZ)/libraries
 	#~~ Installation der Library für die Shapes
 	install pgflibrarymemoorgmlshapes.code.tex $(INSTALL_PREFIX_PGF)/libraries/shapes
+	#~~ Installation der sty Dateien
+	install createControlFlow.sty $(INSTALL_PREFIX_STY)/latex
 	#~~ Update des Texmf-Trees damit die Dateien verfügbar sind
+	
 	texhash
