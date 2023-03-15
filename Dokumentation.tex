@@ -1,0 +1,824 @@
+\begin{filecontents}{Literatur.bib}
+@Manual{Tantau:Tikz,
+  Title        = {{TikZ \& PGF Manual for Version 3.0.1a}},
+  Author       = {Till Tantau}, 
+  Organization = {Institut f\"ur Theoretische Informatik},
+  Address      = {Universit\"at zu L\"ubeck},
+  Edition      = {3},
+  Month        = {7},
+  Year         = {2015},
+  Note         = {\url{ftp://ftp.fu-berlin.de/tex/CTAN/graphics/pgf/base/doc/pgfmanual.pdf}}
+}
+
+@techreport{Frank:MEMOOrgML2,
+	author = {Ulrich Frank},
+	title = {{MEMO Organisation Modelling Language (2): Focus on Business Processes}},
+	address = {ICB-Research Report No. 49, Institute for Computer Science and Business Information Systems (ICB), University Duisburg-Essen},
+	year = {2011}
+}
+\end{filecontents}
+
+
+\documentclass[12pt, a4paper]{article}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{color}
+\usepackage[colorlinks=false, pdfborder={0 0 0}]{hyperref}
+
+\usepackage{doc}
+\marginparwidth=130.0pt
+
+\usepackage[
+    left=5.5cm,
+    right=2cm,
+    top=2cm,
+    bottom=2.5cm,
+    includeheadfoot]
+{geometry}
+
+\usepackage[round]{natbib}
+\bibliographystyle{plainnat}
+
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{subcaption}
+\usepackage{lscape}
+
+\usetikzlibrary{memoorgml}
+
+\tikzset{
+	decompositiondiagramstyle/.style={		
+	    edge from parent fork down,
+		level distance = 8em,		
+		edge from parent/.style={draw, shorten <= 5ex, shorten >=3ex},
+		level 1/.style = {node distance=20em, sibling distance = 10em},
+		level 2/.style = {node distance=20em, sibling distance = 10em},
+		level 3/.style = {node distance=40em, sibling distance = 10em},
+		subprocess/.style={grow=down,xshift=5em,
+                    edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}},
+        firstsubprocess/.style={level distance=14ex},
+        secondsubprocess/.style={level distance=28ex},        
+    }
+}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%~~ Formatierung des Quellcodes
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\definecolor{lstlila}{RGB}{139,0,139}
+\definecolor{lstcomment}{RGB}{152,152,152}
+
+\lstdefinelanguage{lsttex}{
+	morekeywords={ definecolor,
+				   tikzset,
+				   path,
+				   usetikzlibrary,
+				   usepackage,
+				   svg,
+				   draw,
+				   pic,
+				   backgroundpath,
+				   foregroundpath,
+				   inheritbackgroundpath,
+				   beforebackgroundpath,
+				   pgfdeclareshape,
+				   inheritsavedanchors,
+				   inheritanchorborder,
+				   inheritanchor,
+				   southwest,
+				   northeast,
+				   pgfsetcolor,
+				   pgfpathmoveto,
+				   pgfpoint,
+				   pgf,
+				   pgfusepath,
+				   pgfpathclose,
+				   pgfpathlineto,
+				   pgfsetlinewidth,
+				   pgfsetfillcolor,
+				   pgflineto,
+				   child,
+				   def,
+				   memonode,
+				   node,
+				   shape,
+				   label,
+				   tikzpicture,
+				   remember,
+				   picture,
+				   overlay,
+				   subfigure,
+				   figure,
+				   begin,
+				   end,
+				   centering,
+				   textwidth,
+				   at,
+				   line,
+				   width,
+				   color,
+				   style,
+				   beforeforegroundpath,
+				   inheritbeforebackgroundpath,
+				   from,
+				   cap,
+				   inner,
+				   sep,
+				   height,
+				   minimum,
+				   distance,
+				   sibling,
+				   level,
+				   edge,
+				   parent,
+				   fork,
+				   down,
+				   memoprocess,
+				   memoevent,
+				   memoexception,
+				   memoconn,
+				   memoconnpara,
+				   memosync,
+				   memoconnsync,
+				   memoconnxor,
+				   memoconnxorprobability,
+				   memoxor,
+				   memodecompchild,
+				   memodecomproot}
+				  }[keywords,tex,comments]
+
+\lstset{%
+    language=lsttex,
+    captionpos=t,
+    breaklines=true,
+    basicstyle=\footnotesize\ttfamily,
+    keywordstyle=\footnotesize\ttfamily\color{lstlila},
+    commentstyle=\footnotesize\ttfamily\color{lstcomment},
+    xleftmargin=25pt,
+    xrightmargin=25pt,
+    texcsstyle=*\footnotesize\ttfamily\color{lstlila},
+    numbers=left,
+    numberstyle=\ttfamily\small
+}
+
+\usepackage{xspace}
+\newcommand{\memoorgml}{MEMO~O\textsc{rg}ML\@\xspace}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%~~ Beginn der Dokumentation
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\begin{document}
+\begin{titlepage}
+\title{\textit{PGF}/TikZ Erweiterungspaket \texttt{memoorgml}} 
+\author{Fabian Schneider (Paketautor) \and Stefan Strecker (Maintainer)\thanks{stefan.strecker@fernuni-hagen.de}}
+\bigskip
+\bigskip  
+\end{titlepage}
+\maketitle
+
+\begin{figure}[htbp]
+    \begin{tikzpicture}
+        \memoevent{start}{start}{0}{0}{}{Dokumentation\\öffnen};
+        \memoprocess{computersupported}{lesen}{3}{0}{}{}{Dokumentation\\lesen};
+        \memoevent{informationchange}{gelesen}{6}{0}{}{Dokumentation\\gelesen};
+        \memoprocess{computersupported}{verstehen}{9}{0}{}{}{Dokumentation\\verstehen};
+        \memoevent{end}{verstanden}{12}{0}{}{Dokumentation\\verstanden};
+        
+        \memoconn{start}{lesen};
+        \memoconn{lesen}{gelesen};
+        \memoconn{gelesen}{verstehen};
+        \memoconn{verstehen}{verstanden};
+    \end{tikzpicture}
+\end{figure}
+
+\section{Einführung}
+\label{sec:Einfuehrung}
+
+Dieses Erweiterungspaket für PGF/TikZ dient der Erstellung von \memoorgml Kontrollfluss- und
+Dekompositionsdiagrammen \citep{Frank:MEMOOrgML2} in \TeX{} bzw. \LaTeX{} Dokumenten.
+Die entwickelte TikZ-Bibliothek enthält definierte Makros, welche die Notationselemente der Modellierungssprache \memoorgml darstellen können.
+Zur Verwendung des Pakets muss zuerst TikZ über den \texttt{usepackage}-Befehl geladen werden: \lstinline|\usepackage{tikz}|, anschließend kann dann das Erweiterungspaket geladen werden: \lstinline|\usetikzlibrary{memoorgml}|.\medskip
+
+\noindent Das Erweiterungspaket besteht aus drei Dateien:
+\begin{itemize}
+    \item {\texttt{pgflibrarymemoorgmlshapes.code.tex}: Diese Bibliotheksdatei enthält die Definition aller benötigter Shapes.}
+    \item {\texttt{tikzlibrarymemoorgmlstyles.code.tex}: Diese Bibliotheksdatei enthält die vordefinierten Styles zur Formatierung der Shapes.}
+    \item {\texttt{tikzlibrarymemoorgml.code.tex}: Diese Bibliotheksdatei stellt Makros zur Unterstützung der Diagrammerstellung bereit.}
+\end{itemize}
+\noindent Das Paket wurde zuletzt am 15.02.2023 mit \TeX{}Live 2022 und PGF/Ti\textit{k}Z 2023-01-15 v3.1.10 (3.1.10) getestet.\medskip
+\newpage
+
+\section{Installation}
+\label{sec:Installation}
+Derzeit wird dieses Paket unter \href{https://github.com/Lehrstuhl-BWL-EvIS/TikZ-OrgML}{Lehrstuhl-BWL-EvIS/TikZ-OrgML} bereitgestellt. Das Paket enthält neben den eigentlichen Bibliotheksdateien noch ein \texttt{Makefile} zur Installation der des Erweiterungspaketes unter \textsf{Mac OS X} und \textsf{Linux}.\medskip
+
+\noindent Zur Installation des Erweiterungspaketes unter \texttt{Mac OS X} und \texttt{Linux} muss \textsf{GNU Make} installiert sein.
+Das \texttt{Makefile} kann dann (mit entsprechenden Rechten) mit dem Befehl \verb!sudo make! ausgeführt werden.
+Oder die einzelnen Schritte werden manuell durchgeführt -- oder die .sty-Paketdateien im lokalen Arbeitsverzeichnis abgelegt.
+%
+Das \texttt{Makefile} selbst hat nur eine Funktion und kopiert die Bibliotheksdateien mit dem Befehl \texttt{install} in das entsprechende \texttt{texmf} Verzeichnis. Anschließend wird der \texttt{texmf}-Tree aktualisiert (durch die Nutzung von \texttt{texhash}).
+
+\section{Bereitgestellte Notationssymbole}
+\label{sec:Notationssymbole}
+Das Erweiterungspaket stellt zum aktuellen Zeitpunkt die Shapes für eine Untermenge der Notationssymbole der \textit{\memoorgml} bereit. Alle bereitgestellten Shapes sind in der folgen Tabelle aufgeführt:
+\begin{longtable}{lll}
+        \toprule
+        Konzept & Bezeichnung Notationssymbol & Suffix\\
+        \midrule
+        Bassisshape Ereignis & event & - \\
+        Startereginis & startevent & event \\
+        Endereignis & endevent & event \\
+        Nachricht eingegegangen & messageevent & event \\
+        Relevante Änderung des & informationchangeevent & event \\
+        Informationszustandes & & \\
+        Basisshape zeitliches Ereignis & timeevent & event \\
+        Zeit. Ereignis - Zeitpunkt erreicht & pointintimeevent & event \\
+        Zeit. Ereignis - Zeitdauer erreicht & timespanevent & event \\
+        Änderung - Neu & newevent & event \\
+        Änderung - Modifiziert & modifiedevent & event \\
+        Änderung - Abgebrochen & canceledevent & event \\
+        Basisshape Softwarebanchrichtigung & softwareevent & event \\
+        Softwarebenachrichtigung - Publish & publishsoftwareevent & event \\
+        Softwarebenachrichtigung - Poll & pollsoftwareevent & event \\
+        Geschäftsprozess Prozess & businessprocess & process \\
+        Unspezifizierter Prozess & unspecifiedprocess & process \\
+        Manueller Prozess & manualprocess & process \\
+        Automatisierter Prozess & automatedprocess & process \\
+        Computergestützter Prozess & computersupportedprocess & process \\
+        Dekomponierbarer Prozess & decompositionprocess & process \\
+        Extern ausgeführter Prozess & externalprocess & process \\
+        Basisshape Synchronisation & sync & - \\
+        Synchronisation nach Beendigung & andsync & sync \\
+        aller Prozess & & \\
+        Synchronisation nach Beendigung & orsync & sync \\
+        des ersten Prozesses & & \\
+        Start der Parallelisierung & paraconn & - \\
+        Start einer Iteration & startiteratoin & - \\
+        Verschlungene Iterationspfeile & iteration & - \\
+        Nicht spezifizierte Ausnahme & unspecifiedexception & exception \\
+        Manuelle Ausnahme & manualexception & exception \\
+        Zeit abgelaufen & timeexpiredexception & exception \\
+        Technischer Fehler & technicalexception & exception \\
+        Automatische Ausnahme & automaticexception & exception \\
+        Natürlichsprachliche Ausnahme & naturallanguageexception & exception \\
+        Nicht spezifizierte Entscheidung & unspecifieddecision & decision \\
+        Manuelle Entscheidung & manualdecision & decision \\
+        Maschinelle Entscheidung & automaticdecision & decision \\
+        Manuelle Entscheidung & manualexplictdecision & decision \\
+        mit eindeutigen Regeln & & \\
+        Plussymbol Dekomposition & decompositionplus & - \\
+        \bottomrule    
+\end{longtable}
+\noindent Das Suffix definiert zu welcher Gruppe von Notationssymbolen es gehört. Beispielsweise enden alle Shapes für Ereignisse mit dem Suffix \texttt{event}.\newpage
+
+\section{Makros}
+\label{sec:Makros}
+Das Erweiterungspaket stellt eine Reihe von Makros bereit, die den Benutzer bei der Erstellung der Diagramme unterstützen:\medskip
+
+\noindent\DescribeMacro{\memoprocess}\meta{Shape}\meta{Name}\meta{x-Pos.}\meta{y-Pos.}\meta{Org.-Einheit}\meta{ID}\meta{Bezeichnung}\newline
+\DescribeMacro{\memoevent}\meta{Shape}\meta{Name}\meta{x-Pos.}\meta{y-Pos.}\meta{ID}\meta{Bezeichnung}\newline
+\DescribeMacro{\memoeventloaded}\meta{Shape}\meta{Name}\meta{x-Pos.}\meta{y-Pos.}\newline
+\DescribeMacro{\memoexception}\meta{Shape}\meta{Name}\meta{x-Pos.}\meta{y-Pos.}\meta{Beschreibung}\medskip
+
+\noindent Diese Makros erzeugen einen Knoten mit dem übergebenen Shape an der definierten Position. Den Makros muss im Parameter \meta{Shape} der Name des Shapes ohne das Suffix angegeben werden. Dieser wird vom Makro angehängt um sicherzustellen, dass nur die passenden Shapes für das jeweilige Makro verwendet werden. Die so erzeugten Knoten bzw. Notationssymbole können dann über den im Parameter \meta{Name} vergebenen Namen referenziert werden.
+\begin{figure}[htbp]
+	\centering
+	\caption[Beispiel: Erstellung von (Teil-) Prozess-, Ereignis- und Ausnahmenotationssymbolen]{Beispiel: Erstellung von (Teil-) Prozess-, Ereignis- und Ausnahmenotationssymbolen.}
+	\begin{subfigure}{0.4\textwidth}
+		\centering
+		\begin{tikzpicture}
+		  \memoprocess{unspecified}{p1}{0}{0}{<OrgUnit>}{-ID-}{Name};
+		\end{tikzpicture}
+	\end{subfigure}
+	\begin{subfigure}{0.6\textwidth}
+		\centering
+		\begin{lstlisting}
+\begin{tikzpicture}
+\memoprocess{unspecified}{p1}{0}{0}{<OrgUnit>}{-ID-}{Name};
+\end{tikzpicture}  
+		\end{lstlisting}
+	\end{subfigure}
+	\begin{subfigure}{0.4\textwidth}
+		\centering
+		\begin{tikzpicture}
+		  \memoevent{informationchange}{e1}{0}{0}{-ID-}{Name};
+		\end{tikzpicture}
+	\end{subfigure}
+	\begin{subfigure}{0.6\textwidth}
+		\centering
+		\begin{lstlisting}
+\begin{tikzpicture}
+\memoevent{informationchange}{e1}{0}{0}{-ID-}{Name};
+\end{tikzpicture}  
+		\end{lstlisting}
+	\end{subfigure}
+	\begin{subfigure}{0.4\textwidth}
+		\centering
+		\begin{tikzpicture}
+		  \memoeventloaded{informationchange}{e1}{0}{0};
+		\end{tikzpicture}
+	\end{subfigure}
+	\begin{subfigure}{0.6\textwidth}
+		\centering
+		\begin{lstlisting}
+\begin{tikzpicture}
+\memoeventloaded{informationchange}{e1}{0}{0};
+\end{tikzpicture}  
+		\end{lstlisting}
+	\end{subfigure}
+	\begin{subfigure}{0.4\textwidth}
+		\centering
+		\begin{tikzpicture}
+		  \memoexception{unspecified}{ex1}{0}{0}{Beschreibung};
+		\end{tikzpicture}
+	\end{subfigure}
+	\begin{subfigure}{0.6\textwidth}
+		\centering
+		\begin{lstlisting}
+\begin{tikzpicture}
+\memoexception{unspecified}{ex1}{0}{0}{Beschreibung};
+\end{tikzpicture}  
+		\end{lstlisting}
+	\end{subfigure}
+	\begin{subfigure}{0.4\textwidth}
+		\centering
+		\begin{tikzpicture}
+		  \memosync{or}{sy1}{0}{0};
+		\end{tikzpicture}
+	\end{subfigure}
+	\begin{subfigure}{0.6\textwidth}
+		\centering
+		\begin{lstlisting}
+\begin{tikzpicture}
+\memosync{or}{sy1}{0}{0};
+\end{tikzpicture}
+		\end{lstlisting}
+	\end{subfigure}
+	\label{fig:BeispieleProzesseEreignisseAusnahmen}
+\end{figure}
+
+\noindent Die Parameter für die textuellen Komponenten des Notationssymbols, \meta{Org.-Einheit},\meta{ID}, \meta{Bezeichnung}, sind dabei optional was bedeutet, dass sie leer übergeben werden können.\newpage
+
+\noindent\DescribeMacro{\memoconn}\meta{Name linker Knoten}\meta{Name rechter Knoten}\medskip
+
+\noindent Dieses Makro erzeugt mittels des \lstinline|\draw|-Befehls eine gerade Kante zwischen den beiden übergebenen Knoten. Die Knoten bzw. deren Position wird dabei über die Namen ermittelt, welche mit den zuvor vorgestellten Makros vergeben wurden.
+\begin{figure}[htbp]
+	\centering
+	\caption[Beispiel: Erzeugung einer geraden Kante.]{Beispiel: Erzeugung einer geraden Kante.}
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\begin{tikzpicture}
+		  \memoevent{start}{s1}{0}{0}{}{};
+		  \memoprocess{unspecified}{p1}{2.5}{0}{}{}{};
+		  \memoevent{end}{e1}{4.8}{0}{}{};
+		  
+		  \memoconn{s1}{p1};
+		  \memoconn{p1}{e1};
+		\end{tikzpicture}
+	\end{subfigure}
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\begin{lstlisting}
+\begin{tikzpicture}
+\memoevent{start}{s1}{0}{0}{}{};
+\memoprocess{unspecified}{p1}{2.5}{0}{}{}{};
+\memoevent{end}{e1}{4.8}{0}{}{};
+\memoconn{s1}{p1};
+\memoconn{p1}{e1};
+\end{tikzpicture}
+		\end{lstlisting}
+	\end{subfigure}
+	\label{fig:BeispielGeradeKante}
+\end{figure}
+
+\noindent\DescribeMacro{\memoparaconn}\meta{Name Ereignis}\meta{Name Prozess}\meta{Anker}\newline
+\DescribeMacro{\memoconnsync}\meta{Name Ereignis}\meta{Name Verküpfung}\meta{Anker}\medskip
+
+\noindent Diese Makros dienen der Erstellung der Kontrollstrukturen für die \textit{parallele Ausführung} von Prozessen und die \textit{Synchronistation nach Beendigung aller Prozesse} bzw. \textit{Synchronisation nach Beendigung des ersten Prozess}.\newline
+Das Makro \lstinline{\memoconnpara} erzeugt eine rechtwinklige Kante zwischen dem übergebenen Knoten für das Ereignis von dem die Parallelisierung ausgeht und dem übergebenen Knoten für den Prozess. Der Knoten, der den Beginn der Parallelisierung darstellt, wird automatisch vor dem Ereignisknoten erzeugt. Der Anker gibt dabei an, von welcher Position aus die Kante aus dem Prallelisierungs-Knoten ausgeht. Sinnvolle Anker: \texttt{east}, \texttt{south}, \texttt{north}\newline
+Dieses Makro muss für jeden Knoten, der einen (Teil-) Prozess darstellt, und Teil der Parallelisierung sein soll aufgerufen werden.
+\begin{figure}[htbp]
+    \centering
+    \caption[Beispiel: Parallele Ausführung von drei Prozessen.]{Beispiel: Parallele Ausführung von drei Prozessen.}
+    \begin{subfigure}{0.4\textwidth}
+        \centering
+        \begin{tikzpicture}        
+           \memoevent{start}{s1}{0}{0}{}{};
+           
+           \memoprocess{unspecified}{u1}{3}{0}{}{}{}; 
+           \memoprocess{unspecified}{u2}{3}{2}{}{}{};
+           \memoprocess{unspecified}{u3}{3}{-2}{}{}{};
+           
+           \memoconnpara{s1}{u1}{east};
+           \memoconnpara{s1}{u2}{north};
+           \memoconnpara{s1}{u3}{south};
+        \end{tikzpicture}
+    \end{subfigure}
+    \begin{subfigure}{0.6\textwidth}
+        \centering
+        \begin{lstlisting}
+\begin{tikzpicture}
+\memoevent{start}{s1}{0}{0}{}{};
+           
+\memoprocess{unspecified}{u1}{3}{0}{}{}{}; 
+\memoprocess{unspecified}{u2}{3}{2}{}{}{};
+\memoprocess{unspecified}{u3}{3}{-2}{}{}{};
+
+\memoconnpara{s1}{u1}{east};
+\memoconnpara{s1}{u2}{north};
+\memoconnpara{s1}{u3}{south};
+\end{tikzpicture}   
+        \end{lstlisting}
+    \end{subfigure}
+    \label{fig:ParalellisierungProzesse}
+\end{figure}
+
+\noindent Das Makro \lstinline|\memoconnsync| erzeugt eine rechtwinklige Kante zwischen einem der Knoten die das Ende, der Parallelisierung darstellen und zwischen dem mit dem Makro \lstinline|\memosync| erzeugten Knoten für das Notationssymbol, dass die logische Verknüpfungsoperation darstellt. Der übergebene Anker definiert die Position der eingehenden Kante des Knotens, der die logische Verknüpfungsoperation darstellt. Sinnvolle Anker: \texttt{west}, \texttt{south}, \texttt{north}.\newline
+Die Knoten für die Ereignisse und Prozesse, die Teil der Parallelisierung sind, müssen zuvor mit den eingangs genannten Makros erstellt worden sein.\\
+
+\begin{figure}[htbp]
+    \centering
+    \caption[Beispiel: Synchronisation parallel ausgeführter Prozesse.]{Beispiel: Synchronisation parallel ausgeführter Prozesse.}
+    \begin{subfigure}{0.40\textwidth}
+        \centering
+        \begin{tikzpicture}
+           \memoevent{informationchange}{i1}{0}{0}{}{};
+           \memoevent{informationchange}{i2}{0}{3}{}{};
+           \memoevent{informationchange}{i3}{0}{-3}{}{};        
+            
+           \memosync{and}{a1}{3}{0};
+                  
+           \memoconnsync{i1}{a1}{west};  
+           \memoconnsync{i2}{a1}{north};
+           \memoconnsync{i3}{a1}{south}; 
+           
+           \draw[memoline] (a1) -- ++(1,0);    
+        \end{tikzpicture}
+    \end{subfigure}
+    \begin{subfigure}{0.60\textwidth}
+        \centering
+        \begin{lstlisting}
+\begin{tikzpicture}
+\memoevent{informationchange}{i1}{0}{0}{}{};
+\memoevent{informationchange}{i2}{0}{3}{}{};
+\memoevent{informationchange}{i3}{0}{-3}{}{};        
+
+\memosync{and}{a1}{3}{0};
+      
+\memoconnsync{i1}{a1}{west};  
+\memoconnsync{i2}{a1}{north};
+\memoconnsync{i3}{a1}{south}; 
+\end{tikzpicture}
+        \end{lstlisting}
+    \end{subfigure}
+    \label{fig:SynchronisationProzesse}
+\end{figure}
+
+
+
+\noindent Mit diesen Makros können die Kontrollstrukturen \textit{<Prozess> produziert alternatives <Ereignis> mit Wahrscheinlichkeiten (exklusives ODER)} und \textit{<Prozess> produziert alternatives <Ereignis> ohne Wahrscheinlichkeiten (exklusives ODER)} erzeugt werden.
+Die beiden Makros erzeugen vor dem Knoten, der den (Teil-) Prozess darstellt, einen Knoten mit dem Shape des jeweiligen Entscheidungstyps. Weiterhin erzeugt das Makro ausgehend von dem Knoten, der den Entscheidungstyp darstellt, eine gerade Kante zum übergebenen Knoten, der das Ereignis darstellt. Der übergebene Anker definiert die Position der ausgehenden Kante des Knotens des Entscheidungstyps. Sinnvolle Anker: \texttt{east}, \texttt{south}, \texttt{north}.\\
+
+\noindent\DescribeMacro{\memoconnxor}\meta{Shape Entscheidungstyp}\meta{Name Prozess}\meta{Name Ereignis}\meta{Anker}\newline
+\DescribeMacro{\memoconnxorprobability}\meta{Shape Entscheidungstyp}\meta{Name Prozess}\meta{Name Ereignis}\meta{Anker}\\\meta{Wahrscheinlichkeit}\meta{Kommentar}\medskip
+
+\begin{figure}[htbp]
+    \centering
+    \caption[Beispiel: Produktion eines alternativen Ereignisses mit Wahrscheinlichkeit.]{Beispiel: Produktion eines alternativen Ereignisses mit Wahrscheinlichkeit.}
+    \begin{subfigure}{0.4\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \memoprocess{unspecified}{p2}{0}{0}{}{}{};
+                 
+            \memoevent{}{e4}{4}{2}{}{};       
+            \memoevent{}{e5}{4}{-2}{}{}; 
+            \memoevent{}{e6}{4}{0}{}{};
+                        
+            \memoconnxorprobability{unspecified}{p2}{e4}{north}{0,1}{comment};
+            \memoconnxorprobability{unspecified}{p2}{e5}{south}{0,6}{};
+            \memoconnxorprobability{unspecified}{p2}{e6}{east}{0,3}{comment};   
+        \end{tikzpicture}
+    \end{subfigure}
+    \begin{subfigure}{0.6\textwidth}
+        \centering
+        \begin{lstlisting}
+\memoprocess{unspecified}{p2}{0}{0}{}{}{};
+                 
+\memoevent{}{e4}{4}{2}{}{};       
+\memoevent{}{e5}{4}{-2}{}{}; 
+\memoevent{}{e6}{4}{0}{}{};
+            
+\memoconnxorprobability{unspecified}{p2}{e4}{north}{0,1}{comment};
+\memoconnxorprobability{unspecified}{p2}{e5}{south}{0,6}{};
+\memoconnxorprobability{unspecified}{p2}{e6}{east}{0,3}{comment};            
+        \end{lstlisting}
+    \end{subfigure}
+    \label{fig:EntscheidungMit}
+\end{figure}
+
+\noindent Dem Makro \lstinline|\memoconnxorprobability| können zusätzlich noch die Parameter für die Angabe der Wahrscheinlichkeit ($0.1 - 0.9$) sowie einen Kommentar, der bei der Wahrscheinlichkeit angezeigt wird, übergeben werden. Die Darstellung der Wahrscheinlichkeit erfolgt als Knoten auf der Kante zwischen dem Knoten für den Entscheidungstyp und dem Knoten für das Ereignis. Der Kommentar ist als Label implementiert.\\
+\begin{figure}[htbp]
+    \centering
+    \caption[Beispiel: Produktion eines alternativen Ereignisses ohne Wahrscheinlichkeit.]{Beispiel: Produktion eines alternativen Ereignisses ohne Wahrscheinlichkeit.}
+    \begin{subfigure}{0.4\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \memoprocess{unspecified}{p1}{0}{0}{}{}{};
+                 
+            \memoevent{}{e1}{4}{2}{}{};       
+            \memoevent{}{e2}{4}{-2}{}{};
+            \memoevent{}{e3}{4}{0}{}{}; 
+                        
+            \memoconnxor{unspecified}{p1}{e1}{north};
+            \memoconnxor{unspecified}{p1}{e2}{south};
+            \memoconnxor{unspecified}{p1}{e3}{east};
+        \end{tikzpicture}
+    \end{subfigure}
+    \begin{subfigure}{0.6\textwidth}
+        \centering
+        \begin{lstlisting}
+\memoprocess{unspecified}{p1}{0}{0}{}{}{};
+                 
+\memoevent{}{e1}{4}{2}{}{};       
+\memoevent{}{e2}{4}{2}{}{};
+\memoevent{}{e3}{4}{0}{}{}; 
+            
+\memoconnxor{unspecified}{p1}{e1}{north};
+\memoconnxor{unspecified}{p1}{e2}{south};
+\memoconnxor{unspecified}{p1}{e3}{east};            
+        \end{lstlisting}
+    \end{subfigure}
+    \label{fig:EntscheidungOhne}
+\end{figure}
+
+\noindent\DescribeMacro{\memoiterationuntil}\meta{Name Startereignis}\meta{Name Endereignis}\meta{Höhe Verbindungslinie}\\\meta{Abstand Startereginis}\meta{Abstand Endereignis}\newline
+\DescribeMacro{\memoiterationloop}\meta{Name Startereignis}\meta{Name Endereignis}\meta{Höhe Verbindungslinie}\\\meta{Abstand Startereginis}\meta{Abstand Endereignis}\meta{Anzahl Iterationen}\medskip
+
+\noindent Diese Makros dienen zur Implementierung von Iterationen mit \textit{beliebiger Wiederholung} und einer \textit{n-fachen Wiederholung (For-Loop)}.
+Die beiden Makros erzeugen jeweils nach dem Knoten, der das Startereignis der Iteration darstellt und vor dem Knoten der das Endereignis darstellt, jeweils die Knoten mit den Shapes  \texttt{iterationstart} und \texttt{iteration}. Der Abstand nach dem Startereignis und vor dem Endereignis wird über die Parameter \meta{Abstand Startereignis} und \meta{Abstand Endereignis} definiert. Der Parameter \meta{Höhe der Verbindungslinie} definiert die absolute Höhe des blauen Verbindungspfeiles. Dies wurde variabel gestaltet, um auch verschachtelte Itertionen zu ermöglichen ohne, dass die Kanten sich überlappen.\newline
+Mit dem Parameter \meta{Anzahl Iterationen} des Makros kann die Anzahl der Iterationen definiert werden. Diese wird als Label unterhalb des Knotens, der die verschlungenen Pfeile darstellt, erstellt.\\
+\begin{figure}[htbp]
+    \centering
+    \caption[Beispiel: Iterationen]{Beispiel: Iterationen}
+    \begin{subfigure}{1.1\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \memoevent{start}{e1}{0}{0}{}{};
+            \memoprocess{unspecified}{p1}{4}{0}{}{}{};
+            \memoevent{informationchange}{e2}{7.5}{0}{}{};
+        	\memoprocess{unspecified}{p2}{10}{0}{}{}{};
+        	\memoevent{end}{e3}{14}{0}{}{};       	
+        		
+        	\memoiterationloop{e1}{e2}{1.5}{1}{1}{4};
+        	\memoiterationuntil{e1}{e3}{2.5}{2}{1.5};
+        		
+        	\memoconn{e1}{p1};
+        	\memoconn{p1}{e2};
+        	\memoconn{e2}{p2};
+        	\memoconn{p2}{e3}; 
+        \end{tikzpicture}
+    \end{subfigure}
+    \begin{subfigure}{1\textwidth}
+        \centering
+        \begin{lstlisting}
+\memoevent{start}{e1}{0}{0}{}{};
+\memoprocess{unspecified}{p1}{4}{0}{}{}{};
+\memoevent{informationchange}{e2}{7.5}{0}{}{};
+\memoprocess{unspecified}{p2}{10}{0}{}{}{};
+\memoevent{end}{e3}{14}{0}{}{};       	
+		
+\memoiterationloop{e1}{e2}{1.5}{1}{1}{4};
+\memoiterationuntil{e1}{e3}{2.5}{2}{1.5};
+		
+\memoconn{e1}{p1};
+\memoconn{p1}{e2};
+\memoconn{e2}{p2};
+\memoconn{p2}{e3};             
+        \end{lstlisting}      
+    \end{subfigure}
+    \label{fig:IterationenBeispiel}
+\end{figure} 
+
+\noindent\DescribeMacro{\memocomment}\meta{Nummer des Kommentars}\meta{Text}\meta{x-Pos.}\meta{y.-Pos.}\newline
+\DescribeMacro{\memoconstraint}\meta{Nummer der Integritätsbed.}\meta{Text}\meta{x-Pos.}\meta{y.-Pos.}\medskip
+
+\noindent Mit Hilfe dieser Makros können \textit{natürlichsprachlichen Kommentaren} und \textit{natürlichsprachlichen Integritätsbedingungen} erzeugt werden.\newline
+Die beiden Makros erzeugen einen neuen Knoten an der angegebenen Position, der als Knotentext den String \textit{Cn} enthält, wobei $n$ die laufende Nummer des Kommentars bzw. der Integritätsbedingung ist. Der Kommentar- bzw. Bedingungstext wird als Label links neben dem Konten dargestellt.\\
+\begin{figure}[htbp]
+	\centering
+	\caption[Beispiel: Kommentare und Integritätsbedingungen.]{Beispiel: Kommentare und Integritätsbedinungen.}
+	\begin{subfigure}{0.4\textwidth}
+		\centering
+		\begin{tikzpicture}
+		  \memocomment{1}{Das ist ein Kommentar}{0}{0};
+		  \memoconstraint{1}{Das ist eine\\Integritätsbedingung}{0}{-2};
+		\end{tikzpicture}
+	\end{subfigure}
+	\begin{subfigure}{0.6\textwidth}
+		\centering
+		\begin{lstlisting}
+\begin{tikzpicture}
+\memocomment{1}{Das ist ein Kommentar}{0}{0};
+\memoconstraint{1}{Das ist eine\\Integritaetsbedingung}{0}{-3};
+\end{tikzpicture}		
+		\end{lstlisting}
+	\end{subfigure}
+	\label{}
+\end{figure}
+
+\noindent\DescribeMacro{\memodecomproot}\meta{Shape}\meta{Name}\meta{x-Pos.}\meta{y-Pos.}\meta{Org.Einheit}\meta{ID}\meta{Bezeichnung}\newline
+\DescribeMacro{\memodecompchild}\meta{Name}\meta{Org.Einheit}\meta{ID}\meta{Bezeichnung}\medskip
+
+\noindent Diese Makros dienen der Erstellung von Dekompositionsdiagrammen. Die Erstellung der Dekompositionsdiagramme basiert dabei auf dem \lstinline|child|-Befehl, mit dem Bäume aufgespannt werden können. Mit dem Makro \lstinline|\memodecomproot| wird der Wurzelknoten des Baums definiert. Die Wurzel des Baumes kann dabei wiederum an einer beliebigen Stelle des Diagramms platziert werden. Mittels des \lstinline|child|-Befehls werden dann die Kindknoten unterhalb der Wurzel erzeugt (\lstinline|\memodecompchild|).
+
+\begin{figure}[htbp]
+	\centering
+	\begin{subfigure}{1\textwidth}
+		\centering
+\begin{tikzpicture}[decompositiondiagramstyle]
+		\memodecomproot{decomposition}{d1}{0}{0}{OrgUnit}{ID}{Bezeichnung}	
+			[edge from parent fork down]
+			child {\memodecompchild{decomposition}{OrgUnit}{ID}{Bezeichnung} 		    
+			}
+			child { \memodecompchild{decomposition}{OrgUnit}{ID}{Bezeichnung} edge from parent node[shape=decompositionplus, decompositionplus, midway] {}}
+			child { \memodecompchild{decomposition}{OrgUnit}{ID}{Bezeichnung} };		
+\end{tikzpicture}
+
+\vspace{1cm}
+
+	\end{subfigure}
+	\begin{subfigure}{1\textwidth}
+		\centering
+		\begin{lstlisting}		
+\begin{tikzpicture}[decompositiondiagramstyle]
+    \memodecomproot{decomposition}{d1}{0}{0}{OrgUnit}{ID}{Bezeichnung}	
+	[edge from parent fork down]
+	   child {\memodecompchild{decomposition}{OrgUnit}{ID}{Bezeichnung} 	    
+		}
+		child { \memodecompchild{decomposition}{OrgUnit}{ID}{Bezeichnung} 
+		%~~ Einfuegen des Gabelungssymbols (Pluszeichen)
+		edge from parent node[shape=decompositionplus, decompositionplus, midway] {}}
+		child { \memodecompchild{decomposition}{OrgUnit}{ID}{Bezeichnung} };		
+\end{tikzpicture}		
+		\end{lstlisting}
+	\end{subfigure}
+	\label{fig:BeispielDekompositionsdiagrammQuellcode}
+\end{figure}
+
+\noindent Die Formatierung des Diagramms muss dabei mit den entsprechenden Einstellungen Erfolgen. Folgendes Listing zeigt ein Beispiel:\\
+
+\begin{lstlisting}
+\tikzset{
+decompositiondiagramstyle/.style={		
+    edge from parent fork down,
+    level distance = 8em,		
+    edge from parent/.style={draw, shorten <= 5ex, shorten >=3ex},
+	level 1/.style = {node distance=20em, sibling distance = 10em},
+	level 2/.style = {node distance=20em, sibling distance = 10em},
+	level 3/.style = {node distance=40em, sibling distance = 10em},
+	subprocess/.style={grow=down,xshift=5em,
+        edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}},
+    firstsubprocess/.style={level distance=14ex}}}      
+\end{lstlisting}
+
+
+
+%\section{Weitere Beispiele}
+%\label{sec:Beispiele}
+%Folgendes Beispiel stellt einen komplettes Kontrollflussdiagramm dar, dass auf \cite[][S. 92]{Frank:MEMOOrgML2} basiert:
+%\begin{lstlisting}
+%    \begin{tikzpicture}
+%    \memoevent{start}{start}{0}{0}{}{Bestellung\\erhalten};
+%    \memoprocess{computersupported}{credit_check}{2}{0}{}{}{Pruefen\\Kreditwuerdigkeit};
+%    \memoconn{start}{credit_check};
+%    
+%     \memoevent{informationchange}{i1}{5}{3}{}{Keine\\Kreditwuerdigkeit};
+%     \memoevent{informationchange}{i2}{5}{-3}{}{Kreditwuerdig};
+%     
+%     \memoconnxor{manualexplicit}{credit_check}{i1}{north};
+%     \memoconnxor{manualexplicit}{credit_check}{i2}{south};
+%     
+%     \memoprocess{computersupported}{inform_customer}{9}{3}{}{}{Kunde\\benachrichtigen};
+%     \memoevent{end}{end_inform}{12}{5}{}{Keine\\Kreditwuerdigkeit};
+%     \memoconn{i1}{inform_customer};
+%     
+%     \memoconnxor{manualexplicit}{inform_customer}{end_inform}{north};
+%     \memoconnxor{manualexplicit}{inform_customer}{i2}{south};
+%     
+%     \memoprocess{computersupported}{avail_check}{9}{-1}{}{}{Verfuegbarkeit\\pruefen};
+%     \memoprocess{computersupported}{deliv_check}{9}{-8}{}{}{Lieferbarkeit\\pruefen};
+%     
+%     \memoconnpara{i2}{avail_check}{north};
+%     \memoconnpara{i2}{deliv_check}{south};
+%     
+%     \memoevent{informationchange}{i3}{13}{1}{}{Menge nicht\\verfuegbar};
+%     \memoevent{informationchange}{i4}{13}{-3}{}{Menge\\verfuegbar};
+%     
+%     \memoconnxor{manualexplicit}{avail_check}{i3}{north};
+%     \memoconnxor{manualexplicit}{avail_check}{i4}{south};
+%     
+%     \memoevent{informationchange}{i5}{13}{-6}{}{Lieferdatum nicht\\moeglich};
+%     \memoevent{informationchange}{i6}{13}{-8.5}{}{Lieferdatum\\moeglich};
+%     
+%      \memoconnxor{manualexplicit}{deliv_check}{i5}{north};
+%     \memoconnxor{manualexplicit}{deliv_check}{i6}{south};
+%     
+%     \memosync{or}{sync_or}{15}{-1};
+%     \memosync{and}{sync_and}{13}{-6};
+%     
+%     \memoconnsync{i3}{sync_or}{north};
+%     \memoconnsync{i5}{sync_or}{south};
+%     
+%     \memoconnsync{i4}{sync_and}{north};
+%     \memoconnsync{i6}{sync_and}{south};
+%     
+%     \memoprocess{computersupported}{deny_order}{17}{-1}{}{}{Bestellung\\ablehnen};
+%     \memoprocess{computersupported}{confirm_order}{19}{-6}{}{}{Bestellung\\bestaetigen};
+%     \memoconn{sync_or}{deny_order};
+%     \memoconn{sync_and}{confirm_order};
+%     
+%     \memoevent{end}{end_deny}{20}{-1}{}{Bestellung\\abgelehnt};
+%     \memoevent{end}{end_confirm}{21}{-6}{}{Bestellung\\bestaetigt};
+%     
+%       \memoconn{deny_order}{end_deny};
+%     \memoconn{confirm_order}{end_confirm};
+%\end{tikzpicture}
+%\end{lstlisting}\newpage
+%
+%\begin{landscape}
+%\begin{figure}[htbp]
+%
+%\begin{tikzpicture}
+%    \memoevent{start}{start}{0}{0}{}{Bestellung\\erhalten};
+%    \memoprocess{computersupported}{credit_check}{2}{0}{}{}{Prüfen\\Kreditwürdigkeit};
+%    \memoconn{start}{credit_check};
+%    
+%     \memoevent{informationchange}{i1}{5}{3}{}{Keine\\Kreditwürdigkeit};
+%     \memoevent{informationchange}{i2}{5}{-3}{}{Kreditwürdig};
+%     
+%     \memoconnxor{manualexplicit}{credit_check}{i1}{north};
+%     \memoconnxor{manualexplicit}{credit_check}{i2}{south};
+%     
+%     \memoprocess{computersupported}{inform_customer}{9}{3}{}{}{Kunde\\benachrichtigen};
+%     \memoevent{end}{end_inform}{12}{5}{}{Keine\\Kreditwürdigkeit};
+%     \memoconn{i1}{inform_customer};
+%     
+%     \memoconnxor{manualexplicit}{inform_customer}{end_inform}{north};
+%     \memoconnxor{manualexplicit}{inform_customer}{i2}{south};
+%     
+%     \memoprocess{computersupported}{avail_check}{9}{-1}{}{}{Verfügbarkeit\\prüfen};
+%     \memoprocess{computersupported}{deliv_check}{9}{-8}{}{}{Lieferbarkeit\\prüfen};
+%     
+%     \memoconnpara{i2}{avail_check}{north};
+%     \memoconnpara{i2}{deliv_check}{south};
+%     
+%     \memoevent{informationchange}{i3}{13}{1}{}{Menge nicht\\verfügbar};
+%     \memoevent{informationchange}{i4}{13}{-3}{}{Menge\\verfügbar};
+%     
+%     \memoconnxor{manualexplicit}{avail_check}{i3}{north};
+%     \memoconnxor{manualexplicit}{avail_check}{i4}{south};
+%     
+%     \memoevent{informationchange}{i5}{13}{-6}{}{Lieferdatum nicht\\möglich};
+%     \memoevent{informationchange}{i6}{13}{-8.5}{}{Lieferdatum\\möglich};
+%     
+%      \memoconnxor{manualexplicit}{deliv_check}{i5}{north};
+%     \memoconnxor{manualexplicit}{deliv_check}{i6}{south};
+%     
+%     \memosync{or}{sync_or}{15}{-1};
+%     \memosync{and}{sync_and}{16}{-6};
+%     
+%     \memoconnsync{i3}{sync_or}{north};
+%     \memoconnsync{i5}{sync_or}{south};
+%     
+%     \memoconnsync{i4}{sync_and}{north};
+%     \memoconnsync{i6}{sync_and}{south};
+%     
+%     \memoprocess{computersupported}{deny_order}{17}{-1}{}{}{Bestellung\\ablehnen};
+%     \memoprocess{computersupported}{confirm_order}{18}{-6}{}{}{Bestellung\\bestätigen};
+%     \memoconn{sync_or}{deny_order};
+%     \memoconn{sync_and}{confirm_order};
+%     
+%     \memoevent{end}{end_deny}{20}{-1}{}{Bestellung\\abgelehnt};
+%     \memoevent{end}{end_confirm}{20.5}{-6}{}{Bestellung\\bestätigt};
+%     
+%       \memoconn{deny_order}{end_deny};
+%     \memoconn{confirm_order}{end_confirm};
+%\end{tikzpicture}
+%\end{figure}
+%\end{landscape}
+
+
+\section{Erweiterung des Pakets}
+\label{sec:Erweiterung}
+Um weitere Notationssymbole zu dem Erweiterungspaket hinzuzufügen muss die Datei \texttt{pgflibrarymemoorgmlshapes.code.tex} erweitert werden. Dort muss mit Hilfe des \textit{PGF} Befehls \lstinline|\pgfdeclareshape| ein neues Shape definiert werden. Eine Vorlage findet sich in \cite[][S. 1034]{Tantau:Tikz}. Zu jedem Shape gehört auch ein Style, der den gleichen Namen wie das Shape trägt. Deshalb muss noch ein entsprechender Style in der Datei \texttt{tikzlibrarymemoorgmlstyles.code.tex} definiert werden.\medskip
+
+\noindent Weitere Makros müssen in der Datei \texttt{tikzlibrarymemoorgml.code.tex} implementiert werden.
+%\newpage
+
+
+
+\bibliography{Literatur}
+\end{document}
